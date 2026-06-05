@@ -1,0 +1,2266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dev Empire Roadmap 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0A0A0F;
+    --bg2: #111118;
+    --bg3: #18181F;
+    --border: rgba(255,255,255,0.07);
+    --border2: rgba(255,255,255,0.12);
+    --text: #F0EFE8;
+    --muted: #888884;
+    --dim: #555550;
+
+    --blue: #4A90FF;
+    --blue-dim: rgba(74,144,255,0.12);
+    --green: #3DDB82;
+    --green-dim: rgba(61,219,130,0.12);
+    --amber: #F5A623;
+    --amber-dim: rgba(245,166,35,0.12);
+    --purple: #A78BFA;
+    --purple-dim: rgba(167,139,250,0.12);
+    --teal: #2DD4BF;
+    --teal-dim: rgba(45,212,191,0.12);
+    --red: #F87171;
+    --red-dim: rgba(248,113,113,0.12);
+    --pink: #F472B6;
+    --pink-dim: rgba(244,114,182,0.12);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* LAYOUT */
+  .layout { display: flex; min-height: 100vh; }
+
+  /* SIDEBAR */
+  .sidebar {
+    width: 260px;
+    flex-shrink: 0;
+    background: var(--bg2);
+    border-right: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    padding: 28px 0 40px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border2) transparent;
+  }
+
+  .sidebar-logo {
+    padding: 0 24px 24px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 20px;
+  }
+
+  .sidebar-logo .logo-tag {
+    font-size: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--green);
+    letter-spacing: 0.12em;
+    margin-bottom: 4px;
+  }
+
+  .sidebar-logo h1 {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--text);
+    line-height: 1.2;
+  }
+
+  .nav-section {
+    padding: 0 16px;
+    margin-bottom: 6px;
+  }
+
+  .nav-section-label {
+    font-size: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--dim);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0 8px;
+    margin-bottom: 4px;
+  }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.15s;
+    margin-bottom: 1px;
+    text-decoration: none;
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  .nav-item:hover { background: var(--bg3); color: var(--text); }
+  .nav-item.active { background: var(--blue-dim); color: var(--blue); }
+
+  .nav-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+    opacity: 0.6;
+    flex-shrink: 0;
+  }
+
+  /* MAIN */
+  .main {
+    flex: 1;
+    padding: 48px 52px;
+    max-width: 900px;
+  }
+
+  /* HERO */
+  .hero {
+    margin-bottom: 56px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .hero-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--green);
+    letter-spacing: 0.1em;
+    margin-bottom: 12px;
+  }
+
+  .hero h2 {
+    font-size: 42px;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 16px;
+    background: linear-gradient(135deg, var(--text) 0%, var(--muted) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-sub {
+    font-size: 15px;
+    color: var(--muted);
+    max-width: 540px;
+    line-height: 1.7;
+  }
+
+  .hero-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-top: 32px;
+  }
+
+  .stat-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+  }
+
+  .stat-num {
+    font-size: 24px;
+    font-weight: 800;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .stat-label {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  /* DAILY SYSTEM */
+  .daily-system {
+    background: var(--bg2);
+    border: 1px solid var(--border2);
+    border-radius: 14px;
+    padding: 28px;
+    margin-bottom: 48px;
+  }
+
+  .ds-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .ds-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    background: var(--amber-dim);
+    color: var(--amber);
+    letter-spacing: 0.08em;
+  }
+
+  .ds-title {
+    font-size: 17px;
+    font-weight: 700;
+  }
+
+  .blocks-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .block-card {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+  }
+
+  .block-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--dim);
+    margin-bottom: 6px;
+  }
+
+  .block-title {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .block-time {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 8px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .block-desc { font-size: 12px; color: var(--muted); line-height: 1.5; }
+
+  /* PHASE SECTIONS */
+  .phase-section { margin-bottom: 64px; }
+
+  .phase-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 28px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .phase-icon {
+    width: 44px; height: 44px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+
+  .phase-meta { flex: 1; }
+
+  .phase-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    margin-bottom: 3px;
+  }
+
+  .phase-title {
+    font-size: 22px;
+    font-weight: 800;
+  }
+
+  .phase-range {
+    font-size: 12px;
+    color: var(--muted);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .phase-outcome {
+    background: var(--bg3);
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin-bottom: 28px;
+    font-size: 13px;
+    color: var(--muted);
+    border-left: 3px solid;
+    line-height: 1.65;
+  }
+
+  /* WEEK CARDS */
+  .week-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin-bottom: 16px;
+    overflow: hidden;
+  }
+
+  .week-card-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 18px 20px;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.15s;
+  }
+
+  .week-card-header:hover { background: var(--bg3); }
+
+  .week-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--dim);
+    min-width: 60px;
+  }
+
+  .week-title { font-size: 15px; font-weight: 700; flex: 1; }
+
+  .week-tags {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .wtag {
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .week-chevron {
+    color: var(--dim);
+    transition: transform 0.2s;
+    font-size: 16px;
+  }
+
+  .week-card.open .week-chevron { transform: rotate(180deg); }
+
+  .week-body {
+    display: none;
+    padding: 0 20px 20px;
+    border-top: 1px solid var(--border);
+  }
+
+  .week-card.open .week-body { display: block; }
+
+  /* DAY PLAN */
+  .day-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+    margin: 16px 0;
+  }
+
+  .day-card {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px;
+  }
+
+  .day-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--dim);
+    margin-bottom: 6px;
+  }
+
+  .day-focus { font-size: 12px; font-weight: 600; margin-bottom: 4px; }
+  .day-task { font-size: 11px; color: var(--muted); line-height: 1.45; }
+
+  /* LEARN / BUILD / DSA SECTIONS */
+  .wb-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin: 16px 0;
+  }
+
+  .wb-card {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px;
+  }
+
+  .wb-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+  }
+
+  .wb-item {
+    font-size: 12px;
+    color: var(--muted);
+    padding: 3px 0;
+    border-bottom: 1px solid var(--border);
+    line-height: 1.4;
+  }
+
+  .wb-item:last-child { border-bottom: none; }
+
+  /* PROJECT CARD */
+  .project-card {
+    background: var(--bg3);
+    border: 1px solid var(--border2);
+    border-radius: 10px;
+    padding: 18px;
+    margin: 16px 0;
+  }
+
+  .proj-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  .proj-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    background: var(--bg2);
+    border: 1px solid var(--border2);
+    border-radius: 6px;
+    padding: 4px 8px;
+    color: var(--muted);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .proj-title { font-size: 15px; font-weight: 700; }
+  .proj-sub { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+  .proj-importance {
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+  }
+
+  .proj-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 12px;
+  }
+
+  .proj-section { }
+  .proj-section-label {
+    font-size: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--dim);
+    letter-spacing: 0.08em;
+    margin-bottom: 6px;
+  }
+
+  .proj-feat {
+    font-size: 12px;
+    color: var(--muted);
+    padding: 3px 0;
+    line-height: 1.4;
+  }
+
+  .proj-feat::before { content: "→ "; color: var(--dim); }
+
+  .proj-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 10px;
+  }
+
+  .stack-tag {
+    font-size: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    padding: 3px 8px;
+    border-radius: 4px;
+    background: var(--bg2);
+    border: 1px solid var(--border2);
+    color: var(--muted);
+  }
+
+  .proj-duration {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--dim);
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid var(--border);
+  }
+
+  /* MILESTONE BANNER */
+  .milestone {
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin: 28px 0;
+    border: 1px solid;
+  }
+
+  .milestone-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    margin-bottom: 6px;
+  }
+
+  .milestone-title {
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .milestone-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .milestone-item {
+    font-size: 12px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+
+  /* DIVIDER */
+  hr { border: none; border-top: 1px solid var(--border); margin: 32px 0; }
+
+  /* RULES */
+  .rules-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 20px 0;
+  }
+
+  .rule-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px;
+  }
+
+  .rule-header {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .rule-item {
+    font-size: 12px;
+    color: var(--muted);
+    padding: 4px 0;
+    line-height: 1.5;
+  }
+
+  /* SALARY OUTCOMES */
+  .outcomes-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin: 20px 0;
+  }
+
+  .outcome-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px;
+  }
+
+  .outcome-timeline {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--dim);
+    margin-bottom: 4px;
+  }
+
+  .outcome-role { font-size: 13px; font-weight: 700; margin-bottom: 6px; }
+  .outcome-pay { font-size: 20px; font-weight: 800; font-family: 'JetBrains Mono', monospace; }
+  .outcome-desc { font-size: 11px; color: var(--muted); margin-top: 6px; line-height: 1.5; }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+
+  /* PRINT */
+  @media print {
+    .sidebar { display: none; }
+    .main { padding: 20px; }
+    .week-body { display: block !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="layout">
+
+<!-- SIDEBAR -->
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-tag">// DEV EMPIRE 2026</div>
+    <h1>Your 18-Month<br>Master Roadmap</h1>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-section-label">Overview</div>
+    <a class="nav-item active" href="#daily">
+      <span class="nav-dot" style="color: var(--amber)"></span>Daily System
+    </a>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-section-label">Phase 1 · Foundation</div>
+    <a class="nav-item" href="#w1"><span class="nav-dot" style="color:var(--blue)"></span>Week 1 — Python Basics</a>
+    <a class="nav-item" href="#w2"><span class="nav-dot" style="color:var(--blue)"></span>Week 2 — Python Advanced</a>
+    <a class="nav-item" href="#w3"><span class="nav-dot" style="color:var(--blue)"></span>Week 3 — AI Foundations</a>
+    <a class="nav-item" href="#w4"><span class="nav-dot" style="color:var(--blue)"></span>Week 4 — Frontend Basics</a>
+    <a class="nav-item" href="#w5"><span class="nav-dot" style="color:var(--blue)"></span>Week 5 — Databases + Deploy</a>
+    <a class="nav-item" href="#w6"><span class="nav-dot" style="color:var(--blue)"></span>Week 6 — Project Sprint</a>
+    <a class="nav-item" href="#w7"><span class="nav-dot" style="color:var(--blue)"></span>Week 7 — Project Sprint 2</a>
+    <a class="nav-item" href="#w8"><span class="nav-dot" style="color:var(--blue)"></span>Week 8 — Project Sprint 3</a>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-section-label">Phase 2 · Full Stack</div>
+    <a class="nav-item" href="#m3"><span class="nav-dot" style="color:var(--green)"></span>Month 3 — React</a>
+    <a class="nav-item" href="#m4"><span class="nav-dot" style="color:var(--green)"></span>Month 4 — TS + Next.js</a>
+    <a class="nav-item" href="#m5"><span class="nav-dot" style="color:var(--green)"></span>Month 5 — Backend</a>
+    <a class="nav-item" href="#m6"><span class="nav-dot" style="color:var(--green)"></span>Month 6 — SaaS Projects</a>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-section-label">Phase 3 · Money</div>
+    <a class="nav-item" href="#m7"><span class="nav-dot" style="color:var(--amber)"></span>Month 7 — Portfolio</a>
+    <a class="nav-item" href="#m8"><span class="nav-dot" style="color:var(--amber)"></span>Month 8 — Outreach</a>
+    <a class="nav-item" href="#m9"><span class="nav-dot" style="color:var(--amber)"></span>Month 9 — First Clients</a>
+    <a class="nav-item" href="#m10"><span class="nav-dot" style="color:var(--amber)"></span>Month 10 — Scale Delivery</a>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-section-label">Phase 4 · Product</div>
+    <a class="nav-item" href="#m11"><span class="nav-dot" style="color:var(--purple)"></span>Month 11 — Research</a>
+    <a class="nav-item" href="#m12"><span class="nav-dot" style="color:var(--purple)"></span>Month 12 — Launch SaaS</a>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-section-label">Phase 5 · Web3 Stack</div>
+    <a class="nav-item" href="#m13"><span class="nav-dot" style="color:var(--teal)"></span>Month 13–14 — Solidity</a>
+    <a class="nav-item" href="#m15"><span class="nav-dot" style="color:var(--teal)"></span>Month 15–16 — AI+Web3</a>
+    <a class="nav-item" href="#m17"><span class="nav-dot" style="color:var(--teal)"></span>Month 17–18 — Empire</a>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-section-label">Reference</div>
+    <a class="nav-item" href="#rules"><span class="nav-dot" style="color:var(--red)"></span>The Rules</a>
+    <a class="nav-item" href="#outcomes"><span class="nav-dot" style="color:var(--pink)"></span>Income Outcomes</a>
+  </div>
+</nav>
+
+<!-- MAIN CONTENT -->
+<main class="main">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-tag">// COMPLETE MASTER ROADMAP — AI + FULL STACK + WEB3</div>
+    <h2>From zero to the<br>most valuable developer<br>in the room.</h2>
+    <p class="hero-sub">Every day. Every week. Every project. Every phase. No gaps, no guessing — just the exact sequence that takes a CSE fresher from scratch to crore-level income.</p>
+
+    <div class="hero-stats">
+      <div class="stat-card">
+        <div class="stat-num" style="color:var(--blue)">18</div>
+        <div class="stat-label">months total</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" style="color:var(--green)">15+</div>
+        <div class="stat-label">real projects built</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" style="color:var(--amber)">5</div>
+        <div class="stat-label">phases to empire</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" style="color:var(--purple)">₹1Cr+</div>
+        <div class="stat-label">target income</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAILY SYSTEM -->
+  <div id="daily" class="daily-system">
+    <div class="ds-header">
+      <span class="ds-badge">NON-NEGOTIABLE</span>
+      <span class="ds-title">Your daily system — every single day</span>
+    </div>
+    <div class="blocks-grid">
+      <div class="block-card">
+        <div class="block-num">BLOCK 01</div>
+        <div class="block-title" style="color:var(--blue)">Learn</div>
+        <div class="block-time">2–3 hours</div>
+        <div class="block-desc">New concept for the week. Watch max 45 min. Spend rest rebuilding what you watched from scratch, closed tab.</div>
+      </div>
+      <div class="block-card">
+        <div class="block-num">BLOCK 02</div>
+        <div class="block-title" style="color:var(--green)">Build</div>
+        <div class="block-time">3–4 hours</div>
+        <div class="block-desc">Apply today's concept to a project. Working code only. Break it and fix it. This is your real learning.</div>
+      </div>
+      <div class="block-card">
+        <div class="block-num">BLOCK 03</div>
+        <div class="block-title" style="color:var(--amber)">DSA</div>
+        <div class="block-time">30–60 mins</div>
+        <div class="block-desc">2–3 LeetCode problems max. Easy first 60 days, then medium. Don't grind — understand the pattern.</div>
+      </div>
+      <div class="block-card">
+        <div class="block-num">BLOCK 04</div>
+        <div class="block-title" style="color:var(--purple)">Expose</div>
+        <div class="block-time">30 mins</div>
+        <div class="block-desc">GitHub push + LinkedIn/X post. "Day N of building X — here's what I learned." This is how clients and recruiters find you before you're done.</div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ===================== PHASE 1 ===================== -->
+  <div id="phase1" class="phase-section">
+    <div class="phase-header">
+      <div class="phase-icon" style="background:var(--blue-dim)">🧱</div>
+      <div class="phase-meta">
+        <div class="phase-label" style="color:var(--blue)">PHASE 1</div>
+        <div class="phase-title">Foundation</div>
+        <div class="phase-range">Days 1–60 · Weeks 1–8</div>
+      </div>
+    </div>
+    <div class="phase-outcome" style="border-left-color:var(--blue)">
+      Goal: become capable of coding independently, integrating AI APIs, building small apps, and deploying them live. By day 60, you have 3 deployed projects and a GitHub profile that proves you can build — not just learn.
+    </div>
+
+    <!-- WEEK 1 -->
+    <div id="w1" class="week-card open">
+      <div class="week-card-header" onclick="toggleWeek(this)">
+        <span class="week-num">WEEK 01</span>
+        <span class="week-title">Python Basics — Your first weapon</span>
+        <div class="week-tags">
+          <span class="wtag" style="background:var(--blue-dim);color:var(--blue)">Python</span>
+          <span class="wtag" style="background:var(--bg3);color:var(--dim)">Beginner</span>
+        </div>
+        <span class="week-chevron">▾</span>
+      </div>
+      <div class="week-body">
+        <div class="day-grid">
+          <div class="day-card">
+            <div class="day-label">DAY 1</div>
+            <div class="day-focus">Setup + Variables</div>
+            <div class="day-task">Install Python, VS Code. Learn variables, data types, print statements. Build: hello world CLI.</div>
+          </div>
+          <div class="day-card">
+            <div class="day-label">DAY 2</div>
+            <div class="day-focus">Conditions + Loops</div>
+            <div class="day-task">if/else, for loops, while loops. Build: number guessing game (ask again until correct).</div>
+          </div>
+          <div class="day-card">
+            <div class="day-label">DAY 3</div>
+            <div class="day-focus">Functions</div>
+            <div class="day-task">Define functions, return values, parameters. Build: temperature converter (C↔F↔K).</div>
+          </div>
+          <div class="day-card">
+            <div class="day-label">DAY 4</div>
+            <div class="day-focus">Lists + Dicts</div>
+            <div class="day-task">Lists, dictionaries, loops over them. Build: expense tracker CLI v1 (add/show expenses).</div>
+          </div>
+          <div class="day-card">
+            <div class="day-label">DAY 5</div>
+            <div class="day-focus">Project Day</div>
+            <div class="day-task">Build smart calculator: add/sub/mul/div + history tracking. Push to GitHub. Post on LinkedIn.</div>
+          </div>
+        </div>
+        <div class="wb-grid">
+          <div class="wb-card">
+            <div class="wb-label" style="color:var(--blue)">LEARN</div>
+            <div class="wb-item">Variables + data types</div>
+            <div class="wb-item">Conditions (if/else/elif)</div>
+            <div class="wb-item">Loops (for/while)</div>
+            <div class="wb-item">Functions + return</div>
+            <div class="wb-item">Lists + Dictionaries</div>
+          </div>
+          <div class="wb-card">
+            <div class="wb-label" style="color:var(--green)">BUILD</div>
+            <div class="wb-item">Smart Calculator CLI</div>
+            <div class="wb-item">Number Guessing Game</div>
+            <div class="wb-item">Expense Tracker v1</div>
+          </div>
+          <div class="wb-card">
+            <div class="wb-label" style="color:var(--amber)">DSA</div>
+            <div class="wb-item">Arrays intro</div>
+            <div class="wb-item">String manipulation</div>
+            <div class="wb-item">LeetCode: Two Sum, Reverse String</div>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="proj-header">
+            <div class="proj-num">P-01</div>
+            <div>
+              <div class="proj-title">Smart Calculator CLI</div>
+              <div class="proj-sub">Your first GitHub project</div>
+            </div>
+            <div class="proj-importance" style="background:var(--blue-dim);color:var(--blue)">STARTER</div>
+          </div>
+          <div class="proj-grid">
+            <div class="proj-section">
+              <div class="proj-section-label">FEATURES</div>
+              <div class="proj-feat">Add, subtract, multiply, divide</div>
+              <div class="proj-feat">Calculation history tracking</div>
+              <div class="proj-feat">Save history to file</div>
+              <div class="proj-feat">Error handling (divide by zero)</div>
+            </div>
+            <div class="proj-section">
+              <div class="proj-section-label">WHY IT MATTERS</div>
+              <div class="proj-feat">First GitHub commit</div>
+              <div class="proj-feat">Proves you can write clean Python</div>
+              <div class="proj-feat">File handling practice</div>
+            </div>
+          </div>
+          <div class="proj-stack">
+            <span class="stack-tag">Python</span>
+            <span class="stack-tag">File I/O</span>
+            <span class="stack-tag">Git</span>
+          </div>
+          <div class="proj-duration">⏱ Duration: 2–3 days</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WEEK 2 -->
+    <div id="w2" class="week-card">
+      <div class="week-card-header" onclick="toggleWeek(this)">
+        <span class="week-num">WEEK 02</span>
+        <span class="week-title">Python Advanced — APIs, Files, Real Apps</span>
+        <div class="week-tags">
+          <span class="wtag" style="background:var(--blue-dim);color:var(--blue)">Python</span>
+          <span class="wtag" style="background:var(--blue-dim);color:var(--blue)">APIs</span>
+        </div>
+        <span class="week-chevron">▾</span>
+      </div>
+      <div class="week-body">
+        <div class="day-grid">
+          <div class="day-card">
+            <div class="day-label">DAY 6</div>
+            <div class="day-focus">File Handling</div>
+            <div class="day-task">Read/write files, CSV, JSON. Upgrade expense tracker to save to CSV file permanently.</div>
+          </div>
+          <div class="day-card">
+            <div class="day-label">DAY 7</div>
+            <div class="day-focus">Modules + venv</div>
+            <div class="day-task">pip, virtual environments, importing libraries. Set up your standard project template.</div>
+          </div>
+          <div class="day-card">
+            <div class="day-label">DAY 8</div>
+            <div class="day-focus">APIs + requests</div>
+            <div class="day-task">HTTP requests, JSON parsing, API keys. Build: weather CLI app using OpenWeatherMap API.</div>
+          </div>
+          <div class="day-card">
+            <div class="day-label">DAY 9</div>
+            <div class="day-focus">Error Handling</div>
+            <div class="day-task">try/except, error types, graceful failures. Build: crypto price tracker with error handling.</div>
+          </div>
+          <div class="day-card">
+            <div class="day-label">DAY 10</div>
+            <div class="day-focus">Git + Project</div>
+            <div class="day-task">Learn Git properly: branch, merge, PR. Push all 3 projects. Post all 3 on LinkedIn.</div>
+          </div>
+        </div>
+        <div class="wb-grid">
+          <div class="wb-card">
+            <div class="wb-label" style="color:var(--blue)">LEARN</div>
+            <div class="wb-item">File handling (read/write)</div>
+            <div class="wb-item">Virtual environments</div>
+            <div class="wb-item">requests library + HTTP</div>
+            <div class="wb-item">JSON parsing</div>
+            <div class="wb-item">Error handling (try/except)</div>
+          </div>
+          <div class="wb-card">
+            <div class="wb-label" style="color:var(--green)">BUILD</div>
+            <div class="wb-item">Weather App CLI</div>
+            <div class="wb-item">Crypto Price Tracker</div>
+            <div class="wb-item">News Fetcher</div>
+          </div>
+          <div class="wb-card">
+            <div class="wb-label" style="color:var(--amber)">DSA</div>
+            <div class="wb-item">Hashmaps</div>
+            <div class="wb-item">Big O complexity basics</div>
+            <div class="wb-item">LeetCode: Valid Anagram, Contains Duplicate</div>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="proj-header">
+            <div class="proj-num">P-02</div>
+            <div>
+              <div class="proj-title">Weather + Crypto Tracker</div>
+              <div class="proj-sub">Your first real-world API integrations</div>
+            </div>
+            <div class="proj-importance" style="background:var(--blue-dim);color:var(--blue)">PORTFOLIO</div>
+          </div>
+          <div class="proj-grid">
+            <div class="proj-section">
+              <div class="proj-section-label">WEATHER APP</div>
+              <div class="proj-feat">City search by name</div>
+              <div class="proj-feat">Temperature, humidity, conditions</div>
+              <div class="proj-feat">Celsius / Fahrenheit toggle</div>
+              <div class="proj-feat">5-day forecast</div>
+            </div>
+            <div class="proj-section">
+              <div class="proj-section-label">CRYPTO TRACKER</div>
+              <div class="proj-feat">Live BTC/ETH prices</div>
+              <div class="proj-feat">24h change percentage</div>
+              <div class="proj-feat">Price alert system</div>
+            </div>
+          </div>
+          <div class="proj-stack">
+            <span class="stack-tag">Python</span>
+            <span class="stack-tag">requests</span>
+            <span class="stack-tag">OpenWeatherMap API</span>
+            <span class="stack-tag">CoinGecko API</span>
+          </div>
+          <div class="proj-duration">⏱ Duration: 3–4 days</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WEEK 3 -->
+    <div id="w3" class="week-card">
+      <div class="week-card-header" onclick="toggleWeek(this)">
+        <span class="week-num">WEEK 03</span>
+        <span class="week-title">AI Foundations — The skill that pays</span>
+        <div class="week-tags">
+          <span class="wtag" style="background:var(--purple-dim);color:var(--purple)">AI</span>
+          <span class="wtag" style="background:var(--blue-dim);color:var(--blue)">APIs</span>
+        </div>
+        <span class="week-chevron">▾</span>
+      </div>
+      <div class="week-body">
+        <div class="day-grid">
+          <div class="day-card">
+            <div class="day-label">DAY 11</div>
+            <div class="day-focus">LLM Basics</div>
+            <div class="day-task">What are LLMs, tokens, temperature, system prompts. Set up OpenAI API key. First API call.</div>
+          </div>
+          <div class="day-card">
+            <div class="day-label">DAY 12</div>
+            <div class="day-focus">Prompt Engineering</div>
+            <div class="day-task">System prompts, few-shot examples, chain-of-thought. Build: AI text summarizer (paste any text → get summary).</div>
+          </div>
+          <div class="day-card">
+            <div class="day-label">DAY 13</div>
+            <div class="day-focus">Conversation Memory</div>
+            <div class="day-task">Message history, multi-turn conversations. Build: AI chatbot CLI with memory.</div>
+          </div>
+          <div class="day-card">
+            <div class="day-label">DAY 14</div>
+            <div class="day-focus">Embeddings Intro</div>
+            <div class="day-task">What embeddings are, semantic search basics. Build: AI note search (find notes by meaning, not keyword).</div>
+          </div>
+          <div class="day-card">
+            <div class="day-label">DAY 15</div>
+            <div class="day-focus">Project Day</div>
+            <div class="day-task">Polish AI chatbot. Add system prompt customization. Deploy on Railway. Post demo video on LinkedIn.</div>
+          </div>
+        </div>
+        <div class="wb-grid">
+          <div class="wb-card">
+            <div class="wb-label" style="color:var(--purple)">LEARN</div>
+            <div class="wb-item">LLM fundamentals</div>
+            <div class="wb-item">Tokens + temperature</div>
+            <div class="wb-item">Prompt engineering</div>
+            <div class="wb-item">OpenAI / Anthropic APIs</div>
+            <div class="wb-item">Embeddings basics</div>
+          </div>
+          <div class="wb-card">
+            <div class="wb-label" style="color:var(--green)">BUILD</div>
+            <div class="wb-item">AI Text Summarizer</div>
+            <div class="wb-item">AI Chatbot CLI</div>
+            <div class="wb-item">AI Note Generator</div>
+          </div>
+          <div class="wb-card">
+            <div class="wb-label" style="color:var(--amber)">DSA</div>
+            <div class="wb-item">Recursion basics</div>
+            <div class="wb-item">LeetCode: Fibonacci, Power of Two</div>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="proj-header">
+            <div class="proj-num">P-03</div>
+            <div>
+              <div class="proj-title">AI Chatbot + Summarizer</div>
+              <div class="proj-sub">Your first real AI project — very important</div>
+            </div>
+            <div class="proj-importance" style="background:var(--purple-dim);color:var(--purple)">KEY PROJECT</div>
+          </div>
+          <div class="proj-grid">
+            <div class="proj-section">
+              <div class="proj-section-label">FEATURES</div>
+              <div class="proj-feat">Multi-turn conversation memory</div>
+              <div class="proj-feat">System prompt customization</div>
+              <div class="proj-feat">Text summarization mode</div>
+              <div class="proj-feat">Save conversation history</div>
+            </div>
+            <div class="proj-section">
+              <div class="proj-section-label">WHY IT MATTERS</div>
+              <div class="proj-feat">Proves AI integration skill</div>
+              <div class="proj-feat">Foundation for every future project</div>
+              <div class="proj-feat">Already sellable to small businesses</div>
+            </div>
+          </div>
+          <div class="proj-stack">
+            <span class="stack-tag">Python</span>
+            <span class="stack-tag">OpenAI API</span>
+            <span class="stack-tag">Railway deploy</span>
+          </div>
+          <div class="proj-duration">⏱ Duration: 1 week</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WEEK 4 -->
+    <div id="w4" class="week-card">
+      <div class="week-card-header" onclick="toggleWeek(this)">
+        <span class="week-num">WEEK 04</span>
+        <span class="week-title">Frontend Basics — Give your apps a face</span>
+        <div class="week-tags">
+          <span class="wtag" style="background:var(--blue-dim);color:var(--blue)">HTML</span>
+          <span class="wtag" style="background:var(--blue-dim);color:var(--blue)">CSS</span>
+          <span class="wtag" style="background:var(--blue-dim);color:var(--blue)">JavaScript</span>
+        </div>
+        <span class="week-chevron">▾</span>
+      </div>
+      <div class="week-body">
+        <div class="day-grid">
+          <div class="day-card">
+            <div class="day-label">DAY 16</div>
+            <div class="day-focus">HTML Structure</div>
+            <div class="day-task">Tags, semantic HTML, forms, links, images. Build your portfolio HTML skeleton.</div>
+          </div>
+          <div class="day-card">
+            <div class="day-label">DAY 17</div>
+            <div class="day-focus">CSS Styling</div>
+            <div class="day-task">Flexbox, Grid, colors, fonts, responsive basics. Style your portfolio page completely.</div>
+          </div>
+          <div class="day-card">
+            <div class="day-label">DAY 18</div>
+            <div class="day-focus">JS Basics</div>
+            <div class="day-task">DOM manipulation, events, querySelector. Build: interactive to-do app (add/delete/complete).</div>
+          </div>
+          <div class="day-card">
+            <div class="day-label">DAY 19</div>
+            <div class="day-focus">Async JS + Fetch</div>
+            <div class="day-task">Promises, async/await, fetch API. Connect your weather app Python backend to a web frontend.</div>
+          </div>
+          <div class="day-card">
+            <div class="day-label">DAY 20</div>
+            <div class="day-focus">Deploy Frontend</div>
+            <div class="day-task">Deploy portfolio + projects to Vercel. Custom domain optional. Share link publicly.</div>
+          </div>
+        </div>
+        <div class="wb-grid">
+          <div class="wb-card">
+            <div class="wb-label" style="color:var(--blue)">LEARN</div>
+            <div class="wb-item">HTML semantics</div>
+            <div class="wb-item">CSS Flexbox + Grid</div>
+            <div class="wb-item">JavaScript DOM</div>
+            <div class="wb-item">Events + listeners</div>
+            <div class="wb-item">fetch + async/await</div>
+          </div>
+          <div class="wb-card">
+            <div class="wb-label" style="color:var(--green)">BUILD</div>
+            <div class="wb-item">Portfolio Website</div>
+            <div class="wb-item">Interactive To-Do App</div>
+            <div class="wb-item">AI Frontend UI (chatbot)</div>
+          </div>
+          <div class="wb-card">
+            <div class="wb-label" style="color:var(--amber)">DSA</div>
+            <div class="wb-item">Sorting algorithms</div>
+            <div class="wb-item">Binary search</div>
+            <div class="wb-item">LeetCode: Search Insert Position, Sort Colors</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WEEK 5 -->
+    <div id="w5" class="week-card">
+      <div class="week-card-header" onclick="toggleWeek(this)">
+        <span class="week-num">WEEK 05</span>
+        <span class="week-title">Databases + Deployment — Make it real</span>
+        <div class="week-tags">
+          <span class="wtag" style="background:var(--green-dim);color:var(--green)">SQL</span>
+          <span class="wtag" style="background:var(--green-dim);color:var(--green)">Supabase</span>
+          <span class="wtag" style="background:var(--green-dim);color:var(--green)">Deploy</span>
+        </div>
+        <span class="week-chevron">▾</span>
+      </div>
+      <div class="week-body">
+        <div class="day-grid">
+          <div class="day-card">
+            <div class="day-label">DAY 21</div>
+            <div class="day-focus">SQL Basics</div>
+            <div class="day-task">SELECT, INSERT, UPDATE, DELETE, WHERE, JOIN. Use SQLite locally, practice on w3schools.</div>
+          </div>
+          <div class="day-card">
+            <div class="day-label">DAY 22</div>
+            <div class="day-focus">Supabase Setup</div>
+            <div class="day-task">Create Supabase project, tables, use the dashboard. Connect Python to Supabase via API.</div>
+          </div>
+          <div class="day-card">
+            <div class="day-label">DAY 23</div>
+            <div class="day-focus">Auth + Login</div>
+            <div class="day-task">Build login/signup with Supabase Auth. Email + password. Sessions. Protected pages.</div>
+          </div>
+          <div class="day-card">
+            <div class="day-label">DAY 24</div>
+            <div class="day-focus">Deploy Backend</div>
+            <div class="day-task">Deploy Python backend on Railway. Environment variables. Test everything works live.</div>
+          </div>
+          <div class="day-card">
+            <div class="day-label">DAY 25</div>
+            <div class="day-focus">Full App Deploy</div>
+            <div class="day-task">Deploy a complete app: frontend (Vercel) + backend (Railway) + database (Supabase). Your first full-stack deploy.</div>
+          </div>
+        </div>
+        <div class="wb-grid">
+          <div class="wb-card">
+            <div class="wb-label" style="color:var(--green)">LEARN</div>
+            <div class="wb-item">SQL fundamentals</div>
+            <div class="wb-item">PostgreSQL via Supabase</div>
+            <div class="wb-item">Auth systems</div>
+            <div class="wb-item">Environment variables</div>
+            <div class="wb-item">Full-stack deploy flow</div>
+          </div>
+          <div class="wb-card">
+            <div class="wb-label" style="color:var(--green)">BUILD</div>
+            <div class="wb-item">Login system</div>
+            <div class="wb-item">Database-connected app</div>
+            <div class="wb-item">Re-deploy all previous projects</div>
+          </div>
+          <div class="wb-card">
+            <div class="wb-label" style="color:var(--amber)">DSA</div>
+            <div class="wb-item">Linked Lists</div>
+            <div class="wb-item">Stacks</div>
+            <div class="wb-item">LeetCode: Valid Parentheses, Merge Lists</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WEEK 6 -->
+    <div id="w6" class="week-card">
+      <div class="week-card-header" onclick="toggleWeek(this)">
+        <span class="week-num">WEEK 06</span>
+        <span class="week-title">Project Sprint — AI Resume Analyzer</span>
+        <div class="week-tags">
+          <span class="wtag" style="background:var(--purple-dim);color:var(--purple)">AI</span>
+          <span class="wtag" style="background:var(--green-dim);color:var(--green)">Full Stack</span>
+          <span class="wtag" style="background:var(--amber-dim);color:var(--amber)">Sellable</span>
+        </div>
+        <span class="week-chevron">▾</span>
+      </div>
+      <div class="week-body">
+        <div class="project-card">
+          <div class="proj-header">
+            <div class="proj-num">P-04</div>
+            <div>
+              <div class="proj-title">AI Resume Analyzer</div>
+              <div class="proj-sub">Your first freelance-worthy project</div>
+            </div>
+            <div class="proj-importance" style="background:var(--amber-dim);color:var(--amber)">SELLABLE NOW</div>
+          </div>
+          <div class="proj-grid">
+            <div class="proj-section">
+              <div class="proj-section-label">FEATURES</div>
+              <div class="proj-feat">PDF upload + parsing</div>
+              <div class="proj-feat">AI skill extraction</div>
+              <div class="proj-feat">Resume scoring (0–100)</div>
+              <div class="proj-feat">Improvement suggestions</div>
+              <div class="proj-feat">ATS compatibility check</div>
+            </div>
+            <div class="proj-section">
+              <div class="proj-section-label">CLIENTS TO TARGET</div>
+              <div class="proj-feat">Coaching institutes</div>
+              <div class="proj-feat">College placement cells</div>
+              <div class="proj-feat">HR / recruitment firms</div>
+              <div class="proj-feat">Ed-tech companies</div>
+            </div>
+          </div>
+          <div class="proj-stack">
+            <span class="stack-tag">Python</span>
+            <span class="stack-tag">FastAPI</span>
+            <span class="stack-tag">OpenAI API</span>
+            <span class="stack-tag">PyPDF2</span>
+            <span class="stack-tag">HTML/CSS/JS</span>
+            <span class="stack-tag">Vercel</span>
+            <span class="stack-tag">Railway</span>
+          </div>
+          <div class="proj-duration">⏱ Duration: 1 week · Charge: ₹15,000–₹40,000</div>
+        </div>
+        <div class="day-grid">
+          <div class="day-card"><div class="day-label">DAY 26</div><div class="day-focus">PDF parsing</div><div class="day-task">PyPDF2 + pdfplumber. Extract text from any uploaded PDF resume.</div></div>
+          <div class="day-card"><div class="day-label">DAY 27</div><div class="day-focus">AI prompt</div><div class="day-task">Design prompt to extract skills, score resume, generate suggestions. Test with 10 real resumes.</div></div>
+          <div class="day-card"><div class="day-label">DAY 28</div><div class="day-focus">FastAPI backend</div><div class="day-task">Upload endpoint, process PDF, return AI analysis as JSON.</div></div>
+          <div class="day-card"><div class="day-label">DAY 29</div><div class="day-focus">Frontend UI</div><div class="day-task">File upload UI, results display, score visualization. Make it look clean.</div></div>
+          <div class="day-card"><div class="day-label">DAY 30</div><div class="day-focus">Deploy + Share</div><div class="day-task">Deploy live. Record a demo video. Post on LinkedIn. DM 5 coaching institutes.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WEEK 7 -->
+    <div id="w7" class="week-card">
+      <div class="week-card-header" onclick="toggleWeek(this)">
+        <span class="week-num">WEEK 07</span>
+        <span class="week-title">Project Sprint — AI Study Assistant</span>
+        <div class="week-tags">
+          <span class="wtag" style="background:var(--purple-dim);color:var(--purple)">AI</span>
+          <span class="wtag" style="background:var(--blue-dim);color:var(--blue)">PDF</span>
+        </div>
+        <span class="week-chevron">▾</span>
+      </div>
+      <div class="week-body">
+        <div class="project-card">
+          <div class="proj-header">
+            <div class="proj-num">P-05</div>
+            <div>
+              <div class="proj-title">AI Study Assistant</div>
+              <div class="proj-sub">Summarize PDFs, generate quizzes, flashcards</div>
+            </div>
+            <div class="proj-importance" style="background:var(--purple-dim);color:var(--purple)">STRONG PORTFOLIO</div>
+          </div>
+          <div class="proj-grid">
+            <div class="proj-section">
+              <div class="proj-section-label">FEATURES</div>
+              <div class="proj-feat">Upload PDF textbook/notes</div>
+              <div class="proj-feat">AI-generated summary</div>
+              <div class="proj-feat">Auto quiz generation (MCQ)</div>
+              <div class="proj-feat">Flashcard creation</div>
+              <div class="proj-feat">Save history per user</div>
+            </div>
+            <div class="proj-section">
+              <div class="proj-section-label">NEW SKILLS LEARNED</div>
+              <div class="proj-feat">LangChain basics</div>
+              <div class="proj-feat">Document chunking</div>
+              <div class="proj-feat">Basic RAG pattern</div>
+              <div class="proj-feat">Supabase data persistence</div>
+            </div>
+          </div>
+          <div class="proj-stack">
+            <span class="stack-tag">Python</span>
+            <span class="stack-tag">LangChain</span>
+            <span class="stack-tag">OpenAI</span>
+            <span class="stack-tag">Supabase</span>
+            <span class="stack-tag">FastAPI</span>
+          </div>
+          <div class="proj-duration">⏱ Duration: 1 week</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WEEK 8 -->
+    <div id="w8" class="week-card">
+      <div class="week-card-header" onclick="toggleWeek(this)">
+        <span class="week-num">WEEK 08</span>
+        <span class="week-title">Project Sprint — AI Automation Tool</span>
+        <div class="week-tags">
+          <span class="wtag" style="background:var(--purple-dim);color:var(--purple)">AI</span>
+          <span class="wtag" style="background:var(--amber-dim);color:var(--amber)">Automation</span>
+        </div>
+        <span class="week-chevron">▾</span>
+      </div>
+      <div class="week-body">
+        <div class="project-card">
+          <div class="proj-header">
+            <div class="proj-num">P-06</div>
+            <div>
+              <div class="proj-title">AI Email / Invoice Generator</div>
+              <div class="proj-sub">Pick one automation and build it deep</div>
+            </div>
+            <div class="proj-importance" style="background:var(--amber-dim);color:var(--amber)">SELLABLE</div>
+          </div>
+          <div class="proj-grid">
+            <div class="proj-section">
+              <div class="proj-section-label">OPTION A — EMAIL GEN</div>
+              <div class="proj-feat">Input: context + tone</div>
+              <div class="proj-feat">Output: professional email</div>
+              <div class="proj-feat">Templates library</div>
+              <div class="proj-feat">One-click copy/send</div>
+            </div>
+            <div class="proj-section">
+              <div class="proj-section-label">OPTION B — INVOICE GEN</div>
+              <div class="proj-feat">Client + service details</div>
+              <div class="proj-feat">AI description writing</div>
+              <div class="proj-feat">PDF invoice export</div>
+              <div class="proj-feat">Email delivery</div>
+            </div>
+          </div>
+          <div class="proj-stack">
+            <span class="stack-tag">Python</span>
+            <span class="stack-tag">OpenAI</span>
+            <span class="stack-tag">FastAPI</span>
+            <span class="stack-tag">ReportLab (PDF)</span>
+            <span class="stack-tag">SMTP</span>
+          </div>
+          <div class="proj-duration">⏱ Duration: 1 week · Deploy: MANDATORY</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="milestone" style="background:var(--blue-dim);border-color:var(--blue)">
+      <div class="milestone-label" style="color:var(--blue)">// END OF PHASE 1 — DAY 60</div>
+      <div class="milestone-title">You now have all of this:</div>
+      <div class="milestone-items">
+        <span class="milestone-item">GitHub profile with 6+ projects</span>
+        <span class="milestone-item">3 deployed live apps</span>
+        <span class="milestone-item">AI integration experience</span>
+        <span class="milestone-item">Full-stack basics (frontend + backend + DB)</span>
+        <span class="milestone-item">First freelance-ready product</span>
+        <span class="milestone-item">LinkedIn presence building</span>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ===================== PHASE 2 ===================== -->
+  <div id="phase2" class="phase-section">
+    <div class="phase-header">
+      <div class="phase-icon" style="background:var(--green-dim)">⚙️</div>
+      <div class="phase-meta">
+        <div class="phase-label" style="color:var(--green)">PHASE 2</div>
+        <div class="phase-title">Full Stack Builder</div>
+        <div class="phase-range">Days 61–150 · Months 3–6</div>
+      </div>
+    </div>
+    <div class="phase-outcome" style="border-left-color:var(--green)">
+      Goal: become a deploy-capable full-stack + SaaS engineer. React, TypeScript, Next.js, FastAPI, Stripe payments. By the end, you can build and ship complete SaaS products from scratch independently.
+    </div>
+
+    <!-- MONTH 3 -->
+    <div id="m3" class="week-card">
+      <div class="week-card-header" onclick="toggleWeek(this)">
+        <span class="week-num">MONTH 03</span>
+        <span class="week-title">React — Modern frontend development</span>
+        <div class="week-tags">
+          <span class="wtag" style="background:var(--green-dim);color:var(--green)">React</span>
+          <span class="wtag" style="background:var(--green-dim);color:var(--green)">Components</span>
+        </div>
+        <span class="week-chevron">▾</span>
+      </div>
+      <div class="week-body">
+        <div class="wb-grid">
+          <div class="wb-card">
+            <div class="wb-label" style="color:var(--green)">WEEK 1–2: LEARN</div>
+            <div class="wb-item">Components + JSX</div>
+            <div class="wb-item">Props + State</div>
+            <div class="wb-item">useState + useEffect</div>
+            <div class="wb-item">Event handling</div>
+            <div class="wb-item">React Router</div>
+          </div>
+          <div class="wb-card">
+            <div class="wb-label" style="color:var(--green)">WEEK 3–4: LEARN</div>
+            <div class="wb-item">Forms + controlled inputs</div>
+            <div class="wb-item">API calls from React</div>
+            <div class="wb-item">Context API</div>
+            <div class="wb-item">Custom hooks</div>
+            <div class="wb-item">Tailwind CSS</div>
+          </div>
+          <div class="wb-card">
+            <div class="wb-label" style="color:var(--amber)">DSA</div>
+            <div class="wb-item">Trees intro</div>
+            <div class="wb-item">Binary search tree</div>
+            <div class="wb-item">LeetCode: 5 medium problems</div>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="proj-header">
+            <div class="proj-num">P-07</div>
+            <div>
+              <div class="proj-title">React Task Manager + Notes App</div>
+              <div class="proj-sub">First React project with real state management</div>
+            </div>
+            <div class="proj-importance" style="background:var(--green-dim);color:var(--green)">SKILL BUILD</div>
+          </div>
+          <div class="proj-grid">
+            <div class="proj-section">
+              <div class="proj-section-label">TASK MANAGER</div>
+              <div class="proj-feat">Add / edit / delete tasks</div>
+              <div class="proj-feat">Priority levels</div>
+              <div class="proj-feat">Filter by status</div>
+              <div class="proj-feat">Local storage persistence</div>
+            </div>
+            <div class="proj-section">
+              <div class="proj-section-label">NOTES APP</div>
+              <div class="proj-feat">Rich text notes</div>
+              <div class="proj-feat">Search functionality</div>
+              <div class="proj-feat">Category tags</div>
+              <div class="proj-feat">Supabase sync</div>
+            </div>
+          </div>
+          <div class="proj-stack">
+            <span class="stack-tag">React</span>
+            <span class="stack-tag">Tailwind CSS</span>
+            <span class="stack-tag">React Router</span>
+            <span class="stack-tag">Supabase</span>
+            <span class="stack-tag">Vercel</span>
+          </div>
+          <div class="proj-duration">⏱ Duration: 2 weeks</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MONTH 4 -->
+    <div id="m4" class="week-card">
+      <div class="week-card-header" onclick="toggleWeek(this)">
+        <span class="week-num">MONTH 04</span>
+        <span class="week-title">TypeScript + Next.js — SaaS-grade stack</span>
+        <div class="week-tags">
+          <span class="wtag" style="background:var(--blue-dim);color:var(--blue)">TypeScript</span>
+          <span class="wtag" style="background:var(--blue-dim);color:var(--blue)">Next.js</span>
+          <span class="wtag" style="background:var(--blue-dim);color:var(--blue)">Auth</span>
+        </div>
+        <span class="week-chevron">▾</span>
+      </div>
+      <div class="week-body">
+        <div class="wb-grid">
+          <div class="wb-card">
+            <div class="wb-label" style="color:var(--blue)">TYPESCRIPT</div>
+            <div class="wb-item">Types + interfaces</div>
+            <div class="wb-item">Generics basics</div>
+            <div class="wb-item">Type guards</div>
+            <div class="wb-item">Enums</div>
+          </div>
+          <div class="wb-card">
+            <div class="wb-label" style="color:var(--blue)">NEXT.JS</div>
+            <div class="wb-item">App Router (v14+)</div>
+            <div class="wb-item">Server + client components</div>
+            <div class="wb-item">API routes</div>
+            <div class="wb-item">Middleware + auth</div>
+          </div>
+          <div class="wb-card">
+            <div class="wb-label" style="color:var(--amber)">DSA</div>
+            <div class="wb-item">Two pointers</div>
+            <div class="wb-item">Recursion deep dive</div>
+            <div class="wb-item">LeetCode: 10 medium problems</div>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="proj-header">
+            <div class="proj-num">P-08</div>
+            <div>
+              <div class="proj-title">AI Study Assistant — Next.js Upgrade</div>
+              <div class="proj-sub">Rebuild week 7 project with full SaaS stack</div>
+            </div>
+            <div class="proj-importance" style="background:var(--blue-dim);color:var(--blue)">PORTFOLIO PIECE</div>
+          </div>
+          <div class="proj-grid">
+            <div class="proj-section">
+              <div class="proj-section-label">FEATURES</div>
+              <div class="proj-feat">Next.js app router</div>
+              <div class="proj-feat">Auth with NextAuth / Clerk</div>
+              <div class="proj-feat">TypeScript throughout</div>
+              <div class="proj-feat">Protected routes</div>
+              <div class="proj-feat">AI features from v1</div>
+            </div>
+            <div class="proj-section">
+              <div class="proj-section-label">WHY REBUILD</div>
+              <div class="proj-feat">Proper SaaS architecture</div>
+              <div class="proj-feat">TypeScript safety</div>
+              <div class="proj-feat">Scalable to add payments later</div>
+            </div>
+          </div>
+          <div class="proj-stack">
+            <span class="stack-tag">Next.js 14</span>
+            <span class="stack-tag">TypeScript</span>
+            <span class="stack-tag">Tailwind</span>
+            <span class="stack-tag">Clerk Auth</span>
+            <span class="stack-tag">Supabase</span>
+          </div>
+          <div class="proj-duration">⏱ Duration: 2 weeks</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MONTH 5 -->
+    <div id="m5" class="week-card">
+      <div class="week-card-header" onclick="toggleWeek(this)">
+        <span class="week-num">MONTH 05</span>
+        <span class="week-title">Backend Engineering — FastAPI + Agentic AI</span>
+        <div class="week-tags">
+          <span class="wtag" style="background:var(--purple-dim);color:var(--purple)">FastAPI</span>
+          <span class="wtag" style="background:var(--purple-dim);color:var(--purple)">AI Agents</span>
+          <span class="wtag" style="background:var(--purple-dim);color:var(--purple)">RAG</span>
+        </div>
+        <span class="week-chevron">▾</span>
+      </div>
+      <div class="week-body">
+        <div class="wb-grid">
+          <div class="wb-card">
+            <div class="wb-label" style="color:var(--purple)">LEARN — BACKEND</div>
+            <div class="wb-item">FastAPI deep dive</div>
+            <div class="wb-item">REST API design</div>
+            <div class="wb-item">JWT authentication</div>
+            <div class="wb-item">PostgreSQL advanced</div>
+            <div class="wb-item">Middleware + CORS</div>
+          </div>
+          <div class="wb-card">
+            <div class="wb-label" style="color:var(--purple)">LEARN — AI</div>
+            <div class="wb-item">LangChain deep dive</div>
+            <div class="wb-item">RAG (Retrieval Augmented Gen)</div>
+            <div class="wb-item">Vector databases (Pinecone)</div>
+            <div class="wb-item">AI agent architecture</div>
+            <div class="wb-item">Tool use + function calling</div>
+          </div>
+          <div class="wb-card">
+            <div class="wb-label" style="color:var(--amber)">DSA</div>
+            <div class="wb-item">Graphs intro</div>
+            <div class="wb-item">BFS + DFS</div>
+            <div class="wb-item">Sliding window</div>
+            <div class="wb-item">LeetCode: 15 medium problems</div>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="proj-header">
+            <div class="proj-num">P-09</div>
+            <div>
+              <div class="proj-title">AI RAG Business Chatbot</div>
+              <div class="proj-sub">The #1 thing businesses pay for right now</div>
+            </div>
+            <div class="proj-importance" style="background:var(--amber-dim);color:var(--amber)">HIGH VALUE</div>
+          </div>
+          <div class="proj-grid">
+            <div class="proj-section">
+              <div class="proj-section-label">FEATURES</div>
+              <div class="proj-feat">Upload company documents (PDF)</div>
+              <div class="proj-feat">AI answers from those docs only</div>
+              <div class="proj-feat">Source citation in answers</div>
+              <div class="proj-feat">Chat history</div>
+              <div class="proj-feat">White-label ready</div>
+            </div>
+            <div class="proj-section">
+              <div class="proj-section-label">SELL TO</div>
+              <div class="proj-feat">E-commerce (product Q&amp;A)</div>
+              <div class="proj-feat">Legal firms (doc search)</div>
+              <div class="proj-feat">HR departments (policy bot)</div>
+              <div class="proj-feat">Any business with documentation</div>
+            </div>
+          </div>
+          <div class="proj-stack">
+            <span class="stack-tag">Python</span>
+            <span class="stack-tag">FastAPI</span>
+            <span class="stack-tag">LangChain</span>
+            <span class="stack-tag">Pinecone</span>
+            <span class="stack-tag">OpenAI</span>
+            <span class="stack-tag">Next.js</span>
+          </div>
+          <div class="proj-duration">⏱ Duration: 2 weeks · Charge: ₹30,000–₹1,00,000</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MONTH 6 -->
+    <div id="m6" class="week-card">
+      <div class="week-card-header" onclick="toggleWeek(this)">
+        <span class="week-num">MONTH 06</span>
+        <span class="week-title">SaaS Projects — Build 3 complete products</span>
+        <div class="week-tags">
+          <span class="wtag" style="background:var(--green-dim);color:var(--green)">SaaS</span>
+          <span class="wtag" style="background:var(--green-dim);color:var(--green)">Stripe</span>
+          <span class="wtag" style="background:var(--green-dim);color:var(--green)">Docker</span>
+        </div>
+        <span class="week-chevron">▾</span>
+      </div>
+      <div class="week-body">
+        <div class="wb-grid">
+          <div class="wb-card">
+            <div class="wb-label" style="color:var(--green)">INFRA SKILLS</div>
+            <div class="wb-item">Docker basics</div>
+            <div class="wb-item">Environment management</div>
+            <div class="wb-item">CI/CD basics (GitHub Actions)</div>
+            <div class="wb-item">Domain + SSL setup</div>
+          </div>
+          <div class="wb-card">
+            <div class="wb-label" style="color:var(--green)">PAYMENT SKILLS</div>
+            <div class="wb-item">Stripe integration</div>
+            <div class="wb-item">Razorpay (India)</div>
+            <div class="wb-item">Subscription billing</div>
+            <div class="wb-item">Webhooks</div>
+          </div>
+          <div class="wb-card">
+            <div class="wb-label" style="color:var(--amber)">DSA</div>
+            <div class="wb-item">Dynamic programming intro</div>
+            <div class="wb-item">LeetCode: Interview prep mode</div>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="proj-header">
+            <div class="proj-num">P-10</div>
+            <div>
+              <div class="proj-title">AI Content Generator SaaS</div>
+              <div class="proj-sub">Full SaaS with login + payments + AI</div>
+            </div>
+            <div class="proj-importance" style="background:var(--green-dim);color:var(--green)">FLAGSHIP</div>
+          </div>
+          <div class="proj-grid">
+            <div class="proj-section">
+              <div class="proj-section-label">FEATURES</div>
+              <div class="proj-feat">Email signup + login</div>
+              <div class="proj-feat">Subscription plans (free/pro)</div>
+              <div class="proj-feat">AI blog, social, email copy</div>
+              <div class="proj-feat">Output history</div>
+              <div class="proj-feat">Razorpay billing</div>
+            </div>
+            <div class="proj-section">
+              <div class="proj-section-label">TECH STACK</div>
+              <div class="proj-feat">Next.js + TypeScript</div>
+              <div class="proj-feat">FastAPI backend</div>
+              <div class="proj-feat">Supabase (auth + DB)</div>
+              <div class="proj-feat">OpenAI / Anthropic</div>
+              <div class="proj-feat">Razorpay subscriptions</div>
+            </div>
+          </div>
+          <div class="proj-stack">
+            <span class="stack-tag">Next.js</span>
+            <span class="stack-tag">TypeScript</span>
+            <span class="stack-tag">FastAPI</span>
+            <span class="stack-tag">Supabase</span>
+            <span class="stack-tag">OpenAI</span>
+            <span class="stack-tag">Razorpay</span>
+            <span class="stack-tag">Docker</span>
+          </div>
+          <div class="proj-duration">⏱ Duration: 3–4 weeks · This is your main portfolio piece</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="milestone" style="background:var(--green-dim);border-color:var(--green)">
+      <div class="milestone-label" style="color:var(--green)">// END OF PHASE 2 — DAY 150</div>
+      <div class="milestone-title">You are now fully capable of:</div>
+      <div class="milestone-items">
+        <span class="milestone-item">Full-stack development</span>
+        <span class="milestone-item">AI integration (RAG, agents)</span>
+        <span class="milestone-item">Deployed SaaS with payments</span>
+        <span class="milestone-item">10+ projects on GitHub</span>
+        <span class="milestone-item">Freelancing immediately</span>
+        <span class="milestone-item">Applying to ₹15–25 LPA jobs</span>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ===================== PHASE 3 ===================== -->
+  <div id="phase3" class="phase-section">
+    <div class="phase-header">
+      <div class="phase-icon" style="background:var(--amber-dim)">💰</div>
+      <div class="phase-meta">
+        <div class="phase-label" style="color:var(--amber)">PHASE 3</div>
+        <div class="phase-title">Freelancing + Money</div>
+        <div class="phase-range">Days 151–240 · Months 7–10</div>
+      </div>
+    </div>
+    <div class="phase-outcome" style="border-left-color:var(--amber)">
+      Goal: first real income. Stop learning, start earning. Both job applications and freelance outreach run simultaneously. Target: ₹50,000–₹2,00,000/month by month 10.
+    </div>
+
+    <div id="m7" class="week-card">
+      <div class="week-card-header" onclick="toggleWeek(this)">
+        <span class="week-num">MONTH 07</span>
+        <span class="week-title">Portfolio + Positioning — Become unfindable to ignore</span>
+        <div class="week-tags">
+          <span class="wtag" style="background:var(--amber-dim);color:var(--amber)">Portfolio</span>
+          <span class="wtag" style="background:var(--amber-dim);color:var(--amber)">Brand</span>
+        </div>
+        <span class="week-chevron">▾</span>
+      </div>
+      <div class="week-body">
+        <div class="wb-grid">
+          <div class="wb-card">
+            <div class="wb-label" style="color:var(--amber)">BUILD THIS MONTH</div>
+            <div class="wb-item">Personal website v2 (case studies)</div>
+            <div class="wb-item">Demo videos for each project</div>
+            <div class="wb-item">LinkedIn profile complete overhaul</div>
+            <div class="wb-item">GitHub README polish</div>
+            <div class="wb-item">1 LinkedIn post per day</div>
+          </div>
+          <div class="wb-card">
+            <div class="wb-label" style="color:var(--amber)">YOUR POSITION</div>
+            <div class="wb-item">"AI Automation + Full Stack Developer"</div>
+            <div class="wb-item">NOT "web developer" or "programmer"</div>
+            <div class="wb-item">Niche = AI tools for Indian SMBs</div>
+            <div class="wb-item">Problem you solve = clear and specific</div>
+          </div>
+          <div class="wb-card">
+            <div class="wb-label" style="color:var(--amber)">APPLY TO JOBS</div>
+            <div class="wb-item">AngelList / LinkedIn daily</div>
+            <div class="wb-item">Target: product startups</div>
+            <div class="wb-item">Razorpay, CRED, Freshworks, Zepto</div>
+            <div class="wb-item">₹15–25 LPA range</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="m8" class="week-card">
+      <div class="week-card-header" onclick="toggleWeek(this)">
+        <span class="week-num">MONTH 08</span>
+        <span class="week-title">Outreach Machine — Daily system to get clients</span>
+        <div class="week-tags">
+          <span class="wtag" style="background:var(--amber-dim);color:var(--amber)">Outreach</span>
+          <span class="wtag" style="background:var(--amber-dim);color:var(--amber)">Sales</span>
+        </div>
+        <span class="week-chevron">▾</span>
+      </div>
+      <div class="week-body">
+        <div class="wb-grid">
+          <div class="wb-card">
+            <div class="wb-label" style="color:var(--amber)">DAILY OUTREACH</div>
+            <div class="wb-item">10 cold DMs on LinkedIn</div>
+            <div class="wb-item">5 cold emails to founders</div>
+            <div class="wb-item">1 content post (build log / demo)</div>
+            <div class="wb-item">1 GitHub push (keep streak)</div>
+          </div>
+          <div class="wb-card">
+            <div class="wb-label" style="color:var(--amber)">TARGET CLIENTS</div>
+            <div class="wb-item">D2C ecommerce brands</div>
+            <div class="wb-item">Ed-tech startups</div>
+            <div class="wb-item">Coaching institutes</div>
+            <div class="wb-item">Local agency owners</div>
+            <div class="wb-item">SaaS founders needing AI</div>
+          </div>
+          <div class="wb-card">
+            <div class="wb-label" style="color:var(--amber)">OFFER</div>
+            <div class="wb-item">"I'll build you an AI chatbot for your docs in 2 weeks"</div>
+            <div class="wb-item">"AI automation dashboard for your workflow"</div>
+            <div class="wb-item">Price: ₹20,000–₹80,000 per project</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="m9" class="week-card">
+      <div class="week-card-header" onclick="toggleWeek(this)">
+        <span class="week-num">MONTH 09</span>
+        <span class="week-title">First Clients — Land ₹10K–₹1L</span>
+        <div class="week-tags">
+          <span class="wtag" style="background:var(--green-dim);color:var(--green)">Income</span>
+          <span class="wtag" style="background:var(--amber-dim);color:var(--amber)">Delivery</span>
+        </div>
+        <span class="week-chevron">▾</span>
+      </div>
+      <div class="week-body">
+        <div class="wb-grid">
+          <div class="wb-card">
+            <div class="wb-label" style="color:var(--green)">SERVICES TO OFFER</div>
+            <div class="wb-item">AI chatbot setup (₹15K–₹40K)</div>
+            <div class="wb-item">Dashboard development (₹25K–₹80K)</div>
+            <div class="wb-item">Automation systems (₹30K–₹1L)</div>
+            <div class="wb-item">Internal tools (₹20K–₹60K)</div>
+          </div>
+          <div class="wb-card">
+            <div class="wb-label" style="color:var(--green)">PLATFORMS</div>
+            <div class="wb-item">Upwork (start here)</div>
+            <div class="wb-item">Toptal (after 3 projects)</div>
+            <div class="wb-item">LinkedIn direct outreach</div>
+            <div class="wb-item">Referrals from first clients</div>
+          </div>
+          <div class="wb-card">
+            <div class="wb-label" style="color:var(--green)">INCOME TARGET</div>
+            <div class="wb-item">Month 9: first ₹10K–₹30K</div>
+            <div class="wb-item">Month 10: ₹50K–₹1L/month</div>
+            <div class="wb-item">Get testimonials from every client</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="m10" class="week-card">
+      <div class="week-card-header" onclick="toggleWeek(this)">
+        <span class="week-num">MONTH 10</span>
+        <span class="week-title">Scale Delivery — Repeat clients + referrals</span>
+        <div class="week-tags">
+          <span class="wtag" style="background:var(--amber-dim);color:var(--amber)">Systems</span>
+          <span class="wtag" style="background:var(--amber-dim);color:var(--amber)">Scale</span>
+        </div>
+        <span class="week-chevron">▾</span>
+      </div>
+      <div class="week-body">
+        <div class="wb-grid">
+          <div class="wb-card">
+            <div class="wb-label" style="color:var(--amber)">BUSINESS SKILLS</div>
+            <div class="wb-item">Write clear project proposals</div>
+            <div class="wb-item">Set milestones + payment terms</div>
+            <div class="wb-item">Client communication systems</div>
+            <div class="wb-item">Notion project tracking</div>
+          </div>
+          <div class="wb-card">
+            <div class="wb-label" style="color:var(--amber)">PRICING UPGRADE</div>
+            <div class="wb-item">Raise rates after each project</div>
+            <div class="wb-item">Offer monthly retainers (₹15K–₹40K/mo)</div>
+            <div class="wb-item">Package services (not hourly)</div>
+          </div>
+          <div class="wb-card">
+            <div class="wb-label" style="color:var(--amber)">TECH CONTINUE</div>
+            <div class="wb-item">AWS Cloud Practitioner cert</div>
+            <div class="wb-item">Deepen LangChain + agents</div>
+            <div class="wb-item">1 hour learning per day still</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="milestone" style="background:var(--amber-dim);border-color:var(--amber)">
+      <div class="milestone-label" style="color:var(--amber)">// END OF PHASE 3 — DAY 240</div>
+      <div class="milestone-title">Where you are now:</div>
+      <div class="milestone-items">
+        <span class="milestone-item">₹50K–₹2L/month freelance income</span>
+        <span class="milestone-item">3–5 paying clients</span>
+        <span class="milestone-item">Job offer or active job</span>
+        <span class="milestone-item">Strong portfolio + testimonials</span>
+        <span class="milestone-item">AWS certified</span>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ===================== PHASE 4 ===================== -->
+  <div id="phase4" class="phase-section">
+    <div class="phase-header">
+      <div class="phase-icon" style="background:var(--purple-dim)">🚀</div>
+      <div class="phase-meta">
+        <div class="phase-label" style="color:var(--purple)">PHASE 4</div>
+        <div class="phase-title">Own Product</div>
+        <div class="phase-range">Days 241–365 · Months 11–12</div>
+      </div>
+    </div>
+    <div class="phase-outcome" style="border-left-color:var(--purple)">
+      Stop thinking "how do I get clients?" and start thinking "what recurring problem can I solve monthly?" That's the shift from freelancer to founder. This phase launches your first real SaaS product.
+    </div>
+
+    <div id="m11" class="week-card">
+      <div class="week-card-header" onclick="toggleWeek(this)">
+        <span class="week-num">MONTH 11</span>
+        <span class="week-title">Research — Find the problem worth solving</span>
+        <div class="week-tags">
+          <span class="wtag" style="background:var(--purple-dim);color:var(--purple)">Research</span>
+          <span class="wtag" style="background:var(--purple-dim);color:var(--purple)">Validation</span>
+        </div>
+        <span class="week-chevron">▾</span>
+      </div>
+      <div class="week-body">
+        <div class="wb-grid">
+          <div class="wb-card">
+            <div class="wb-label" style="color:var(--purple)">FIND YOUR IDEA</div>
+            <div class="wb-item">Talk to 20 business owners</div>
+            <div class="wb-item">What do they do manually daily?</div>
+            <div class="wb-item">What takes too long / costs too much?</div>
+            <div class="wb-item">Where does AI help most?</div>
+          </div>
+          <div class="wb-card">
+            <div class="wb-label" style="color:var(--purple)">VALIDATED IDEAS</div>
+            <div class="wb-item">AI CRM for small businesses</div>
+            <div class="wb-item">AI recruiter screening tool</div>
+            <div class="wb-item">AI analytics for D2C brands</div>
+            <div class="wb-item">AI workflow automation</div>
+            <div class="wb-item">AI customer support SaaS</div>
+          </div>
+          <div class="wb-card">
+            <div class="wb-label" style="color:var(--purple)">VALIDATION TEST</div>
+            <div class="wb-item">Build landing page first</div>
+            <div class="wb-item">Get 10 waitlist signups</div>
+            <div class="wb-item">Ask 3 people to pay upfront</div>
+            <div class="wb-item">If no: pivot. If yes: build.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="m12" class="week-card">
+      <div class="week-card-header" onclick="toggleWeek(this)">
+        <span class="week-num">MONTH 12</span>
+        <span class="week-title">Launch — Ship your first SaaS</span>
+        <div class="week-tags">
+          <span class="wtag" style="background:var(--green-dim);color:var(--green)">Launch</span>
+          <span class="wtag" style="background:var(--green-dim);color:var(--green)">Revenue</span>
+        </div>
+        <span class="week-chevron">▾</span>
+      </div>
+      <div class="week-body">
+        <div class="project-card">
+          <div class="proj-header">
+            <div class="proj-num">P-15</div>
+            <div>
+              <div class="proj-title">Your AI SaaS — The Flagship</div>
+              <div class="proj-sub">One focused product. Ships before it's perfect.</div>
+            </div>
+            <div class="proj-importance" style="background:var(--purple-dim);color:var(--purple)">EMPIRE SEED</div>
+          </div>
+          <div class="proj-grid">
+            <div class="proj-section">
+              <div class="proj-section-label">MUST HAVE</div>
+              <div class="proj-feat">Login + auth</div>
+              <div class="proj-feat">Subscription payments</div>
+              <div class="proj-feat">Core AI feature (one thing done great)</div>
+              <div class="proj-feat">Dashboard + analytics</div>
+              <div class="proj-feat">Mobile responsive</div>
+            </div>
+            <div class="proj-section">
+              <div class="proj-section-label">LAUNCH PLAN</div>
+              <div class="proj-feat">ProductHunt launch</div>
+              <div class="proj-feat">LinkedIn announcement</div>
+              <div class="proj-feat">Cold email 100 ideal customers</div>
+              <div class="proj-feat">Offer 3 months free for feedback</div>
+            </div>
+          </div>
+          <div class="proj-stack">
+            <span class="stack-tag">Next.js</span>
+            <span class="stack-tag">FastAPI</span>
+            <span class="stack-tag">Supabase</span>
+            <span class="stack-tag">OpenAI/Anthropic</span>
+            <span class="stack-tag">Razorpay</span>
+            <span class="stack-tag">Docker</span>
+            <span class="stack-tag">AWS</span>
+          </div>
+          <div class="proj-duration">⏱ Goal: first ₹10K MRR by month 12 end</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="milestone" style="background:var(--purple-dim);border-color:var(--purple)">
+      <div class="milestone-label" style="color:var(--purple)">// END OF YEAR 1 — DAY 365</div>
+      <div class="milestone-title">You are now a fully capable AI-first SaaS developer with:</div>
+      <div class="milestone-items">
+        <span class="milestone-item">15+ real projects shipped</span>
+        <span class="milestone-item">₹50K–₹2L/month freelance</span>
+        <span class="milestone-item">Live SaaS product</span>
+        <span class="milestone-item">Job offer ₹15–25 LPA</span>
+        <span class="milestone-item">AWS certified</span>
+        <span class="milestone-item">LinkedIn audience building</span>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ===================== PHASE 5 ===================== -->
+  <div id="phase5" class="phase-section">
+    <div class="phase-header">
+      <div class="phase-icon" style="background:var(--teal-dim)">⛓️</div>
+      <div class="phase-meta">
+        <div class="phase-label" style="color:var(--teal)">PHASE 5</div>
+        <div class="phase-title">Web3 + Empire Mode</div>
+        <div class="phase-range">Months 13–18 · After Year 1</div>
+      </div>
+    </div>
+    <div class="phase-outcome" style="border-left-color:var(--teal)">
+      Now you stack the rarest skill combination in the world: AI + blockchain. You have stable income from Phase 3–4. Now you add a superpower that opens international remote roles at $100K–$200K+ and smart contract auditing at ₹5–20L per audit.
+    </div>
+
+    <div id="m13" class="week-card">
+      <div class="week-card-header" onclick="toggleWeek(this)">
+        <span class="week-num">MONTH 13–14</span>
+        <span class="week-title">Solidity + Blockchain — Learn the new paradigm</span>
+        <div class="week-tags">
+          <span class="wtag" style="background:var(--teal-dim);color:var(--teal)">Solidity</span>
+          <span class="wtag" style="background:var(--teal-dim);color:var(--teal)">Ethereum</span>
+        </div>
+        <span class="week-chevron">▾</span>
+      </div>
+      <div class="week-body">
+        <div class="wb-grid">
+          <div class="wb-card">
+            <div class="wb-label" style="color:var(--teal)">MONTH 13</div>
+            <div class="wb-item">CryptoZombies (free, interactive)</div>
+            <div class="wb-item">Solidity syntax + data types</div>
+            <div class="wb-item">Smart contract basics</div>
+            <div class="wb-item">Hardhat development env</div>
+            <div class="wb-item">Deploy on Sepolia testnet</div>
+          </div>
+          <div class="wb-card">
+            <div class="wb-label" style="color:var(--teal)">MONTH 14</div>
+            <div class="wb-item">Patrick Collins' Solidity course (YouTube, free)</div>
+            <div class="wb-item">ERC-20 + ERC-721 tokens</div>
+            <div class="wb-item">DeFi protocol basics</div>
+            <div class="wb-item">Web3.py + ethers.js</div>
+            <div class="wb-item">Smart contract security basics</div>
+          </div>
+          <div class="wb-card">
+            <div class="wb-label" style="color:var(--teal)">BUILD</div>
+            <div class="wb-item">Simple token contract</div>
+            <div class="wb-item">NFT minting contract</div>
+            <div class="wb-item">Simple DeFi lending pool</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="m15" class="week-card">
+      <div class="week-card-header" onclick="toggleWeek(this)">
+        <span class="week-num">MONTH 15–16</span>
+        <span class="week-title">AI + Web3 Combo — The rarest stack</span>
+        <div class="week-tags">
+          <span class="wtag" style="background:var(--purple-dim);color:var(--purple)">AI Agents</span>
+          <span class="wtag" style="background:var(--teal-dim);color:var(--teal)">DeFi</span>
+        </div>
+        <span class="week-chevron">▾</span>
+      </div>
+      <div class="week-body">
+        <div class="wb-grid">
+          <div class="wb-card">
+            <div class="wb-label" style="color:var(--teal)">LEARN</div>
+            <div class="wb-item">Cyfrin Updraft (smart contract security)</div>
+            <div class="wb-item">Reentrancy attacks</div>
+            <div class="wb-item">Common Solidity vulnerabilities</div>
+            <div class="wb-item">Audit methodology</div>
+          </div>
+          <div class="wb-card">
+            <div class="wb-label" style="color:var(--teal)">BUILD</div>
+            <div class="wb-item">AI agent that reads on-chain DeFi data</div>
+            <div class="wb-item">AI smart contract risk analyzer</div>
+            <div class="wb-item">Portfolio tracker with AI insights</div>
+          </div>
+          <div class="wb-card">
+            <div class="wb-label" style="color:var(--amber)">EARN</div>
+            <div class="wb-item">Gitcoin bounties ($500–$10K)</div>
+            <div class="wb-item">Code4rena contests</div>
+            <div class="wb-item">Sherlock audit platform</div>
+            <div class="wb-item">Web3 freelance via remote3.co</div>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="proj-header">
+            <div class="proj-num">P-16</div>
+            <div>
+              <div class="proj-title">AI + DeFi Intelligence Platform</div>
+              <div class="proj-sub">Exists nowhere else on most portfolios</div>
+            </div>
+            <div class="proj-importance" style="background:var(--teal-dim);color:var(--teal)">UNICORN</div>
+          </div>
+          <div class="proj-grid">
+            <div class="proj-section">
+              <div class="proj-section-label">FEATURES</div>
+              <div class="proj-feat">Read live DeFi protocol data</div>
+              <div class="proj-feat">AI yield optimization signals</div>
+              <div class="proj-feat">Risk analysis per protocol</div>
+              <div class="proj-feat">Natural language Q&amp;A on-chain</div>
+            </div>
+            <div class="proj-section">
+              <div class="proj-section-label">WHY IT'S RARE</div>
+              <div class="proj-feat">Combines AI agents + blockchain</div>
+              <div class="proj-feat">No equivalent on 99% of resumes</div>
+              <div class="proj-feat">Web3 companies pay 40–60% premium</div>
+            </div>
+          </div>
+          <div class="proj-stack">
+            <span class="stack-tag">Python</span>
+            <span class="stack-tag">Web3.py</span>
+            <span class="stack-tag">LangChain</span>
+            <span class="stack-tag">OpenAI</span>
+            <span class="stack-tag">Solidity</span>
+            <span class="stack-tag">Next.js</span>
+          </div>
+          <div class="proj-duration">⏱ Duration: 3–4 weeks</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="m17" class="week-card">
+      <div class="week-card-header" onclick="toggleWeek(this)">
+        <span class="week-num">MONTH 17–18</span>
+        <span class="week-title">Empire Mode — Agency or SaaS at scale</span>
+        <div class="week-tags">
+          <span class="wtag" style="background:var(--amber-dim);color:var(--amber)">₹1Cr+</span>
+          <span class="wtag" style="background:var(--green-dim);color:var(--green)">Ownership</span>
+        </div>
+        <span class="week-chevron">▾</span>
+      </div>
+      <div class="week-body">
+        <div class="wb-grid">
+          <div class="wb-card">
+            <div class="wb-label" style="color:var(--amber)">OPTION A — AGENCY</div>
+            <div class="wb-item">AI automation agency for Indian SMBs</div>
+            <div class="wb-item">₹1–3L per project</div>
+            <div class="wb-item">Hire 1–2 junior devs</div>
+            <div class="wb-item">3–4 projects/month</div>
+            <div class="wb-item">Target: ₹5–10L/month</div>
+          </div>
+          <div class="wb-card">
+            <div class="wb-label" style="color:var(--amber)">OPTION B — AI AUDIT</div>
+            <div class="wb-item">Smart contract audit brand</div>
+            <div class="wb-item">₹5–20L per audit</div>
+            <div class="wb-item">Listed on Code4rena + Sherlock</div>
+            <div class="wb-item">3–4 audits/month</div>
+            <div class="wb-item">Target: ₹1–3Cr/year</div>
+          </div>
+          <div class="wb-card">
+            <div class="wb-label" style="color:var(--amber)">OPTION C — WEB3 SAAS</div>
+            <div class="wb-item">AI SaaS for Web3 companies</div>
+            <div class="wb-item">On-chain analytics, risk scoring</div>
+            <div class="wb-item">50 customers × ₹20K/mo = ₹1Cr/yr</div>
+            <div class="wb-item">Web3 companies have budget</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="milestone" style="background:var(--teal-dim);border-color:var(--teal)">
+      <div class="milestone-label" style="color:var(--teal)">// MONTH 18 — EMPIRE TERRITORY</div>
+      <div class="milestone-title">Where the roadmap lands you:</div>
+      <div class="milestone-items">
+        <span class="milestone-item">AI + Web3 combo stack (top 0.1%)</span>
+        <span class="milestone-item">₹1Cr+ annual income path</span>
+        <span class="milestone-item">International remote ready ($100K+)</span>
+        <span class="milestone-item">Own SaaS with MRR</span>
+        <span class="milestone-item">Agency or audit brand</span>
+        <span class="milestone-item">16+ shipped projects</span>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- THE RULES -->
+  <div id="rules" class="phase-section">
+    <div class="phase-header">
+      <div class="phase-icon" style="background:var(--red-dim)">⚡</div>
+      <div class="phase-meta">
+        <div class="phase-label" style="color:var(--red)">NON-NEGOTIABLE</div>
+        <div class="phase-title">The Rules</div>
+        <div class="phase-range">These apply every single day</div>
+      </div>
+    </div>
+    <div class="rules-grid">
+      <div class="rule-card">
+        <div class="rule-header" style="color:var(--green)">✅ Always Do</div>
+        <div class="rule-item">Build something every day — working code, not notes</div>
+        <div class="rule-item">Push to GitHub daily — the streak is social proof</div>
+        <div class="rule-item">Post publicly — LinkedIn, X, or both</div>
+        <div class="rule-item">Deploy every project — live URL on every line of resume</div>
+        <div class="rule-item">Start charging from month 5 — imperfect and paid beats perfect and free</div>
+        <div class="rule-item">Talk to real users before building month 11+ products</div>
+        <div class="rule-item">Focus on one skill per phase completely</div>
+      </div>
+      <div class="rule-card">
+        <div class="rule-header" style="color:var(--red)">❌ Never Do</div>
+        <div class="rule-item">Tutorial addiction — watching without building = zero progress</div>
+        <div class="rule-item">Wait until you're "ready" — you learn by charging, not preparing</div>
+        <div class="rule-item">Learn 10 languages or frameworks at once</div>
+        <div class="rule-item">Only grind DSA — companies hire builders first</div>
+        <div class="rule-item">Skip posting — silence means invisible to recruiters</div>
+        <div class="rule-item">Compare yourself to others daily — compare weekly at most</div>
+        <div class="rule-item">Build without a problem to solve in Phase 4+</div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- INCOME OUTCOMES -->
+  <div id="outcomes" class="phase-section">
+    <div class="phase-header">
+      <div class="phase-icon" style="background:var(--pink-dim)">📈</div>
+      <div class="phase-meta">
+        <div class="phase-label" style="color:var(--pink)">REALISTIC OUTCOMES</div>
+        <div class="phase-title">Where consistent execution lands you</div>
+        <div class="phase-range">Based on market rates, India 2026</div>
+      </div>
+    </div>
+    <div class="outcomes-grid">
+      <div class="outcome-card">
+        <div class="outcome-timeline">Month 5–6</div>
+        <div class="outcome-role">First freelance income</div>
+        <div class="outcome-pay" style="color:var(--blue)">₹10K–₹50K</div>
+        <div class="outcome-desc">First clients from outreach. AI chatbot projects. Resume analyzer deployments.</div>
+      </div>
+      <div class="outcome-card">
+        <div class="outcome-timeline">Month 7–9</div>
+        <div class="outcome-role">Job offer OR ₹1L/mo</div>
+        <div class="outcome-pay" style="color:var(--green)">₹15–20 LPA</div>
+        <div class="outcome-desc">Product company offer. Or ₹1L/month freelance. Take whichever aligns with empire path.</div>
+      </div>
+      <div class="outcome-card">
+        <div class="outcome-timeline">Month 10–12</div>
+        <div class="outcome-role">SaaS + freelance combo</div>
+        <div class="outcome-pay" style="color:var(--amber)">₹2–5L/mo</div>
+        <div class="outcome-desc">Freelance retainers + first SaaS revenue. Foundation of the empire is set.</div>
+      </div>
+      <div class="outcome-card">
+        <div class="outcome-timeline">Month 13–15</div>
+        <div class="outcome-role">Remote Web3 roles</div>
+        <div class="outcome-pay" style="color:var(--purple)">$80–150K</div>
+        <div class="outcome-desc">International remote positions once Web3 stack is added. USD pay from Chennai.</div>
+      </div>
+      <div class="outcome-card">
+        <div class="outcome-timeline">Month 16–18</div>
+        <div class="outcome-role">Smart contract auditing</div>
+        <div class="outcome-pay" style="color:var(--teal)">₹5–20L/audit</div>
+        <div class="outcome-desc">Rare skill, premium pricing. 3–4 audits/month = crore territory independently.</div>
+      </div>
+      <div class="outcome-card">
+        <div class="outcome-timeline">Year 2+</div>
+        <div class="outcome-role">Agency or SaaS empire</div>
+        <div class="outcome-pay" style="color:var(--pink)">₹1Cr+/yr</div>
+        <div class="outcome-desc">Ownership model. SaaS MRR + agency revenue. The empire you came to build.</div>
+      </div>
+    </div>
+  </div>
+
+</main>
+</div>
+
+<script>
+function toggleWeek(header) {
+  const card = header.parentElement;
+  card.classList.toggle('open');
+}
+
+document.querySelectorAll('.nav-item').forEach(item => {
+  item.addEventListener('click', function(e) {
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const id = entry.target.id;
+      document.querySelectorAll('.nav-item').forEach(item => {
+        item.classList.toggle('active', item.getAttribute('href') === '#' + id);
+      });
+    }
+  });
+}, { threshold: 0.3 });
+
+document.querySelectorAll('[id]').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

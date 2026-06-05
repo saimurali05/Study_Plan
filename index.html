@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EMPIRE OS v3 — Master Command Center</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@300;400;500;600&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#050505;--s1:#0d0d0d;--s2:#141414;--s3:#1a1a1a;--s4:#222;
+  --b1:rgba(255,255,255,0.05);--b2:rgba(255,255,255,0.09);--b3:rgba(255,255,255,0.15);
+  --t1:#f2efe9;--t2:#8a8680;--t3:#4a4845;
+  --G:#b5f542;--C:#42f5d1;--O:#f5a142;--P:#f542a8;--B:#4285f5;--R:#f55442;
+  --disp:'Archivo Black',sans-serif;
+  --body:'Archivo',sans-serif;
+  --mono:'Fira Code',monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--t1);font-family:var(--body);overflow-x:hidden;font-size:14px;}
+::selection{background:var(--G);color:#000;}
+a{color:inherit;text-decoration:none;}
+
+/* ANIMATED BG GRID */
+.bg-grid{
+  position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:linear-gradient(rgba(255,255,255,0.015) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,0.015) 1px,transparent 1px);
+  background-size:48px 48px;
+}
+.content-wrap{position:relative;z-index:1;}
+
+/* HEADER */
+.hdr{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:16px 36px;border-bottom:1px solid var(--b1);
+  position:sticky;top:0;background:rgba(5,5,5,0.95);
+  -webkit-backdrop-filter:blur(24px);backdrop-filter:blur(24px);z-index:500;gap:16px;
+}
+.logo{font-family:var(--disp);font-size:18px;letter-spacing:0.04em;color:var(--G);white-space:nowrap;}
+.hdr-nav{display:flex;gap:2px;flex-wrap:wrap;}
+.nav-btn{
+  font-size:11px;font-family:var(--mono);padding:5px 12px;border:1px solid var(--b2);
+  border-radius:6px;cursor:pointer;color:var(--t2);background:transparent;
+  transition:all 0.15s;white-space:nowrap;
+}
+.nav-btn:hover{color:var(--t1);border-color:var(--b3);}
+.hdr-right{display:flex;align-items:center;gap:10px;flex-shrink:0;}
+.live-date{font-family:var(--mono);font-size:10px;color:var(--t3);}
+.day-chip{font-family:var(--mono);font-size:11px;padding:4px 14px;border-radius:100px;border:1px solid var(--G);color:var(--G);}
+
+/* HERO BANNER */
+.hero{
+  padding:64px 36px 48px;border-bottom:1px solid var(--b1);
+  display:grid;grid-template-columns:1fr 280px;gap:48px;align-items:start;
+  position:relative;overflow:hidden;
+}
+.hero-glow{position:absolute;top:-100px;left:-100px;width:500px;height:500px;background:radial-gradient(circle,rgba(181,245,66,0.03) 0%,transparent 65%);pointer-events:none;}
+.hero-eyebrow{font-family:var(--mono);font-size:10px;color:var(--t3);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:14px;}
+.hero-h{font-family:var(--disp);font-size:clamp(48px,6vw,80px);line-height:0.95;margin-bottom:20px;}
+.hero-h .hl{color:var(--G);}
+.hero-body{font-size:13px;color:var(--t2);line-height:1.8;max-width:540px;}
+.stack-grid{display:flex;flex-wrap:wrap;gap:5px;margin-top:20px;}
+.sp{font-family:var(--mono);font-size:10px;padding:3px 10px;border-radius:4px;border:1px solid var(--b2);color:var(--t2);}
+.sp.hot{border-color:rgba(181,245,66,0.25);color:var(--G);background:rgba(181,245,66,0.04);}
+.hero-right{display:flex;flex-direction:column;gap:10px;}
+.big-stat{background:var(--s1);border:1px solid var(--b1);border-radius:10px;padding:16px 18px;}
+.bs-val{font-family:var(--disp);font-size:36px;line-height:1;}
+.bs-lbl{font-family:var(--mono);font-size:9px;color:var(--t3);letter-spacing:0.12em;text-transform:uppercase;margin-top:3px;}
+.prog-wrap{background:var(--s1);border:1px solid var(--b1);border-radius:10px;padding:16px 18px;}
+.prog-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+.prog-title{font-family:var(--mono);font-size:10px;color:var(--t3);letter-spacing:0.1em;text-transform:uppercase;}
+.prog-pct{font-family:var(--disp);font-size:22px;color:var(--G);}
+.prog-track{height:3px;background:var(--s3);border-radius:2px;}
+.prog-bar{height:3px;background:linear-gradient(90deg,var(--G),var(--C));border-radius:2px;transition:width 1.5s cubic-bezier(0.16,1,0.3,1);}
+.phase-pills{display:flex;flex-direction:column;gap:5px;margin-top:10px;}
+.pp{display:flex;justify-content:space-between;align-items:center;font-size:11px;padding:4px 0;}
+.pp-dot{width:5px;height:5px;border-radius:50%;}
+
+/* METRICS BAR */
+.metrics{display:grid;grid-template-columns:repeat(6,1fr);border-bottom:1px solid var(--b1);}
+.met{padding:20px 16px;border-right:1px solid var(--b1);text-align:center;}
+.met:last-child{border-right:none;}
+.met-n{font-family:var(--disp);font-size:26px;line-height:1;}
+.met-l{font-family:var(--mono);font-size:9px;color:var(--t3);letter-spacing:0.1em;text-transform:uppercase;margin-top:3px;}
+
+/* SECTION */
+.sec{padding:32px 36px;border-bottom:1px solid var(--b1);}
+.sec-hdr{font-family:var(--mono);font-size:10px;color:var(--t3);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:20px;display:flex;align-items:center;gap:10px;}
+.sec-hdr::after{content:'';flex:1;height:1px;background:var(--b1);}
+
+/* SCHEDULE GRID */
+.sched{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px;}
+.slot{background:var(--s1);border:1px solid var(--b1);border-radius:8px;padding:12px 14px;position:relative;overflow:hidden;transition:border-color 0.2s,transform 0.15s;}
+.slot:hover{border-color:var(--b2);transform:translateY(-1px);}
+.slot-bar{position:absolute;top:0;left:0;right:0;height:2px;}
+.slot-time{font-family:var(--mono);font-size:9px;color:var(--t3);margin-bottom:4px;}
+.slot-name{font-size:13px;font-weight:600;margin-bottom:3px;}
+.slot-desc{font-size:11px;color:var(--t2);line-height:1.5;}
+.slot-tag{font-family:var(--mono);font-size:9px;display:inline-block;margin-top:8px;padding:2px 8px;border-radius:3px;text-transform:uppercase;letter-spacing:0.07em;}
+
+/* TODAY MAIN */
+.today-layout{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.today-card{background:var(--s1);border:1px solid var(--b1);border-radius:12px;padding:22px;}
+.tc-phase{font-family:var(--mono);font-size:9px;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:6px;}
+.tc-topic{font-family:var(--disp);font-size:22px;line-height:1.1;margin-bottom:14px;}
+.cl{list-style:none;}
+.cli{display:flex;align-items:flex-start;gap:9px;padding:8px 0;border-bottom:1px solid var(--b1);font-size:12px;color:var(--t2);cursor:pointer;transition:color 0.15s;}
+.cli:last-child{border-bottom:none;}
+.cli:hover{color:var(--t1);}
+.cli.done{color:var(--t3);text-decoration:line-through;}
+.cb{width:14px;height:14px;border:1px solid var(--b2);border-radius:3px;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;transition:all 0.15s;}
+.cli.done .cb{background:var(--G);border-color:var(--G);}
+.cli.done .cb::after{content:'✓';font-size:8px;color:#000;font-weight:700;}
+.today-right{display:flex;flex-direction:column;gap:10px;}
+.proj-c{background:var(--s1);border:1px solid rgba(66,245,209,0.15);border-radius:12px;padding:18px;}
+.proj-lbl{font-family:var(--mono);font-size:9px;color:var(--C);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:6px;}
+.proj-name{font-size:15px;font-weight:600;margin-bottom:5px;}
+.proj-desc{font-size:11px;color:var(--t2);line-height:1.6;}
+.dsa-c{background:var(--s1);border:1px solid rgba(245,161,66,0.15);border-radius:12px;padding:16px;}
+.dsa-lbl{font-family:var(--mono);font-size:9px;color:var(--O);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:8px;}
+.dsa-topics{display:flex;flex-wrap:wrap;gap:5px;}
+.dsa-tag{font-size:10px;font-family:var(--mono);padding:3px 8px;border-radius:3px;background:rgba(245,161,66,0.08);color:var(--O);border:1px solid rgba(245,161,66,0.2);}
+.res-c{background:var(--s1);border:1px solid var(--b1);border-radius:12px;padding:16px;flex:1;}
+.res-lbl{font-family:var(--mono);font-size:9px;color:var(--t3);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:8px;}
+.res-item{font-size:11px;color:var(--t2);padding:4px 0;border-bottom:1px solid var(--b1);display:flex;gap:7px;}
+.res-item:last-child{border-bottom:none;}
+.res-item::before{content:'→';color:var(--G);font-family:var(--mono);flex-shrink:0;}
+
+/* PHASE TABS */
+.ptabs{display:flex;gap:5px;margin-bottom:20px;flex-wrap:wrap;}
+.ptab{font-size:11px;font-family:var(--mono);padding:6px 14px;border:1px solid var(--b2);border-radius:5px;cursor:pointer;color:var(--t2);background:transparent;transition:all 0.15s;font-family:var(--body);}
+.ptab:hover{border-color:var(--b3);color:var(--t1);}
+.ptab.on{color:#000;}
+.ppanel{display:none;}
+.ppanel.on{display:block;}
+
+/* WEEK GRID */
+.wgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;}
+.wcard{background:var(--s1);border:1px solid var(--b1);border-radius:10px;padding:16px;transition:border-color 0.2s;}
+.wcard:hover{border-color:var(--b2);}
+.wc-num{font-family:var(--mono);font-size:9px;color:var(--t3);margin-bottom:4px;}
+.wc-topic{font-size:14px;font-weight:600;margin-bottom:10px;}
+.wc-days{list-style:none;}
+.wc-day{font-size:11px;color:var(--t2);padding:4px 0;border-bottom:1px solid var(--b1);display:flex;gap:7px;}
+.wc-day:last-child{border-bottom:none;}
+.wdn{font-family:var(--mono);color:var(--t3);min-width:26px;flex-shrink:0;}
+.wc-proj{margin-top:10px;padding:8px 10px;border-radius:6px;font-size:11px;font-weight:500;}
+.wc-dsa{margin-top:6px;padding:6px 10px;border-radius:6px;font-size:10px;font-family:var(--mono);}
+
+/* PROJECT SHOWCASE */
+.proj-showcase{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;}
+.pshowcard{background:var(--s1);border:1px solid var(--b1);border-radius:12px;padding:20px;transition:border-color 0.2s,transform 0.2s;}
+.pshowcard:hover{border-color:var(--b2);transform:translateY(-2px);}
+.psc-num{font-family:var(--mono);font-size:10px;color:var(--t3);margin-bottom:6px;}
+.psc-name{font-size:16px;font-weight:600;margin-bottom:6px;}
+.psc-phase{font-size:10px;font-family:var(--mono);padding:2px 8px;border-radius:3px;display:inline-block;margin-bottom:10px;}
+.psc-desc{font-size:12px;color:var(--t2);line-height:1.6;margin-bottom:10px;}
+.psc-learns{display:flex;flex-wrap:wrap;gap:4px;}
+.psc-tag{font-size:10px;font-family:var(--mono);padding:2px 7px;border-radius:3px;background:var(--s3);color:var(--t2);}
+.psc-earn{margin-top:10px;font-size:11px;color:var(--G);font-family:var(--mono);}
+
+/* INCOME TABLE */
+.inc-timeline{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;}
+.inc-card{background:var(--s1);border:1px solid var(--b1);border-radius:10px;padding:16px;}
+.inc-per{font-family:var(--mono);font-size:9px;color:var(--t3);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:5px;}
+.inc-amt{font-family:var(--disp);font-size:24px;line-height:1;margin-bottom:6px;}
+.inc-desc{font-size:11px;color:var(--t2);line-height:1.5;}
+
+/* DSA TRACK */
+.dsa-track{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;}
+.dsa-card{background:var(--s1);border:1px solid rgba(245,161,66,0.12);border-radius:10px;padding:16px;}
+.dsa-c-period{font-family:var(--mono);font-size:9px;color:var(--O);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;}
+.dsa-c-topics{font-size:13px;font-weight:600;margin-bottom:8px;}
+.dsa-c-list{list-style:none;}
+.dsa-c-item{font-size:11px;color:var(--t2);padding:3px 0;display:flex;gap:6px;}
+.dsa-c-item::before{content:'·';color:var(--O);}
+
+/* RULES */
+.rules-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.rules-card{background:var(--s1);border:1px solid var(--b1);border-radius:10px;padding:18px;}
+.rules-title{font-family:var(--disp);font-size:16px;margin-bottom:12px;}
+.rule-item{display:flex;gap:8px;font-size:12px;color:var(--t2);padding:5px 0;border-bottom:1px solid var(--b1);line-height:1.5;}
+.rule-item:last-child{border-bottom:none;}
+
+/* QUOTE */
+.qsec{padding:64px 36px;text-align:center;border-top:1px solid var(--b1);}
+.qtxt{font-family:var(--disp);font-size:clamp(24px,4vw,44px);line-height:1.15;max-width:800px;margin:0 auto;}
+.qtxt em{color:var(--G);font-style:normal;}
+.qsub{font-family:var(--mono);font-size:10px;color:var(--t3);margin-top:18px;letter-spacing:0.12em;}
+
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr;}
+  .metrics{grid-template-columns:repeat(3,1fr);}
+  .today-layout{grid-template-columns:1fr;}
+  .rules-grid{grid-template-columns:1fr;}
+  .sec{padding:24px 18px;}
+  .hdr{padding:14px 18px;}
+  .hdr-nav{display:none;}
+}
+</style>
+</head>
+<body>
+<div class="bg-grid"></div>
+<div class="content-wrap">
+
+<header class="hdr">
+  <div class="logo">EMPIRE OS v3</div>
+  <nav class="hdr-nav">
+    <button class="nav-btn" onclick="document.getElementById('s-today').scrollIntoView({behavior:'smooth'})">Today</button>
+    <button class="nav-btn" onclick="document.getElementById('s-roadmap').scrollIntoView({behavior:'smooth'})">Roadmap</button>
+    <button class="nav-btn" onclick="document.getElementById('s-projects').scrollIntoView({behavior:'smooth'})">Projects</button>
+    <button class="nav-btn" onclick="document.getElementById('s-dsa').scrollIntoView({behavior:'smooth'})">DSA Track</button>
+    <button class="nav-btn" onclick="document.getElementById('s-income').scrollIntoView({behavior:'smooth'})">Income</button>
+    <button class="nav-btn" onclick="document.getElementById('s-rules').scrollIntoView({behavior:'smooth'})">Rules</button>
+  </nav>
+  <div class="hdr-right">
+    <div class="live-date" id="live-date"></div>
+    <div class="day-chip" id="day-chip">DAY 1</div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div>
+    <div class="hero-eyebrow">365-day master blueprint — AI + Full Stack + SaaS + Freelance</div>
+    <h1 class="hero-h">MOST<br>VALUABLE.<br><span class="hl">MOST PAID.</span></h1>
+    <p class="hero-body">Every single day mapped. Every project defined. Every resource listed. Every DSA topic scheduled. Python → AI/LLMs → JS → TypeScript → React → Next.js → FastAPI → PostgreSQL → SaaS → Freelancing → Your own product. This is the complete blueprint.</p>
+    <div class="stack-grid">
+      <span class="sp hot">Python</span><span class="sp hot">AI/LLMs</span><span class="sp hot">TypeScript</span>
+      <span class="sp hot">React</span><span class="sp hot">Next.js</span><span class="sp hot">FastAPI</span>
+      <span class="sp">PostgreSQL</span><span class="sp">Supabase</span><span class="sp">Docker</span>
+      <span class="sp">Stripe</span><span class="sp">n8n</span><span class="sp">Rust (Phase 5)</span>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="prog-wrap">
+      <div class="prog-header">
+        <span class="prog-title">Overall Progress</span>
+        <span class="prog-pct" id="prog-pct">0%</span>
+      </div>
+      <div class="prog-track"><div class="prog-bar" id="prog-bar" style="width:0%"></div></div>
+      <div class="phase-pills" id="phase-pills"></div>
+    </div>
+    <div class="big-stat"><div class="bs-val" style="color:var(--G)" id="days-left">365</div><div class="bs-lbl">Days remaining</div></div>
+    <div class="big-stat"><div class="bs-val" style="color:var(--C)">15+</div><div class="bs-lbl">Projects to ship</div></div>
+    <div class="big-stat"><div class="bs-val" style="color:var(--O)">₹Crore</div><div class="bs-lbl">Year 2–3 ceiling</div></div>
+  </div>
+</section>
+
+<!-- METRICS -->
+<div class="metrics">
+  <div class="met"><div class="met-n" style="color:var(--G)">365</div><div class="met-l">Total days</div></div>
+  <div class="met"><div class="met-n" style="color:var(--C)">7h</div><div class="met-l">Daily study</div></div>
+  <div class="met"><div class="met-n" style="color:var(--O)">15+</div><div class="met-l">Projects</div></div>
+  <div class="met"><div class="met-n" style="color:var(--P)">5</div><div class="met-l">Phases</div></div>
+  <div class="met"><div class="met-n" style="color:var(--B)">DSA</div><div class="met-l">Daily 45 min</div></div>
+  <div class="met"><div class="met-n" style="color:var(--G)">∞</div><div class="met-l">Ceiling</div></div>
+</div>
+
+<!-- SCHEDULE -->
+<section class="sec" id="s-schedule">
+  <div class="sec-hdr">Your daily schedule (built around your timings)</div>
+  <div class="sched" id="sched"></div>
+</section>
+
+<!-- TODAY -->
+<section class="sec" id="s-today">
+  <div class="sec-hdr">Today's complete plan</div>
+  <div class="today-layout">
+    <div class="today-card">
+      <div class="tc-phase" id="tc-phase">Phase 1</div>
+      <div class="tc-topic" id="tc-topic">Loading...</div>
+      <ul class="cl" id="checklist"></ul>
+    </div>
+    <div class="today-right">
+      <div class="proj-c">
+        <div class="proj-lbl">Today's project target</div>
+        <div class="proj-name" id="proj-name">—</div>
+        <div class="proj-desc" id="proj-desc">Must exist on GitHub by 8 PM. No exceptions.</div>
+      </div>
+      <div class="dsa-c">
+        <div class="dsa-lbl">DSA focus today (45 min)</div>
+        <div class="dsa-topics" id="dsa-today"></div>
+      </div>
+      <div class="res-c">
+        <div class="res-lbl">Resources</div>
+        <div id="res-list"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FULL ROADMAP -->
+<section class="sec" id="s-roadmap">
+  <div class="sec-hdr">Full 365-day roadmap — phase by phase, week by week, day by day</div>
+  <div class="ptabs" id="ptabs"></div>
+  <div id="ppanels"></div>
+</section>
+
+<!-- ALL PROJECTS -->
+<section class="sec" id="s-projects">
+  <div class="sec-hdr">All 15+ projects — what to build, what to learn, freelance potential</div>
+  <div class="proj-showcase" id="proj-showcase"></div>
+</section>
+
+<!-- DSA TRACK -->
+<section class="sec" id="s-dsa">
+  <div class="sec-hdr">DSA side track — 45 min daily, every month mapped</div>
+  <div class="dsa-track" id="dsa-track"></div>
+</section>
+
+<!-- INCOME -->
+<section class="sec" id="s-income">
+  <div class="sec-hdr">Realistic income progression</div>
+  <div class="inc-timeline" id="inc-timeline"></div>
+</section>
+
+<!-- RULES -->
+<section class="sec" id="s-rules">
+  <div class="sec-hdr">Non-negotiable rules</div>
+  <div class="rules-grid" id="rules-grid"></div>
+</section>
+
+<!-- QUOTE -->
+<section class="qsec">
+  <div class="qtxt" id="qtxt"></div>
+  <div class="qsub">OPEN THIS PAGE EVERY MORNING — EXECUTE — CLOSE IT HAVING DONE THE WORK</div>
+</section>
+
+</div><!-- content-wrap -->
+
+<script>
+const START = new Date('2026-05-14');
+
+// ─── SCHEDULE ───────────────────────────────────────────────
+const SCHED = [
+  {time:'6:00–8:00 AM',name:'Deep Study',desc:'New concepts. Take notes in Markdown. No social media.',tag:'LEARN',c:'var(--G)'},
+  {time:'8:00–9:00 AM',name:'Breakfast',desc:'Rest eyes. Review notes mentally. No coding.',tag:'BREAK',c:'var(--t3)'},
+  {time:'9:00–10:30 AM',name:'DSA Practice',desc:'LeetCode / HackerRank. 2–3 problems. Think before typing.',tag:'DSA',c:'var(--O)'},
+  {time:'10:30 AM–12:30 PM',name:'Build Session 1',desc:'Implement today\'s project. Code what you studied this morning.',tag:'BUILD',c:'var(--C)'},
+  {time:'12:30–1:30 PM',name:'Lunch',desc:'Eat well. Short break. Watch a 10-min tech video max.',tag:'BREAK',c:'var(--t3)'},
+  {time:'1:30–5:45 PM',name:'Deep Build Session',desc:'4+ hours. This is your primary output window. Ship something real.',tag:'BUILD',c:'var(--C)'},
+  {time:'5:45–8:00 PM',name:'Gym + Break',desc:'Full switch-off. Physical health = better brain. Sacred.',tag:'GYM',c:'var(--R)'},
+  {time:'8:00–8:45 PM',name:'Post + Expose',desc:'Post on LinkedIn/Twitter. GitHub push. Record a 60s demo. Be visible.',tag:'EXPOSE',c:'var(--P)'},
+  {time:'8:45–9:00 PM',name:'Plan Tomorrow',desc:'Read tomorrow\'s topic. Write 3 goals for tomorrow. Close laptop.',tag:'PLAN',c:'var(--B)'},
+  {time:'9:00–10:00 PM',name:'Dinner + Rest',desc:'No screens. Let today\'s learning consolidate. Sleep by 10:30.',tag:'REST',c:'var(--t3)'},
+];
+
+// ─── PHASES / WEEKS / DAYS ──────────────────────────────────
+const PHASES = [
+{
+  name:'Phase 1',label:'Python + AI Foundations',color:var('--G'),tc:'#000',startDay:1,endDay:60,
+  desc:'Learn Python. Hit AI APIs. Build and deploy 4 real projects. Become AI-capable.',
+  weeks:[
+    {n:'Week 1',t:'Python Basics',dsa:'Arrays + Strings basics',
+     days:['Setup Python, VS Code, run hello.py','Variables, data types, print(), input()','Conditionals — if/elif/else + operators','Loops — for, while, range(), break/continue','Functions — def, return, parameters, scope','Lists — create, index, slice, append, remove','Build day — calculator + guessing game'],
+     proj:'CLI Calculator + Number Guessing Game',res:['python.org/doc','realpython.com/start-here','CS50P Week 0 (Harvard free)']},
+    {n:'Week 2',t:'Intermediate Python',dsa:'Hashmaps + Complexity O(n)',
+     days:['Dictionaries — keys, values, .items(), .get()','File I/O — open(), read(), write(), with statement','Modules — os, sys, math, random, datetime','pip + virtual environments (venv) mastery','OOP basics — classes, __init__, self, methods','Error handling — try/except/finally/raise','Build day — expense tracker CLI + file persistence'],
+     proj:'Expense Tracker CLI with file-based storage',res:['realpython.com/python-classes','docs.python.org/3/tutorial/errors','automatetheboringstuff.com ch1-7']},
+    {n:'Week 3',t:'APIs + HTTP + JSON',dsa:'Recursion basics',
+     days:['What is HTTP? GET/POST/headers/status codes','requests library — install, GET, POST, params','JSON — parse with json.loads, serialize json.dumps','Environment variables — python-dotenv, .env files','Error handling for API calls + timeouts','Working with OpenWeather API end to end','Build day — weather app + crypto tracker'],
+     proj:'Weather CLI + Crypto Price Tracker',res:['docs.python-requests.org','openweathermap.org/api','coinapi.io free tier']},
+    {n:'Week 4',t:'Git + GitHub + Deploy',dsa:'Sorting algorithms',
+     days:['Git — init, add, commit, status, diff, log','Branches — create, checkout, merge, conflicts','GitHub — push, pull, fork, clone, pull requests','README.md — write properly with badges','gitignore — what to exclude and why','GitHub Pages — deploy a static site','Clean up all 3 projects: proper READMEs + deployed'],
+     proj:'GitHub profile polished — 3 repos, clean READMEs, deployed',res:['learngitbranching.js.org','docs.github.com/get-started','ohshitgit.com']},
+    {n:'Week 5',t:'OpenAI + Gemini APIs',dsa:'Binary search',
+     days:['OpenAI API setup — account, keys, playground','Chat completions — role:system, role:user, role:assistant','Prompt engineering — clarity, examples, constraints','Temperature, max_tokens, top_p explained','Streaming responses — real-time output','Google Gemini API — setup + compare with OpenAI','Build day — AI chatbot with conversation memory'],
+     proj:'AI Chatbot CLI with persistent conversation history',res:['platform.openai.com/docs','ai.google.dev/docs','learnprompting.org']},
+    {n:'Week 6',t:'AI Project Sprint 1',dsa:'Linked lists basics',
+     days:['LangChain intro — why, what, install','Document loaders — PDF, text, web','Text splitting — chunk size strategies','Embeddings explained — semantic meaning in numbers','ChromaDB — local vector store setup','Build RAG chain — retriever + LLM','Final polish + deploy to Hugging Face Spaces'],
+     proj:'AI Resume Analyzer — upload PDF → AI score + feedback (deployed live)',res:['python.langchain.com/docs','docs.trychroma.com','huggingface.co/spaces']},
+    {n:'Week 7',t:'FastAPI + AI backend',dsa:'Stacks + Queues',
+     days:['FastAPI setup — why FastAPI over Flask','Routes — GET, POST, path params, query params','Pydantic models — request validation, typing','Async endpoints — async def + await','CORS — what it is, how to configure it','Serve AI model via REST endpoint','Build: FastAPI backend for resume analyzer'],
+     proj:'FastAPI AI backend — resume analyzer API (Railway deployed)',res:['fastapi.tiangolo.com/tutorial','railway.app/docs','realpython.com/fastapi-python']},
+    {n:'Week 8',t:'Frontend Basics + Integration',dsa:'Sliding window intro',
+     days:['HTML — semantic structure, forms, inputs','CSS — flexbox, grid, variables, responsive basics','JavaScript — variables, functions, DOM, events','fetch() — call your FastAPI AI from the browser','async/await in JavaScript + error handling','Build a clean UI for resume analyzer','Deploy full-stack: Railway (backend) + Vercel (frontend)'],
+     proj:'AI Resume Analyzer — full UI + API + deployed (your first real product)',res:['javascript.info','css-tricks.com/snippets/css/a-guide-to-flexbox','vercel.com/docs']},
+  ]
+},
+{
+  name:'Phase 2',label:'Full Stack Builder',color:var('--C'),tc:'#000',startDay:61,endDay:150,
+  desc:'React + TypeScript + Next.js + PostgreSQL + Supabase. Become deploy-capable and SaaS-ready.',
+  weeks:[
+    {n:'Week 9',t:'React Fundamentals',dsa:'Trees basics (BST)',
+     days:['What is React? Virtual DOM, JSX syntax','Functional components + props','useState — controlled state management','useEffect — side effects, cleanup, deps array','Lists with .map() + key prop','Conditional rendering — ternary, &&, || patterns','Build: React Pomodoro timer with session log'],
+     proj:'React Pomodoro Timer — full UI with session history + streaks',res:['react.dev/learn','scrimba.com/learn/learnreact','Traversy React crash course YT']},
+    {n:'Week 10',t:'React Deeper',dsa:'Binary search tree ops',
+     days:['React Router v6 — BrowserRouter, Routes, Link','Context API — createContext, Provider, useContext','Custom hooks — useLocalStorage, useDebounce, useFetch','React Hook Form — controlled forms, validation','Tanstack Query — useQuery, useMutation, caching','Error boundaries + loading states','Build: Full notes app with routing + search'],
+     proj:'Notes App — React + Router + Context + local storage (deployed)',res:['tanstack.com/query/latest/docs','react-hook-form.com','reactrouter.com/en/main']},
+    {n:'Week 11',t:'TypeScript',dsa:'Two pointers',
+     days:['Why TypeScript? Install + tsconfig.json','Primitive types — string, number, boolean, null','Interfaces and type aliases','Typed functions — params + return types','Arrays, tuples, optional properties','Union types, intersection types, type guards','Rewrite your notes app in TypeScript'],
+     proj:'TypeScript Notes App (rewrite + add dark mode + tags)',res:['typescriptlang.org/docs/handbook','totaltypescript.com/tutorials (free)','executeprogram.com/TypeScript']},
+    {n:'Week 12',t:'Advanced TypeScript',dsa:'Recursion deep dive',
+     days:['Generics — write reusable typed functions','Utility types — Partial, Required, Pick, Omit, Record','Enums and const assertions','Type narrowing — typeof, instanceof, in','Classes in TypeScript — OOP + access modifiers','Declaration files — .d.ts basics','Build a fully typed API client library'],
+     proj:'Typed OpenAI API Client class — published to GitHub as open-source library',res:['type-challenges on GitHub','typescriptlang.org/play','Matt Pocock TypeScript tips YT']},
+    {n:'Week 13',t:'Next.js Foundations',dsa:'Graph intro (BFS)',
+     days:['What is Next.js? Why over plain React?','App Router — file-based routing, layouts, pages','Server vs Client components — when to use each','Data fetching — fetch() in server components','Route Handlers — API routes in Next.js','next/image, next/font, next/link','Build: Portfolio site in Next.js + deploy Vercel'],
+     proj:'Personal Portfolio — Next.js + TypeScript + deployed on Vercel',res:['nextjs.org/docs','nextjs.org/learn','Lee Robinson YT — Next.js tutorials']},
+    {n:'Week 14',t:'Next.js + AI + Auth',dsa:'Graph DFS',
+     days:['Clerk auth — install, wrap app, useUser hook','Protected routes — middleware.ts in Next.js','Server actions — mutate data without API routes','Vercel AI SDK — useChat hook, streaming','Calling OpenAI from Next.js server actions','Rate limiting API routes — upstash/ratelimit','Build: AI writing assistant with auth + streaming'],
+     proj:'AI Writing Assistant — Next.js + Clerk auth + streaming AI + deployed',res:['clerk.com/docs/quickstarts/nextjs','sdk.vercel.ai/docs','upstash.com/docs/redis']},
+    {n:'Week 15',t:'PostgreSQL + Supabase',dsa:'Sliding window advanced',
+     days:['SQL fundamentals — SELECT, WHERE, JOIN, GROUP BY','INSERT, UPDATE, DELETE — full CRUD in SQL','Primary keys, foreign keys, indexes explained','Supabase setup — hosted Postgres, dashboard','Supabase JS client — CRUD operations in TypeScript','Row Level Security — policy-based auth-aware queries','Connect Supabase to your Next.js app'],
+     proj:'AI Bookmark Manager — Next.js + Supabase + Clerk + AI tag suggestions',res:['supabase.com/docs/guides/database','sqlzoo.net','pgexercises.com']},
+    {n:'Week 16',t:'Full Backend with FastAPI + Postgres',dsa:'DP intro (memoization)',
+     days:['SQLAlchemy ORM — models, relationships, sessions','Alembic — schema migrations, versioning','Async FastAPI with asyncpg + SQLAlchemy async','JWT auth in FastAPI — create, verify tokens','Background tasks in FastAPI','Pydantic v2 — advanced validation, serializers','Build: Full auth backend API — register, login, protected'],
+     proj:'Full-stack Task Manager — Next.js + FastAPI + PostgreSQL + JWT (all deployed)',res:['fastapi.tiangolo.com/advanced','sqlalchemy.org/en/20/orm','alembic.sqlalchemy.org']},
+    {n:'Week 17-18',t:'SaaS Project Sprint',dsa:'DP patterns (0/1 knapsack)',
+     days:['Stripe setup — dashboard, API keys, test mode','Checkout Sessions — one-time payments flow','Stripe Webhooks — handle events with FastAPI','Subscription plans — recurring billing setup','Customer portal — let users manage subscriptions','Docker basics — Dockerfile, docker-compose, images','Deploy Docker container + Postgres on VPS'],
+     proj:'AI Content Generator SaaS — login + Stripe plans + AI outputs + history (LAUNCHED)',res:['stripe.com/docs/checkout','docs.docker.com/get-started','railway.app/docs']},
+  ]
+},
+{
+  name:'Phase 3',label:'Freelancing + First Income',color:var('--O'),tc:'#000',startDay:151,endDay:240,
+  desc:'Position. Outreach. Land clients. First ₹10K–₹1L+ months. Transition from builder to earner.',
+  weeks:[
+    {n:'Week 19',t:'Portfolio + Positioning',dsa:'Interview DSA patterns',
+     days:['Polish all 5–7 projects — live URLs, clean UI','Write case studies — problem, solution, tech stack','Record 60-second demo videos for each project','LinkedIn optimization — headline, about, featured','Create a personal site showcasing everything','Position as: "AI + Full Stack Developer"','Write 5 LinkedIn posts about projects you built'],
+     proj:'Personal site v2 — case studies, demos, testimonials section, hire me CTA',res:['read.cv (portfolio inspiration)','linkedin.com/help/linkedin','loom.com — free screen recording']},
+    {n:'Week 20',t:'Outreach System',dsa:'Strings + patterns for interviews',
+     days:['Define your target: startups, SMBs, agencies, founders','Write 3 cold email templates (AI chatbot, dashboard, automation)','Write 3 cold DM templates for Twitter/LinkedIn','Set up a simple CRM in Notion to track outreach','Send 10 DMs + 5 emails every single day','Follow up on day 3 and day 7 for no-replies','Post 1 piece of content daily (demo, build log, tip)'],
+     proj:'Outreach system live — 70+ people contacted, 5+ replies tracked in Notion',res:['alex hormozi — $100M offers','lemlist.com/blog','hunter.io — find emails']},
+    {n:'Week 21',t:'Discovery + Proposals',dsa:'Trees for interviews',
+     days:['How to run a discovery call — 10 key questions','Active listening — identify the real pain point','Proposal structure — problem, solution, timeline, price','Value-based pricing vs hourly explained','Scope creep — how to handle it','Payment terms — 50% upfront always','Practice mock discovery call (record yourself)'],
+     proj:'First paid project — AI chatbot, dashboard, or automation for a client',res:['bonsai.io — free proposals','calendly.com — free scheduling','notion.so — project tracking']},
+    {n:'Week 22',t:'Deliver + Scale',dsa:'Graph problems for interviews',
+     days:['Project management basics — scope, timeline, milestones','Client communication cadence — weekly updates','Git workflow for client projects','Testing before delivery — manual QA checklist','Getting testimonials + referrals after delivery','Upwork profile setup + first proposals','International client outreach — Toptal, Contra'],
+     proj:'Second client delivered + testimonial collected + Upwork profile live',res:['upwork.com/resources','contra.com','toptal.com/freelance/join']},
+    {n:'Week 23-24',t:'AI Automation Specialist',dsa:'Mock interviews + LeetCode',
+     days:['n8n install — self-hosted or cloud','n8n workflows — triggers, nodes, conditions','Connect Gmail + Notion + Slack via n8n','Webhook-triggered automation for client','Make.com (Integromat) as alternative','Build an automation that replaces a manual task','Price and sell automations as recurring retainers'],
+     proj:'AI Automation Platform — sell 3 automation workflows to 2 businesses',res:['docs.n8n.io','make.com/en/help','zapier.com/learn']},
+  ]
+},
+{
+  name:'Phase 4',label:'SaaS + Product Owner',color:var('--P'),tc:'#fff',startDay:241,endDay:330,
+  desc:'Stop trading time for money. Build products that earn while you sleep. Launch your own SaaS.',
+  weeks:[
+    {n:'Week 25',t:'Product Thinking',dsa:'System design basics',
+     days:['Identify your niche — where\'s the pain point?','Research 10 potential SaaS ideas with market data','Validate idea — talk to 10 potential users','Define MVP scope — what\'s the smallest useful version?','Competitor analysis — pricing, features, gaps','Build in public — announce what you\'re making','Write your landing page copy BEFORE building'],
+     proj:'SaaS idea validated — landing page live — email waitlist collecting signups',res:['producthunt.com','indiehackers.com','ahrefs.com/free-seo-tools']},
+    {n:'Week 26-28',t:'Build SaaS MVP',dsa:'System design continued',
+     days:['Set up Next.js + Supabase + Clerk + Stripe boilerplate','Core feature development — the AI-powered value prop','User onboarding flow — clear first-run experience','Subscription tiers — free + pro feature gating','Email notifications with Resend','Analytics with Plausible or PostHog','Testing + bug fixing sprint'],
+     proj:'Your SaaS MVP — live, paid, real users',res:['saasdesign.io','posthog.com/docs','resend.com/docs']},
+    {n:'Week 29-30',t:'Launch + Growth',dsa:'Distributed systems intro',
+     days:['Product Hunt launch — timing, comments, upvotes','Indie Hackers post — honest build story','Reddit posts — subreddits for your niche','Cold email 200 people in your target market','SEO basics — title tags, meta, content','Twitter/X build-in-public thread series','Iterate based on user feedback — ship weekly'],
+     proj:'SaaS launched with first 5 paying customers and MRR > ₹0',res:['producthunt.com/launch','shipfa.st (boilerplate)','growthhackers.com']},
+  ]
+},
+{
+  name:'Phase 5',label:'Advanced Systems + Rust',color:var('--B'),tc:'#fff',startDay:331,endDay:365,
+  desc:'Deepen engineering. Learn Rust. Build high-performance systems. Become truly senior.',
+  weeks:[
+    {n:'Week 31-32',t:'Rust Foundations',dsa:'Advanced algorithms',
+     days:['Why Rust? Ownership model explained conceptually','Install Rust + cargo — hello world','Variables, types, mutability in Rust','Ownership — move, borrow, lifetime basics','Structs, enums, pattern matching','Error handling — Result, Option, ? operator','CLI tool in Rust — file processor'],
+     proj:'Rust CLI tool — fast file search utility (10x faster than Python version)',res:['doc.rust-lang.org/book','rustlings exercises','No Boilerplate YT']},
+    {n:'Week 33-34',t:'Rust Web + Performance',dsa:'Competitive programming',
+     days:['Axum framework — routes, handlers, middleware','Tokio async runtime — async/await in Rust','Connect to PostgreSQL with sqlx','Benchmark Rust API vs FastAPI vs Node.js','Compile Rust to WebAssembly (WASM)','Use Rust WASM module in Next.js app','Call Rust from Python with PyO3'],
+     proj:'Ultra-fast API in Rust + Axum — benchmarked + WASM module in your SaaS',res:['tokio.rs/tutorial','docs.rs/axum','rustwasm.github.io/docs/book']},
+    {n:'Week 35-52',t:'Scale Your Empire',dsa:'Ongoing interview prep',
+     days:['Advanced AI agents — CrewAI, LangGraph','Blockchain basics — smart contracts, Solidity','Distributed systems — load balancing, caching','Redis — caching, queues, pub/sub','Advanced PostgreSQL — query optimization, indexing','Build AI agents for your SaaS','Scale to ₹1L+/month'],
+     proj:'Empire Product v2 — Next.js + Rust API + Python AI + full deployment + ₹1L MRR target',res:['docs.crewai.com','redis.io/docs','highscalability.com']},
+  ]
+},
+];
+
+// ─── PROJECTS SHOWCASE ───────────────────────────────────────
+const PROJECTS = [
+  {n:'01',name:'CLI Calculator + Guessing Game',phase:'Phase 1 — Week 1',pc:var('--G'),ptc:'#000',desc:'Your first Python programs. Learn variables, loops, functions, conditions by building something that actually runs.',learns:['Python basics','Functions','User input','Loops'],earn:'Foundation only — not freelance-worthy yet'},
+  {n:'02',name:'Expense Tracker CLI',phase:'Phase 1 — Week 2',pc:var('--G'),ptc:'#000',desc:'Persistent data with files. CRUD operations. Teaches you dictionaries, file I/O, and the fundamentals of data management.',learns:['File I/O','Dictionaries','CRUD','Error handling'],earn:'Foundation project'},
+  {n:'03',name:'Weather + Crypto Tracker',phase:'Phase 1 — Week 3',pc:var('--G'),ptc:'#000',desc:'Your first real-world API integration. You\'ll understand how the entire internet works after this.',learns:['HTTP/REST','requests library','JSON','.env files'],earn:'Sellable as a script — ₹2K–₹5K'},
+  {n:'04',name:'GitHub Profile + Portfolio Base',phase:'Phase 1 — Week 4',pc:var('--G'),ptc:'#000',desc:'Your online presence. Recruiters and clients will judge you by your GitHub. Make it count.',learns:['Git workflow','GitHub','Documentation','Deployment'],earn:'Career asset — gets you hired'},
+  {n:'05',name:'AI Chatbot CLI',phase:'Phase 1 — Week 5',pc:var('--G'),ptc:'#000',desc:'Your first AI project. You\'ll understand LLMs, tokens, and how ChatGPT actually works under the hood.',learns:['OpenAI API','Prompt engineering','Streaming','Gemini API'],earn:'₹5K–₹15K as a custom chatbot for clients'},
+  {n:'06',name:'AI Resume Analyzer (Full Product)',phase:'Phase 1 — Weeks 6-8',pc:var('--G'),ptc:'#000',desc:'Your Phase 1 capstone. Python + FastAPI backend + HTML/JS frontend. Deployed live. This gets you first clients.',learns:['LangChain','RAG','FastAPI','PDF parsing','Full deployment'],earn:'₹15K–₹50K — coaching institutes + HR companies will pay for this'},
+  {n:'07',name:'React Pomodoro + Notes App',phase:'Phase 2 — Weeks 9-10',pc:var('--C'),ptc:'#000',desc:'React fundamentals through real UI. You\'ll know hooks, routing, state, and component architecture after this.',learns:['React','useState/useEffect','React Router','Context API','Custom hooks'],earn:'Portfolio piece — shows frontend skill'},
+  {n:'08',name:'TypeScript Library',phase:'Phase 2 — Weeks 11-12',pc:var('--C'),ptc:'#000',desc:'Write a fully typed, open-source TypeScript library. Published on GitHub. Shows advanced TS knowledge to employers.',learns:['TypeScript generics','Utility types','Open source publishing','Documentation'],earn:'Career accelerator — rare for freshers to have this'},
+  {n:'09',name:'AI Writing Assistant',phase:'Phase 2 — Weeks 13-14',pc:var('--C'),ptc:'#000',desc:'Full Next.js app with auth, streaming AI, deployed on Vercel. Your first "real SaaS-like" product.',learns:['Next.js App Router','Clerk auth','Vercel AI SDK','Server actions','Streaming'],earn:'₹20K–₹80K — startup teams will pay for writing tools'},
+  {n:'10',name:'AI Bookmark Manager',phase:'Phase 2 — Week 15',pc:var('--C'),ptc:'#000',desc:'Full-stack with Supabase, auth, AI-powered tagging. Shows database + auth + AI together.',learns:['PostgreSQL','Supabase','Row Level Security','Full-stack integration'],earn:'₹25K–₹60K — productivity app clients'},
+  {n:'11',name:'Full-stack Task Manager',phase:'Phase 2 — Weeks 16',pc:var('--C'),ptc:'#000',desc:'Next.js frontend + FastAPI backend + PostgreSQL + JWT. The real full-stack combo that startups use.',learns:['FastAPI + SQLAlchemy','JWT auth','Alembic migrations','Full separation of frontend/backend'],earn:'₹30K–₹1L — startup MVP development'},
+  {n:'12',name:'AI Content Generator SaaS (LAUNCHED)',phase:'Phase 2 — Weeks 17-18',pc:var('--C'),ptc:'#000',desc:'Your first real SaaS. Login, Stripe subscriptions, AI features, deployed. This changes everything.',learns:['Stripe + webhooks','Docker','SaaS architecture','Customer portal'],earn:'₹0–₹50K MRR in first month — actual recurring revenue'},
+  {n:'13',name:'AI Automation Platform',phase:'Phase 3 — Weeks 23-24',pc:var('--O'),ptc:'#000',desc:'n8n workflows + AI triggers. You can automate business processes end-to-end. Clients pay monthly retainers for this.',learns:['n8n workflows','Webhooks','Email automation','Business process mapping'],earn:'₹15K–₹50K/month per client on retainer'},
+  {n:'14',name:'Your Own SaaS MVP',phase:'Phase 4 — Weeks 25-30',pc:var('--P'),ptc:'#fff',desc:'YOUR product. YOUR idea. Validated, built, launched, and paying. This is where the empire begins.',learns:['Product thinking','User research','Launch strategy','Growth hacking','Retention'],earn:'₹0 to crores — depends on the idea and your execution'},
+  {n:'15',name:'Rust High-Performance API + WASM',phase:'Phase 5',pc:var('--B'),ptc:'#fff',desc:'Rust-powered API that benchmarks 10x faster than Node.js. WASM module embedded in your SaaS. You become rare.',learns:['Rust ownership','Axum framework','WebAssembly','Benchmarking'],earn:'₹40–₹80 LPA job offers — Rust devs are extremely scarce'},
+];
+
+// ─── DSA TRACK ─────────────────────────────────────────────
+const DSA = [
+  {period:'Month 1',topics:'Arrays + Strings',items:['Two-sum problem','Reverse array','Find duplicates','String anagram check','Sliding window intro','kadane\'s algorithm','Practice: 3/day on LeetCode easy']},
+  {period:'Month 2',topics:'Hashmaps + Complexity',items:['Frequency counter','Two-sum with hashmap','Group anagrams','O(n) vs O(n²) analysis','Space/time tradeoffs','Prefix sums','Practice: 3/day — easy to medium']},
+  {period:'Month 3',topics:'Stacks + Queues + Linked Lists',items:['Valid parentheses (stack)','Implement queue using stack','Reverse a linked list','Detect cycle in linked list','Merge two sorted lists','LRU cache concept','Practice: 2–3/day medium']},
+  {period:'Month 4',topics:'Trees + Binary Search',items:['Tree traversals — inorder/preorder/postorder','Height of binary tree','Level-order BFS traversal','Binary search on array','Find first/last position','Search in rotated array','Practice: 2/day medium']},
+  {period:'Month 5',topics:'Graphs + Sliding Window',items:['BFS + DFS on graphs','Number of islands','Clone graph','Minimum window substring','Longest substring no repeat','Fruit into baskets','Practice: 2/day medium']},
+  {period:'Month 6',topics:'DP Basics',items:['Fibonacci — memoization vs tabulation','Climbing stairs','House robber','Coin change (bottom-up)','Longest common subsequence','0/1 knapsack','Practice: 1–2/day medium-hard']},
+  {period:'Month 7–9',topics:'Interview Prep',items:['All major patterns reviewed','Mock interviews — pramp.com','System design basics','Top 75 LeetCode list','2 medium + 1 hard per day','Resume + GitHub update','Apply to 10 jobs/week']},
+  {period:'Month 10–12',topics:'Advanced + Competitive',items:['Graph algorithms — Dijkstra, Floyd-Warshall','Advanced DP — interval, digit','Trie data structure','Heap + priority queue','Segment trees intro','Contest participation','Aim: 200+ solved on LeetCode']},
+];
+
+// ─── INCOME ─────────────────────────────────────────────────
+const INCOME = [
+  {per:'Days 1–60',amt:'₹0',c:'var(--t2)',desc:'Pure investment phase. Zero income expected. Build everything. Deploy everything. Every project is a future asset.'},
+  {per:'Days 61–90',amt:'₹5K–20K',c:'var(--O)',desc:'First freelance micro-gigs. Small automation scripts, simple chatbots. Internship applications live.'},
+  {per:'Days 91–150',amt:'₹20K–80K',c:'var(--O)',desc:'Full-stack deployed. Resume analyzer, task manager in portfolio. Startup internships or small client projects.'},
+  {per:'Days 151–180',amt:'₹50K–1.5L',c:'var(--C)',desc:'Active outreach + first real clients. AI chatbot + automation setups for SMBs. Month 6 breakpoint.'},
+  {per:'Days 181–240',amt:'₹1–3L/mo',c:'var(--C)',desc:'Automation retainers + international freelance. Upwork profile active. Some SaaS side income starting.'},
+  {per:'Days 241–330',amt:'₹2–10L/mo',c:'var(--G)',desc:'Your own SaaS launching + growing. Agency clients. Premium AI builds. This is where it compounds.'},
+  {per:'Year 2–3+',amt:'₹Crores',c:'var(--G)',desc:'From ownership — SaaS MRR, agency revenue, product exits. Not salary. Asymmetric wealth from building.'},
+];
+
+// ─── RESOURCES MAP ───────────────────────────────────────────
+const RES = {
+  'Python Basics':['python.org/doc — official tutorial','CS50P Harvard (free on YouTube)','realpython.com/start-here'],
+  'Intermediate Python':['realpython.com/python-classes','automatetheboringstuff.com (free book)','docs.python.org/3/tutorial/errors'],
+  'APIs + HTTP + JSON':['docs.python-requests.org','openweathermap.org/api','jsonplaceholder.typicode.com (test API)'],
+  'Git + GitHub + Deploy':['learngitbranching.js.org (interactive)','ohshitgit.com','docs.github.com/en/get-started'],
+  'OpenAI + Gemini APIs':['platform.openai.com/docs','ai.google.dev/docs','learnprompting.org (free)'],
+  'AI Project Sprint 1':['python.langchain.com/docs','docs.trychroma.com','huggingface.co/docs/hub/spaces'],
+  'FastAPI + AI backend':['fastapi.tiangolo.com/tutorial','railway.app/docs','realpython.com/fastapi-python'],
+  'Frontend Basics + Integration':['javascript.info','css-tricks.com/a-guide-to-flexbox','vercel.com/docs'],
+  'React Fundamentals':['react.dev/learn','scrimba.com/learn/learnreact','Traversy Media React crash YT'],
+  'React Deeper':['tanstack.com/query/latest','react-hook-form.com','reactrouter.com/en/main/start/tutorial'],
+  'TypeScript':['typescriptlang.org/docs/handbook','totaltypescript.com/tutorials','executeprogram.com/TypeScript'],
+  'Advanced TypeScript':['type-challenges on GitHub','typescriptlang.org/play','Matt Pocock — TypeScript tips YT'],
+  'Next.js Foundations':['nextjs.org/learn','Lee Robinson YT channel','nextjs.org/docs/app'],
+  'Next.js + AI + Auth':['clerk.com/docs/quickstarts/nextjs','sdk.vercel.ai/docs/introduction','upstash.com/docs/redis/sdks/ratelimit'],
+  'PostgreSQL + Supabase':['supabase.com/docs/guides/database','sqlzoo.net (interactive)','pgexercises.com'],
+  'Full Backend with FastAPI + Postgres':['fastapi.tiangolo.com/advanced','sqlalchemy.org/en/20','alembic.sqlalchemy.org/en/latest'],
+  'SaaS Project Sprint':['stripe.com/docs/checkout','docs.docker.com/get-started','fly.io/docs (deployment)'],
+  'Portfolio + Positioning':['read.cv (portfolio examples)','loom.com (free recording)','carrd.co (simple portfolio)'],
+  'Outreach System':['lemlist.com/blog','hunter.io (find emails)','apollo.io (free leads)'],
+  'Discovery + Proposals':['bonsai.io (proposals)','calendly.com (scheduling)','notion.so (CRM template)'],
+  'Deliver + Scale':['upwork.com/resources','contra.com','toptal.com/freelance/join'],
+  'AI Automation Specialist':['docs.n8n.io','make.com/en/help','zapier.com/learn/automation'],
+  'Product Thinking':['producthunt.com','indiehackers.com/start','airtable.com/templates/product-roadmap'],
+  'Build SaaS MVP':['saasdesign.io','posthog.com/docs','resend.com/docs'],
+  'Launch + Growth':['producthunt.com/launch','shipfa.st (boilerplate)','growthhackers.com'],
+  'Rust Foundations':['doc.rust-lang.org/book (THE book)','rustlings — github.com/rust-lang/rustlings','No Boilerplate YT channel'],
+  'Rust Web + Performance':['tokio.rs/tokio/tutorial','docs.rs/axum/latest','rustwasm.github.io/docs/book'],
+  'Scale Your Empire':['docs.crewai.com','redis.io/docs/getting-started','highscalability.com'],
+};
+
+// ─── DSA TOPIC PER WEEK ──────────────────────────────────────
+const WEEK_DSA = {
+  'Python Basics':'Arrays + Strings — 2 easy LeetCode problems',
+  'Intermediate Python':'Hashmaps — frequency counting problems',
+  'APIs + HTTP + JSON':'Recursion — factorial, fibonacci, power',
+  'Git + GitHub + Deploy':'Sorting — bubble, selection, insertion',
+  'OpenAI + Gemini APIs':'Binary search — classic + rotated array',
+  'AI Project Sprint 1':'Linked lists — reverse, detect cycle',
+  'FastAPI + AI backend':'Stacks — valid parentheses, min stack',
+  'Frontend Basics + Integration':'Sliding window — max sum subarray',
+  'React Fundamentals':'Trees — inorder, preorder, height',
+  'React Deeper':'BST — search, insert, validate',
+  'TypeScript':'Two pointers — 3sum, container with water',
+  'Advanced TypeScript':'Recursion — tree problems, merge sort',
+  'Next.js Foundations':'Graphs — BFS number of islands',
+  'Next.js + AI + Auth':'Graphs — DFS flood fill, clone graph',
+  'PostgreSQL + Supabase':'Sliding window advanced — window problems',
+  'Full Backend with FastAPI + Postgres':'DP intro — climbing stairs, coin change',
+  'SaaS Project Sprint':'DP patterns — house robber, 0/1 knapsack',
+  'Portfolio + Positioning':'Interview patterns — top 20 patterns review',
+  'Outreach System':'Strings interview problems — top 10',
+  'Discovery + Proposals':'Trees interview problems — LCA, zigzag',
+  'Deliver + Scale':'Graphs — Dijkstra, topological sort',
+  'AI Automation Specialist':'Mock interviews — pramp.com 2x/week',
+  'Product Thinking':'System design basics — URL shortener',
+  'Build SaaS MVP':'System design — design Twitter feed',
+  'Launch + Growth':'Distributed systems — CAP theorem',
+  'Rust Foundations':'Advanced algorithms — segment tree',
+  'Rust Web + Performance':'Competitive programming contests',
+  'Scale Your Empire':'Ongoing — 2 problems/day maintain streak',
+};
+
+// ─── QUOTES ──────────────────────────────────────────────────
+const QUOTES = [
+  'The market does not pay for knowledge. <em>It pays for shipped products.</em>',
+  'Every crore earner started exactly where you are right now. <em>They just didn\'t quit.</em>',
+  'Tutorial hell is just procrastination with a study aesthetic. <em>Open VS Code.</em>',
+  'One year of real daily work is worth <em>four years of college theory.</em>',
+  'The income follows the proof. <em>The proof follows the building. Start building.</em>',
+  'Ship ugly. Fix it. Ship again. <em>That\'s the whole algorithm.</em>',
+  'Nobody who built and shipped consistently for a year <em>stayed broke.</em>',
+  'Your GitHub is your resume now. <em>Make it embarrassingly good.</em>',
+  'The crores are not found. <em>They are built, one day at a time.</em>',
+  'The only difference between you and a ₹5L/month developer <em>is time and reps.</em>',
+];
+
+// ─── RULES ───────────────────────────────────────────────────
+const RULES_DO = [
+  'Build something every single day — even if tiny',
+  'Deploy every project — local doesn\'t count',
+  'Push to GitHub daily — your commit graph is your proof',
+  'Post online — LinkedIn, Twitter, Reddit. Be visible',
+  'Do DSA every morning — 2–3 problems, non-negotiable',
+  'Finish the project before moving to the next topic',
+  'Read documentation — not just tutorials',
+  'Reach out to 10 people every day from month 5 onwards',
+  'Solve real problems — every project should solve something',
+  'Improve communication — write clearly, speak clearly',
+];
+const RULES_DONT = [
+  'Never watch tutorials without coding along simultaneously',
+  'Never move on without finishing the project for the week',
+  'Never learn 3 things at once — one topic, one project, full focus',
+  'Never only grind DSA while neglecting building',
+  'Never compare your day 30 to someone else\'s day 500',
+  'Never wait until you\'re "ready" to post or reach out',
+  'Never skip the deploy step — local projects don\'t get you clients',
+  'Never ignore documentation and only watch YouTube',
+  'Never stop posting — consistency beats perfection',
+  'Never quit because you don\'t understand something — search, ask, figure it out',
+];
+
+// ─── HELPERS ─────────────────────────────────────────────────
+function var_(v){return v;}// placeholder since we inline colors
+function getDay(){const d=Math.floor((new Date()-START)/(864e5));return Math.max(1,d+1);}
+
+function getDayInfo(day){
+  let rem=day;
+  for(const ph of PHASES){
+    for(const wk of ph.weeks){
+      const days=wk.days||[];
+      const wLen=days.length||7;
+      if(rem<=wLen){
+        const di=Math.min(rem-1,wLen-1);
+        return{phase:ph.name+' — '+ph.label,phaseColor:ph.color,topic:wk.t,dayTopic:days[di]||'Build and review',project:wk.proj,resources:wk.res||[],dsaToday:WEEK_DSA[wk.t]||'LeetCode 2 problems — arrays/strings'};
+      }
+      rem-=wLen;
+    }
+  }
+  const lp=PHASES[PHASES.length-1];const lw=lp.weeks[lp.weeks.length-1];
+  return{phase:lp.name+' — '+lp.label,phaseColor:lp.color,topic:lw.t,dayTopic:'Scale your empire product',project:lw.proj,resources:lw.res||[],dsaToday:'2 problems — maintain streak'};
+}
+
+// ─── RENDER FUNCTIONS ─────────────────────────────────────────
+function renderSched(){
+  document.getElementById('sched').innerHTML=SCHED.map(s=>`
+    <div class="slot">
+      <div class="slot-bar" style="background:${s.c}"></div>
+      <div class="slot-time">${s.time}</div>
+      <div class="slot-name">${s.name}</div>
+      <div class="slot-desc">${s.desc}</div>
+      <span class="slot-tag" style="background:${s.c}18;color:${s.c};border:1px solid ${s.c}30">${s.tag}</span>
+    </div>`).join('');
+}
+
+function renderToday(day){
+  const info=getDayInfo(day);
+  document.getElementById('tc-phase').textContent=info.phase;
+  document.getElementById('tc-phase').style.color=info.phaseColor;
+  document.getElementById('tc-topic').textContent=info.topic;
+  document.getElementById('proj-name').textContent=info.project;
+
+  const key='chk_'+day;
+  const saved=JSON.parse(localStorage.getItem(key)||'[]');
+  const tasks=['Study: '+info.dayTopic,'Take notes — write in your own words, not copy-paste','Build: '+(info.project||'today\'s project goal'),'Push to GitHub with a descriptive commit message','Do DSA: '+info.dsaToday,'Post on LinkedIn — 1 sentence about today\'s progress','Plan tomorrow — read next day topic for 10 min'];
+
+  document.getElementById('checklist').innerHTML=tasks.map((t,i)=>`
+    <li class="cli ${saved.includes(i)?'done':''}" onclick="toggleCheck(${i},${day})">
+      <div class="cb"></div><span>${t}</span>
+    </li>`).join('');
+
+  const dsaTags=info.dsaToday.split(' — ').map(d=>`<span class="dsa-tag">${d}</span>`).join('');
+  document.getElementById('dsa-today').innerHTML=dsaTags;
+
+  const resList=info.resources.length?info.resources:RES[info.topic]||['google.com — search today\'s topic specifically','MDN Web Docs — web fundamentals','Official documentation for today\'s stack'];
+  document.getElementById('res-list').innerHTML=resList.map(r=>`<div class="res-item">${r}</div>`).join('');
+}
+
+function toggleCheck(i,day){
+  const key='chk_'+day;let s=JSON.parse(localStorage.getItem(key)||'[]');
+  s.includes(i)?s=s.filter(x=>x!==i):s.push(i);
+  localStorage.setItem(key,JSON.stringify(s));renderToday(day);
+}
+
+function renderRoadmap(){
+  const phColors=[var('--G'),var('--C'),var('--O'),var('--P'),var('--B')];
+  const phTc=['#000','#000','#000','#fff','#fff'];
+  document.getElementById('ptabs').innerHTML=PHASES.map((p,i)=>`
+    <button class="ptab ${i===0?'on':''}" id="pt${i}" onclick="switchPh(${i})"
+      style="${i===0?'background:'+phColors[i]+';color:'+phTc[i]+';border-color:'+phColors[i]:''}">${p.name}: ${p.label}</button>`).join('');
+  document.getElementById('ppanels').innerHTML=PHASES.map((p,i)=>`
+    <div class="ppanel ${i===0?'on':''}" id="pp${i}">
+      <div class="wgrid">
+        ${p.weeks.map(w=>`
+          <div class="wcard">
+            <div class="wc-num">${w.n}</div>
+            <div class="wc-topic">${w.t}</div>
+            <ul class="wc-days">
+              ${(w.days||[]).map((d,di)=>`<li class="wc-day"><span class="wdn">D${di+1}</span><span>${d}</span></li>`).join('')}
+            </ul>
+            <div class="wc-proj" style="background:${phColors[i]}12;color:${phColors[i]};border:1px solid ${phColors[i]}28">⚡ ${w.proj}</div>
+            <div class="wc-dsa" style="background:rgba(245,161,66,0.07);color:var(--O);border:1px solid rgba(245,161,66,0.18)">📊 DSA: ${w.dsa||WEEK_DSA[w.t]||'LeetCode problems'}</div>
+          </div>`).join('')}
+      </div>
+    </div>`).join('');
+}
+
+function switchPh(idx){
+  const phColors=[var('--G'),var('--C'),var('--O'),var('--P'),var('--B')];
+  const phTc=['#000','#000','#000','#fff','#fff'];
+  PHASES.forEach((_,i)=>{
+    const t=document.getElementById('pt'+i),p=document.getElementById('pp'+i);
+    if(i===idx){t.classList.add('on');t.style.background=phColors[i];t.style.color=phTc[i];t.style.borderColor=phColors[i];p.classList.add('on');}
+    else{t.classList.remove('on');t.style.background='';t.style.color='';t.style.borderColor='';p.classList.remove('on');}
+  });
+}
+
+function renderProjects(){
+  document.getElementById('proj-showcase').innerHTML=PROJECTS.map(p=>`
+    <div class="pshowcard">
+      <div class="psc-num">${p.n}</div>
+      <div class="psc-name">${p.name}</div>
+      <span class="psc-phase" style="background:${p.pc}18;color:${p.pc}">${p.phase}</span>
+      <div class="psc-desc">${p.desc}</div>
+      <div class="psc-learns">${p.learns.map(l=>`<span class="psc-tag">${l}</span>`).join('')}</div>
+      <div class="psc-earn">💰 ${p.earn}</div>
+    </div>`).join('');
+}
+
+function renderDSA(){
+  document.getElementById('dsa-track').innerHTML=DSA.map(d=>`
+    <div class="dsa-card">
+      <div class="dsa-c-period">${d.period}</div>
+      <div class="dsa-c-topics">${d.topics}</div>
+      <ul class="dsa-c-list">
+        ${d.items.map(i=>`<li class="dsa-c-item">${i}</li>`).join('')}
+      </ul>
+    </div>`).join('');
+}
+
+function renderIncome(){
+  document.getElementById('inc-timeline').innerHTML=INCOME.map(i=>`
+    <div class="inc-card">
+      <div class="inc-per">${i.per}</div>
+      <div class="inc-amt" style="color:${i.c}">${i.amt}</div>
+      <div class="inc-desc">${i.desc}</div>
+    </div>`).join('');
+}
+
+function renderRules(){
+  document.getElementById('rules-grid').innerHTML=`
+    <div class="rules-card" style="border-color:rgba(181,245,66,0.15)">
+      <div class="rules-title" style="color:var(--G)">✅ Always do this</div>
+      ${RULES_DO.map(r=>`<div class="rule-item"><span style="color:var(--G);flex-shrink:0">✓</span><span>${r}</span></div>`).join('')}
+    </div>
+    <div class="rules-card" style="border-color:rgba(245,84,66,0.15)">
+      <div class="rules-title" style="color:var(--R)">❌ Never do this</div>
+      ${RULES_DONT.map(r=>`<div class="rule-item"><span style="color:var(--R);flex-shrink:0">✗</span><span>${r}</span></div>`).join('')}
+    </div>`;
+}
+
+function renderProgress(day){
+  const pct=Math.min(100,Math.round((day/365)*100));
+  document.getElementById('prog-pct').textContent=pct+'%';
+  document.getElementById('prog-bar').style.width=pct+'%';
+  document.getElementById('days-left').textContent=Math.max(0,365-day);
+
+  const phColors=[var('--G'),var('--C'),var('--O'),var('--P'),var('--B')];
+  const phNames=['Ph1','Ph2','Ph3','Ph4','Ph5'];
+  const phEnds=[60,150,240,330,365];
+  document.getElementById('phase-pills').innerHTML=phEnds.map((e,i)=>{
+    const done=day>=e,active=day>=e-(e-[0,60,150,240,330][i])&&day<e;
+    const col=done?phColors[i]:active?phColors[i]:'var(--t3)';
+    const opacity=done?1:active?0.7:0.3;
+    return`<div class="pp"><span style="font-size:11px;color:var(--t2)">${phNames[i]}: ${PHASES[i].label.split(' ')[0]+' '+PHASES[i].label.split(' ')[1]}</span><div class="pp-dot" style="background:${col};opacity:${opacity}"></div></div>`;
+  }).join('');
+}
+
+function init(){
+  const day=getDay();
+  document.getElementById('live-date').textContent=new Date().toLocaleDateString('en-IN',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+  document.getElementById('day-chip').textContent='DAY '+day;
+  renderProgress(day);
+  renderSched();
+  renderToday(day);
+  renderRoadmap();
+  renderProjects();
+  renderDSA();
+  renderIncome();
+  renderRules();
+  document.getElementById('qtxt').innerHTML=QUOTES[(day-1)%QUOTES.length];
+}
+
+init();
+setInterval(()=>{document.getElementById('live-date').textContent=new Date().toLocaleDateString('en-IN',{weekday:'long',year:'numeric',month:'long',day:'numeric'});},60000);
+</script>
+</body>
+</html>

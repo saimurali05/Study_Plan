@@ -1,0 +1,1556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Empire Roadmap — Chennai to Crores</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0a;
+  --bg2: #111111;
+  --bg3: #1a1a1a;
+  --border: rgba(255,255,255,0.08);
+  --border2: rgba(255,255,255,0.14);
+  --text: #f0ece4;
+  --text2: #888880;
+  --text3: #555550;
+  --accent: #e8ff5a;
+  --accent2: #5affa0;
+  --accent3: #5ab4ff;
+  --accent4: #ff8c5a;
+  --danger: #ff4d4d;
+  --mono: 'JetBrains Mono', monospace;
+  --display: 'Syne', sans-serif;
+  --serif: 'Instrument Serif', serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--display);
+  font-size: 14px;
+  line-height: 1.6;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(10,10,10,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 2rem;
+  height: 52px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav-logo {
+  font-size: 13px; font-weight: 700; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--accent);
+}
+.nav-links { display: flex; gap: 2rem; }
+.nav-links a {
+  font-size: 12px; font-weight: 500; color: var(--text2);
+  text-decoration: none; letter-spacing: .06em; text-transform: uppercase;
+  transition: color .2s;
+}
+.nav-links a:hover { color: var(--text); }
+.nav-phase-indicator {
+  font-family: var(--mono); font-size: 11px; color: var(--text3);
+}
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 120px 2rem 4rem;
+  position: relative; overflow: hidden;
+}
+.hero-grid-bg {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+.hero-accent-circle {
+  position: absolute; top: -200px; right: -100px;
+  width: 600px; height: 600px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(232,255,90,0.04) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-eyebrow {
+  font-family: var(--mono); font-size: 11px; color: var(--accent);
+  letter-spacing: .15em; text-transform: uppercase; margin-bottom: 1.5rem;
+  display: flex; align-items: center; gap: .75rem;
+}
+.hero-eyebrow::before {
+  content: ''; display: block; width: 32px; height: 1px; background: var(--accent);
+}
+.hero-title {
+  font-size: clamp(48px, 8vw, 96px);
+  font-weight: 800; line-height: .95;
+  letter-spacing: -.02em;
+  margin-bottom: 2rem;
+}
+.hero-title em {
+  font-family: var(--serif); font-style: italic; font-weight: 400;
+  color: var(--accent); display: block;
+}
+.hero-desc {
+  font-size: 16px; color: var(--text2); max-width: 520px;
+  line-height: 1.7; margin-bottom: 2.5rem;
+}
+.hero-stats {
+  display: flex; gap: 2.5rem; flex-wrap: wrap; margin-bottom: 3rem;
+}
+.hero-stat-n {
+  font-size: 32px; font-weight: 800; color: var(--accent);
+  line-height: 1; margin-bottom: 4px;
+}
+.hero-stat-l { font-size: 12px; color: var(--text3); letter-spacing: .06em; text-transform: uppercase; }
+.hero-cta {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: var(--accent); color: #0a0a0a;
+  font-family: var(--display); font-size: 13px; font-weight: 700;
+  padding: 14px 28px; border-radius: 2px;
+  text-decoration: none; letter-spacing: .06em; text-transform: uppercase;
+  transition: transform .15s, box-shadow .15s;
+  border: none; cursor: pointer;
+}
+.hero-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(232,255,90,0.2); }
+
+/* ── SECTION ── */
+.section { padding: 6rem 2rem; max-width: 1100px; margin: 0 auto; }
+.section-label {
+  font-family: var(--mono); font-size: 11px; color: var(--accent);
+  letter-spacing: .15em; text-transform: uppercase;
+  display: flex; align-items: center; gap: .75rem; margin-bottom: 3rem;
+}
+.section-label::before {
+  content: ''; display: block; width: 24px; height: 1px; background: var(--accent);
+}
+
+/* ── PHASE TABS ── */
+.phase-nav {
+  display: flex; gap: 0; margin-bottom: 2rem;
+  border: 1px solid var(--border); border-radius: 4px; overflow: hidden;
+  width: fit-content;
+}
+.phase-btn {
+  font-family: var(--display); font-size: 12px; font-weight: 600;
+  padding: 10px 20px; background: transparent; color: var(--text3);
+  border: none; cursor: pointer; letter-spacing: .06em; text-transform: uppercase;
+  border-right: 1px solid var(--border); transition: all .2s;
+}
+.phase-btn:last-child { border-right: none; }
+.phase-btn:hover { color: var(--text); background: var(--bg3); }
+.phase-btn.active { background: var(--accent); color: #0a0a0a; }
+.phase-panel { display: none; }
+.phase-panel.active { display: block; }
+
+/* ── PHASE HEADER ── */
+.phase-header {
+  display: grid; grid-template-columns: 1fr auto;
+  gap: 2rem; align-items: start;
+  border: 1px solid var(--border); border-radius: 4px;
+  padding: 1.75rem; margin-bottom: 1.5rem;
+  background: var(--bg2);
+}
+.phase-num { font-family: var(--mono); font-size: 11px; color: var(--text3); margin-bottom: .4rem; }
+.phase-title { font-size: 24px; font-weight: 700; margin-bottom: .5rem; }
+.phase-desc { font-size: 13px; color: var(--text2); line-height: 1.7; max-width: 560px; }
+.phase-target {
+  text-align: right; min-width: 200px;
+}
+.phase-target-label { font-family: var(--mono); font-size: 10px; color: var(--text3); text-transform: uppercase; letter-spacing: .1em; margin-bottom: .4rem; }
+.phase-target-val { font-size: 20px; font-weight: 800; color: var(--accent2); line-height: 1.2; }
+.phase-target-sub { font-size: 12px; color: var(--text3); margin-top: 3px; }
+
+/* ── WEEK ACCORDION ── */
+.weeks { display: grid; gap: 6px; }
+.week {
+  border: 1px solid var(--border); border-radius: 4px;
+  overflow: hidden; transition: border-color .2s;
+}
+.week:hover { border-color: var(--border2); }
+.week-head {
+  display: flex; align-items: center; gap: 1rem;
+  padding: .875rem 1.25rem; cursor: pointer;
+  background: var(--bg2); user-select: none;
+  transition: background .15s;
+}
+.week-head:hover { background: var(--bg3); }
+.week-num {
+  font-family: var(--mono); font-size: 10px; color: var(--text3);
+  min-width: 56px; letter-spacing: .06em;
+}
+.week-title { font-size: 13px; font-weight: 600; flex: 1; }
+.week-tag {
+  font-family: var(--mono); font-size: 10px; padding: 2px 8px;
+  border-radius: 2px; border: 1px solid var(--border); color: var(--text3);
+}
+.week-chevron { font-size: 12px; color: var(--text3); transition: transform .2s; }
+.week.open .week-chevron { transform: rotate(180deg); }
+.week-body { display: none; padding: 0; }
+.week.open .week-body { display: block; }
+.days { display: grid; }
+.day-row {
+  display: grid; grid-template-columns: 48px 1fr 1fr;
+  gap: 0; border-top: 1px solid var(--border);
+}
+.day-label {
+  font-family: var(--mono); font-size: 10px; color: var(--text3);
+  padding: .875rem 1.25rem; display: flex; align-items: center;
+  border-right: 1px solid var(--border);
+}
+.day-learn {
+  padding: .875rem 1.25rem; border-right: 1px solid var(--border);
+}
+.day-learn-title { font-size: 12px; font-weight: 600; margin-bottom: 2px; }
+.day-learn-sub { font-size: 11px; color: var(--text3); }
+.day-build { padding: .875rem 1.25rem; }
+.day-build-tag {
+  font-family: var(--mono); font-size: 9px; color: var(--accent);
+  letter-spacing: .1em; text-transform: uppercase; margin-bottom: 3px;
+}
+.day-build-text { font-size: 12px; color: var(--text2); line-height: 1.5; }
+
+/* ── TRACKER ── */
+.tracker-section { padding: 6rem 2rem; }
+.tracker-wrap { max-width: 1100px; margin: 0 auto; }
+.tracker-controls {
+  display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 1.25rem;
+}
+.ctrl-btn {
+  font-family: var(--mono); font-size: 11px; padding: 6px 14px;
+  border-radius: 2px; border: 1px solid var(--border); background: transparent;
+  color: var(--text3); cursor: pointer; transition: all .15s;
+  letter-spacing: .06em;
+}
+.ctrl-btn:hover { border-color: var(--border2); color: var(--text); }
+.ctrl-btn.sel { background: var(--accent); color: #0a0a0a; border-color: var(--accent); }
+.ctrl-btn.sel-learn { background: var(--accent2); color: #0a0a0a; border-color: var(--accent2); }
+.ctrl-btn.sel-build { background: var(--accent3); color: #0a0a0a; border-color: var(--accent3); }
+.ctrl-btn.sel-miss { background: var(--danger); color: #fff; border-color: var(--danger); }
+.ctrl-btn.sel-clear { background: var(--bg3); color: var(--text2); border-color: var(--border2); }
+.tracker-legend {
+  display: flex; gap: 1.25rem; flex-wrap: wrap; margin-bottom: 1.5rem;
+}
+.leg { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--text3); }
+.leg-sq { width: 10px; height: 10px; border-radius: 1px; flex-shrink: 0; }
+.phase-block { margin-bottom: 2rem; }
+.phase-block-label {
+  font-family: var(--mono); font-size: 10px; color: var(--text3);
+  letter-spacing: .1em; text-transform: uppercase; margin-bottom: .5rem;
+}
+.dot-grid {
+  display: grid; grid-template-columns: repeat(84, 1fr); gap: 3px;
+  margin-bottom: .4rem;
+}
+.dot {
+  aspect-ratio: 1; border-radius: 1px; border: 1px solid var(--border);
+  background: var(--bg2); cursor: pointer; transition: transform .1s;
+  position: relative;
+}
+.dot:hover { transform: scale(1.4); z-index: 2; }
+.dot.d-both { background: var(--accent); border-color: var(--accent); }
+.dot.d-learn { background: var(--accent2); border-color: var(--accent2); }
+.dot.d-build { background: var(--accent3); border-color: var(--accent3); }
+.dot.d-miss { background: var(--danger); border-color: var(--danger); }
+.stats-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(140px,1fr));
+  gap: 10px; margin-top: 2rem;
+}
+.stat-card {
+  background: var(--bg2); border: 1px solid var(--border); border-radius: 4px;
+  padding: 1.25rem;
+}
+.stat-val { font-size: 36px; font-weight: 800; line-height: 1; margin-bottom: 4px; }
+.stat-lbl { font-family: var(--mono); font-size: 10px; color: var(--text3); letter-spacing: .08em; text-transform: uppercase; }
+.streak-bar-wrap { margin-top: 1.5rem; }
+.streak-bar-label { font-family: var(--mono); font-size: 10px; color: var(--text3); text-transform: uppercase; letter-spacing: .08em; margin-bottom: .5rem; }
+.streak-bar { height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; }
+.streak-fill { height: 100%; background: var(--accent2); border-radius: 2px; transition: width .4s ease; }
+
+/* ── SCHEDULE ── */
+.schedule-grid {
+  display: grid; grid-template-columns: 1fr;
+  gap: 0; border: 1px solid var(--border); border-radius: 4px; overflow: hidden;
+}
+.sched-row {
+  display: grid; grid-template-columns: 140px 1fr;
+  border-bottom: 1px solid var(--border);
+}
+.sched-row:last-child { border-bottom: none; }
+.sched-time {
+  font-family: var(--mono); font-size: 11px; color: var(--accent);
+  padding: 1.25rem 1.25rem; border-right: 1px solid var(--border);
+  background: var(--bg2); display: flex; align-items: flex-start;
+}
+.sched-content { padding: 1.25rem; }
+.sched-title { font-size: 13px; font-weight: 600; margin-bottom: 3px; }
+.sched-desc { font-size: 12px; color: var(--text3); line-height: 1.5; }
+.sched-tag {
+  display: inline-block; font-family: var(--mono); font-size: 9px;
+  padding: 2px 7px; border-radius: 2px; margin-bottom: 6px;
+  text-transform: uppercase; letter-spacing: .08em;
+}
+
+/* ── RESOURCES ── */
+.resources-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
+  gap: 10px;
+}
+.res-card {
+  border: 1px solid var(--border); border-radius: 4px;
+  padding: 1.25rem; background: var(--bg2); transition: border-color .2s;
+}
+.res-card:hover { border-color: var(--border2); }
+.res-week { font-family: var(--mono); font-size: 10px; color: var(--text3); margin-bottom: .4rem; }
+.res-title { font-size: 13px; font-weight: 600; margin-bottom: .3rem; }
+.res-url {
+  font-family: var(--mono); font-size: 11px; color: var(--accent3);
+  text-decoration: none; word-break: break-all;
+}
+.res-url:hover { text-decoration: underline; }
+.res-desc { font-size: 12px; color: var(--text3); margin-top: .4rem; line-height: 1.5; }
+
+/* ── INCOME TABLE ── */
+.income-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 0; border: 1px solid var(--border); border-radius: 4px; overflow: hidden;
+}
+.income-card {
+  padding: 1.5rem 1.25rem; border-right: 1px solid var(--border);
+  background: var(--bg2); text-align: center;
+}
+.income-card:last-child { border-right: none; }
+.income-month { font-family: var(--mono); font-size: 10px; color: var(--text3); text-transform: uppercase; letter-spacing: .08em; margin-bottom: .4rem; }
+.income-amount { font-size: 22px; font-weight: 800; margin-bottom: 3px; }
+.income-label { font-size: 11px; color: var(--text3); }
+
+/* ── TECH STACK ── */
+.stack-section { padding: 6rem 2rem; background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.stack-wrap { max-width: 1100px; margin: 0 auto; }
+.stack-intro { font-size: 13px; color: var(--text3); max-width: 600px; margin-bottom: 2.5rem; line-height: 1.7; }
+.stack-categories { display: grid; gap: 2rem; }
+.stack-cat-title {
+  font-family: var(--mono); font-size: 10px; color: var(--accent);
+  letter-spacing: .15em; text-transform: uppercase; margin-bottom: 1rem;
+  display: flex; align-items: center; gap: .5rem;
+}
+.stack-cat-title::before { content:''; display:block; width:16px; height:1px; background:var(--accent); }
+.stack-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 8px;
+}
+.stack-card {
+  background: var(--bg); border: 1px solid var(--border); border-radius: 4px;
+  padding: 1rem 1.25rem; transition: border-color .2s;
+}
+.stack-card:hover { border-color: var(--border2); }
+.stack-card-top {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: .6rem;
+}
+.stack-name { font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 8px; }
+.stack-icon { font-size: 16px; }
+.stack-pct {
+  font-family: var(--mono); font-size: 13px; font-weight: 700;
+  transition: color .4s;
+}
+.stack-phase-tag {
+  font-family: var(--mono); font-size: 9px; color: var(--text3);
+  letter-spacing: .06em; margin-bottom: .5rem;
+}
+.stack-bar-bg {
+  height: 4px; background: var(--border); border-radius: 2px; overflow: hidden;
+}
+.stack-bar-fill {
+  height: 100%; border-radius: 2px; transition: width .5s cubic-bezier(.4,0,.2,1);
+  width: 0%;
+}
+.stack-desc { font-size: 11px; color: var(--text3); margin-top: .5rem; line-height: 1.5; }
+.stack-weeks-tag {
+  font-family: var(--mono); font-size: 9px; color: var(--text3);
+  margin-top: .4rem;
+}
+.stack-overall {
+  margin-top: 2.5rem; padding: 1.5rem; border: 1px solid var(--border);
+  border-radius: 4px; background: var(--bg);
+  display: flex; align-items: center; gap: 2rem; flex-wrap: wrap;
+}
+.stack-overall-left { flex: 1; min-width: 200px; }
+.stack-overall-label { font-family: var(--mono); font-size: 10px; color: var(--text3); text-transform: uppercase; letter-spacing: .1em; margin-bottom: .4rem; }
+.stack-overall-pct { font-size: 48px; font-weight: 800; color: var(--accent); line-height: 1; margin-bottom: .25rem; }
+.stack-overall-sub { font-size: 12px; color: var(--text3); }
+.stack-overall-bar-wrap { flex: 2; min-width: 200px; }
+.stack-overall-bar { height: 8px; background: var(--border); border-radius: 4px; overflow: hidden; }
+.stack-overall-fill { height: 100%; background: linear-gradient(90deg, var(--accent2), var(--accent)); border-radius: 4px; transition: width .5s ease; width: 0%; }
+@media (max-width:768px) { .stack-grid { grid-template-columns: 1fr 1fr; } }
+
+/* ── RULES ── */
+.rules-list { display: grid; gap: 0; border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
+.rule-item {
+  display: flex; gap: 1.25rem; padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--border); align-items: flex-start;
+  background: var(--bg2);
+}
+.rule-item:last-child { border-bottom: none; }
+.rule-num {
+  font-family: var(--mono); font-size: 24px; font-weight: 800;
+  color: var(--border2); line-height: 1; min-width: 36px; flex-shrink: 0;
+  margin-top: 2px;
+}
+.rule-title { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+.rule-desc { font-size: 12px; color: var(--text3); line-height: 1.6; }
+
+/* ── FOOTER ── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 2rem;
+  display: flex; align-items: center; justify-content: space-between;
+  max-width: 1100px; margin: 0 auto;
+}
+.footer-text { font-family: var(--mono); font-size: 11px; color: var(--text3); }
+.footer-accent { color: var(--accent); }
+
+/* ── DIVIDER ── */
+.divider {
+  border: none; border-top: 1px solid var(--border);
+  max-width: 1100px; margin: 0 auto;
+}
+
+/* ── MOBILE ── */
+@media (max-width: 768px) {
+  nav { padding: 0 1rem; }
+  .nav-links { display: none; }
+  .hero { padding: 100px 1rem 3rem; }
+  .section { padding: 4rem 1rem; }
+  .tracker-section { padding: 4rem 1rem; }
+  .phase-header { grid-template-columns: 1fr; }
+  .phase-target { text-align: left; }
+  .day-row { grid-template-columns: 40px 1fr; }
+  .day-build { display: none; }
+  .dot-grid { grid-template-columns: repeat(42, 1fr); }
+  .phase-nav { flex-wrap: wrap; }
+  .income-grid { grid-template-columns: repeat(3,1fr); }
+  .income-card:nth-child(3) { border-right: none; }
+  .income-card:nth-child(4) { border-top: 1px solid var(--border); }
+  .sched-row { grid-template-columns: 100px 1fr; }
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.hero-eyebrow { animation: fadeUp .6s ease both; }
+.hero-title { animation: fadeUp .6s .1s ease both; }
+.hero-desc { animation: fadeUp .6s .2s ease both; }
+.hero-stats { animation: fadeUp .6s .3s ease both; }
+.hero-cta { animation: fadeUp .6s .4s ease both; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Empire Roadmap</div>
+  <div class="nav-links">
+    <a href="#techstack">Tech Stack</a>
+    <a href="#phases">Roadmap</a>
+    <a href="#schedule">Schedule</a>
+    <a href="#tracker">Tracker</a>
+    <a href="#resources">Resources</a>
+    <a href="#rules">Rules</a>
+  </div>
+  <div class="nav-phase-indicator" id="navIndicator">Day 1 of 365</div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-accent-circle"></div>
+  <div class="hero-eyebrow">Chennai → Crores · 365-day war plan</div>
+  <h1 class="hero-title">
+    Build your<br>
+    <em>empire.</em>
+  </h1>
+  <p class="hero-desc">Full-stack AI startup founder roadmap for a CSE fresher starting from zero. Every day has a topic to learn and something real to build. No shortcuts. No support needed.</p>
+  <div class="hero-stats">
+    <div>
+      <div class="hero-stat-n">365</div>
+      <div class="hero-stat-l">Days of execution</div>
+    </div>
+    <div>
+      <div class="hero-stat-n">4</div>
+      <div class="hero-stat-l">Phases</div>
+    </div>
+    <div>
+      <div class="hero-stat-n">₹1Cr</div>
+      <div class="hero-stat-l">ARR target</div>
+    </div>
+    <div>
+      <div class="hero-stat-n">3</div>
+      <div class="hero-stat-l">SaaS products built</div>
+    </div>
+  </div>
+  <a href="#phases" class="hero-cta">Start the roadmap →</a>
+</section>
+
+<!-- TECH STACK PROGRESS -->
+<section class="stack-section" id="techstack">
+  <div class="stack-wrap">
+    <div class="section-label">Tech stack mastery</div>
+    <p class="stack-intro">Every technology you will master across 365 days. Progress bars update automatically as you log completed sessions in the tracker below — so the more you mark done, the more these fill up.</p>
+
+    <div class="stack-categories">
+
+      <div>
+        <div class="stack-cat-title">Core Language</div>
+        <div class="stack-grid" id="sg-core"></div>
+      </div>
+
+      <div>
+        <div class="stack-cat-title">Backend & APIs</div>
+        <div class="stack-grid" id="sg-backend"></div>
+      </div>
+
+      <div>
+        <div class="stack-cat-title">Frontend</div>
+        <div class="stack-grid" id="sg-frontend"></div>
+      </div>
+
+      <div>
+        <div class="stack-cat-title">Databases & Storage</div>
+        <div class="stack-grid" id="sg-db"></div>
+      </div>
+
+      <div>
+        <div class="stack-cat-title">AI & Machine Learning</div>
+        <div class="stack-grid" id="sg-ai"></div>
+      </div>
+
+      <div>
+        <div class="stack-cat-title">Cloud & DevOps</div>
+        <div class="stack-grid" id="sg-cloud"></div>
+      </div>
+
+      <div>
+        <div class="stack-cat-title">Business & Monetisation</div>
+        <div class="stack-grid" id="sg-biz"></div>
+      </div>
+
+    </div>
+
+    <div class="stack-overall">
+      <div class="stack-overall-left">
+        <div class="stack-overall-label">Overall mastery</div>
+        <div class="stack-overall-pct" id="overallPct">0%</div>
+        <div class="stack-overall-sub" id="overallSub">0 of 365 sessions completed</div>
+      </div>
+      <div class="stack-overall-bar-wrap">
+        <div class="stack-overall-bar"><div class="stack-overall-fill" id="overallFill"></div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- INCOME TRAJECTORY -->
+<section class="section" id="income">
+  <div class="section-label">Income trajectory</div>
+  <div class="income-grid">
+    <div class="income-card">
+      <div class="income-month">Month 3</div>
+      <div class="income-amount" style="color:var(--text3)">₹0</div>
+      <div class="income-label">Learning ends</div>
+    </div>
+    <div class="income-card">
+      <div class="income-month">Month 4</div>
+      <div class="income-amount" style="color:var(--accent2)">₹10K</div>
+      <div class="income-label">First client</div>
+    </div>
+    <div class="income-card">
+      <div class="income-month">Month 6</div>
+      <div class="income-amount" style="color:var(--accent2)">₹50K</div>
+      <div class="income-label">3 clients + SaaS</div>
+    </div>
+    <div class="income-card">
+      <div class="income-month">Month 8</div>
+      <div class="income-amount" style="color:var(--accent3)">₹2L</div>
+      <div class="income-label">Freelance + SaaS</div>
+    </div>
+    <div class="income-card">
+      <div class="income-month">Month 10</div>
+      <div class="income-amount" style="color:var(--accent4)">₹5L</div>
+      <div class="income-label">Product revenue</div>
+    </div>
+    <div class="income-card">
+      <div class="income-month">Month 12</div>
+      <div class="income-amount" style="color:var(--accent)">₹10L+</div>
+      <div class="income-label">Crore/yr run rate</div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ROADMAP PHASES -->
+<section class="section" id="phases">
+  <div class="section-label">The roadmap</div>
+
+  <div class="phase-nav">
+    <button class="phase-btn active" data-phase="0">Phase 1 · Foundation</button>
+    <button class="phase-btn" data-phase="1">Phase 2 · Build</button>
+    <button class="phase-btn" data-phase="2">Phase 3 · Earn</button>
+    <button class="phase-btn" data-phase="3">Phase 4 · Scale</button>
+  </div>
+
+  <!-- PHASE 1 -->
+  <div class="phase-panel active" id="phase-0">
+    <div class="phase-header">
+      <div>
+        <div class="phase-num">PHASE 01 · Month 1–3 · Weeks 1–12</div>
+        <div class="phase-title">Foundation — Build the weapon</div>
+        <div class="phase-desc">Python, APIs, databases, AI basics. You go from knowing basic coding to building real working apps deployed on the internet. Every single day you produce something functional.</div>
+      </div>
+      <div class="phase-target">
+        <div class="phase-target-label">Phase target</div>
+        <div class="phase-target-val">First ₹10,000</div>
+        <div class="phase-target-sub">First AI app live on internet</div>
+      </div>
+    </div>
+    <div class="weeks" id="weeks-0"></div>
+  </div>
+
+  <!-- PHASE 2 -->
+  <div class="phase-panel" id="phase-1">
+    <div class="phase-header">
+      <div>
+        <div class="phase-num">PHASE 02 · Month 4–6 · Weeks 13–24</div>
+        <div class="phase-title">Build — Ship real products</div>
+        <div class="phase-desc">Full-stack development, AI integration, payments, auth. You build 3 complete SaaS products — not prototypes, actually deployed with real users testing them.</div>
+      </div>
+      <div class="phase-target">
+        <div class="phase-target-label">Phase target</div>
+        <div class="phase-target-val">₹50K/month</div>
+        <div class="phase-target-sub">3 deployed products. First paying customer.</div>
+      </div>
+    </div>
+    <div class="weeks" id="weeks-1"></div>
+  </div>
+
+  <!-- PHASE 3 -->
+  <div class="phase-panel" id="phase-2">
+    <div class="phase-header">
+      <div>
+        <div class="phase-num">PHASE 03 · Month 7–9 · Weeks 25–36</div>
+        <div class="phase-title">Earn — Turn skills into money</div>
+        <div class="phase-desc">Advanced AI agents, client acquisition, automation pipelines. Stop only learning. Start earning. Freelance funds your startup. Build the product that matters most.</div>
+      </div>
+      <div class="phase-target">
+        <div class="phase-target-label">Phase target</div>
+        <div class="phase-target-val">₹2–5L/month</div>
+        <div class="phase-target-sub">50+ paying users on one product.</div>
+      </div>
+    </div>
+    <div class="weeks" id="weeks-2"></div>
+  </div>
+
+  <!-- PHASE 4 -->
+  <div class="phase-panel" id="phase-3">
+    <div class="phase-header">
+      <div>
+        <div class="phase-num">PHASE 04 · Month 10–12 · Weeks 37–52</div>
+        <div class="phase-title">Scale — Build the empire</div>
+        <div class="phase-desc">Productize, automate, hire. Your one winning product gets all energy. Build systems that run without you. Stop doing everything yourself.</div>
+      </div>
+      <div class="phase-target">
+        <div class="phase-target-label">Phase target</div>
+        <div class="phase-target-val">₹10L+/month</div>
+        <div class="phase-target-sub">Team of 3. Crore ARR trajectory.</div>
+      </div>
+    </div>
+    <div class="weeks" id="weeks-3"></div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- DAILY SCHEDULE -->
+<section class="section" id="schedule">
+  <div class="section-label">Ideal daily schedule</div>
+  <div class="schedule-grid">
+    <div class="sched-row">
+      <div class="sched-time">6:00 – 7:00 AM</div>
+      <div class="sched-content">
+        <span class="sched-tag" style="background:rgba(232,255,90,0.1);color:var(--accent)">Plan</span>
+        <div class="sched-title">Plan the day</div>
+        <div class="sched-desc">Read today's topic from the roadmap. Write exactly what you will build — no ambiguity. Open Notion or a notebook. No phone.</div>
+      </div>
+    </div>
+    <div class="sched-row">
+      <div class="sched-time">7:00 – 9:00 AM</div>
+      <div class="sched-content">
+        <span class="sched-tag" style="background:rgba(90,160,255,0.1);color:var(--accent3)">Learn</span>
+        <div class="sched-title">Deep learning block</div>
+        <div class="sched-desc">Watch / read the topic. Phone in another room. Take notes in your own words — never copy-paste. Understand the why, not just the how.</div>
+      </div>
+    </div>
+    <div class="sched-row">
+      <div class="sched-time">9:00 – 11:00 AM</div>
+      <div class="sched-content">
+        <span class="sched-tag" style="background:rgba(90,255,160,0.1);color:var(--accent2)">Build</span>
+        <div class="sched-title">Build block 1 — close all tutorials</div>
+        <div class="sched-desc">Open VS Code. Build from memory. Break things. Fix them yourself before searching. This discomfort is exactly where learning happens.</div>
+      </div>
+    </div>
+    <div class="sched-row">
+      <div class="sched-time">11:00 – 12:00</div>
+      <div class="sched-content">
+        <span class="sched-tag" style="background:rgba(255,255,255,0.05);color:var(--text3)">Rest</span>
+        <div class="sched-title">Break + food</div>
+        <div class="sched-desc">Walk outside. Eat properly. No screen if possible. Your brain consolidates learning during rest — this is not optional.</div>
+      </div>
+    </div>
+    <div class="sched-row">
+      <div class="sched-time">12:00 – 2:00 PM</div>
+      <div class="sched-content">
+        <span class="sched-tag" style="background:rgba(90,255,160,0.1);color:var(--accent2)">Build</span>
+        <div class="sched-title">Build block 2 — polish and deploy</div>
+        <div class="sched-desc">Add error handling. Write a README. Push to GitHub. Deploy to Render or Vercel. Something must be live on the internet by end of this block.</div>
+      </div>
+    </div>
+    <div class="sched-row">
+      <div class="sched-time">2:00 – 3:00 PM</div>
+      <div class="sched-content">
+        <span class="sched-tag" style="background:rgba(255,140,90,0.1);color:var(--accent4)">Review</span>
+        <div class="sched-title">Debug and code review</div>
+        <div class="sched-desc">Read your code out loud. Ask: what would break in production? What edge case did I miss? Fix the top 2 issues.</div>
+      </div>
+    </div>
+    <div class="sched-row">
+      <div class="sched-time">3:00 – 4:00 PM</div>
+      <div class="sched-content">
+        <span class="sched-tag" style="background:rgba(90,160,255,0.1);color:var(--accent3)">Learn</span>
+        <div class="sched-title">Free study block</div>
+        <div class="sched-desc">Docs, YouTube deep dives, Stack Overflow rabbit holes. Follow genuine curiosity. This is where you find the 10% that isn't in any tutorial.</div>
+      </div>
+    </div>
+    <div class="sched-row">
+      <div class="sched-time">8:00 – 8:30 PM</div>
+      <div class="sched-content">
+        <span class="sched-tag" style="background:rgba(232,255,90,0.1);color:var(--accent)">Post</span>
+        <div class="sched-title">Post publicly + reflect</div>
+        <div class="sched-desc">Write your LinkedIn post: "Day X — built Y. Here's what I learned." 3 sentences is enough. Note one mistake to fix tomorrow. Then close the laptop.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- TRACKER -->
+<section class="tracker-section" id="tracker">
+  <div class="tracker-wrap">
+    <div class="section-label">Daily habit tracker</div>
+    <p style="font-size:13px;color:var(--text3);margin-bottom:1.5rem;max-width:600px;">Click a mode, then click each day square. The red squares you see every day are your accountability. Use that discomfort to stay consistent.</p>
+
+    <div class="tracker-controls" id="ctrlRow">
+      <button class="ctrl-btn sel" data-mode="both">Learned + Built</button>
+      <button class="ctrl-btn" data-mode="learn">Learned only</button>
+      <button class="ctrl-btn" data-mode="build">Built only</button>
+      <button class="ctrl-btn" data-mode="miss">Missed day</button>
+      <button class="ctrl-btn" data-mode="clear">Clear day</button>
+      <button class="ctrl-btn" data-mode="reset" style="margin-left:auto">Reset all</button>
+    </div>
+
+    <div class="tracker-legend">
+      <div class="leg"><div class="leg-sq" style="background:var(--accent)"></div>Learned + Built</div>
+      <div class="leg"><div class="leg-sq" style="background:var(--accent2)"></div>Learned only</div>
+      <div class="leg"><div class="leg-sq" style="background:var(--accent3)"></div>Built only</div>
+      <div class="leg"><div class="leg-sq" style="background:var(--danger)"></div>Missed</div>
+      <div class="leg"><div class="leg-sq" style="background:var(--bg2);border:1px solid var(--border)"></div>Not yet</div>
+    </div>
+
+    <div class="phase-block">
+      <div class="phase-block-label">Phase 1 · Weeks 1–12 · Days 1–84</div>
+      <div class="dot-grid" id="dg1"></div>
+    </div>
+    <div class="phase-block">
+      <div class="phase-block-label">Phase 2 · Weeks 13–24 · Days 85–168</div>
+      <div class="dot-grid" id="dg2"></div>
+    </div>
+    <div class="phase-block">
+      <div class="phase-block-label">Phase 3 · Weeks 25–36 · Days 169–252</div>
+      <div class="dot-grid" id="dg3"></div>
+    </div>
+    <div class="phase-block">
+      <div class="phase-block-label">Phase 4 · Weeks 37–52 · Days 253–365</div>
+      <div class="dot-grid" id="dg4"></div>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-val" id="st-both" style="color:var(--accent)">0</div>
+        <div class="stat-lbl">Full days (L+B)</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val" id="st-streak" style="color:var(--accent2)">0</div>
+        <div class="stat-lbl">Current streak</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val" id="st-total">0</div>
+        <div class="stat-lbl">Days logged</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val" id="st-pct" style="color:var(--accent3)">0%</div>
+        <div class="stat-lbl">Completion</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val" id="st-miss" style="color:var(--danger)">0</div>
+        <div class="stat-lbl">Missed days</div>
+      </div>
+    </div>
+
+    <div class="streak-bar-wrap">
+      <div class="streak-bar-label">Progress to 365 days</div>
+      <div class="streak-bar"><div class="streak-fill" id="progBar" style="width:0%"></div></div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- RESOURCES -->
+<section class="section" id="resources">
+  <div class="section-label">Free resources — in order</div>
+  <div class="resources-grid" id="resGrid"></div>
+</section>
+
+<hr class="divider">
+
+<!-- RULES -->
+<section class="section" id="rules">
+  <div class="section-label">The non-negotiable rules</div>
+  <div class="rules-list">
+    <div class="rule-item">
+      <div class="rule-num">01</div>
+      <div>
+        <div class="rule-title">4 hours minimum — every single day</div>
+        <div class="rule-desc">2 hours deep learning, 2 hours building. Split them any way but hit both. Weekends included for the first 90 days. No exceptions.</div>
+      </div>
+    </div>
+    <div class="rule-item">
+      <div class="rule-num">02</div>
+      <div>
+        <div class="rule-title">Something must exist that didn't exist before</div>
+        <div class="rule-desc">Code file, deployed app, GitHub commit, LinkedIn post, client DM sent. If nothing was created, the day doesn't count in your head or this tracker.</div>
+      </div>
+    </div>
+    <div class="rule-item">
+      <div class="rule-num">03</div>
+      <div>
+        <div class="rule-title">Post publicly every evening — zero exceptions</div>
+        <div class="rule-desc">"Day 12 — built a streaming chatbot. Here's what I learned." Three sentences is enough. Consistency beats quality every time. The audience you build here becomes your first customers.</div>
+      </div>
+    </div>
+    <div class="rule-item">
+      <div class="rule-num">04</div>
+      <div>
+        <div class="rule-title">Close the tutorial before building</div>
+        <div class="rule-desc">Watching tutorials feels like learning. It's not. Real learning starts the moment you close the tab and try to rebuild what you watched from memory. That discomfort is the gap closing.</div>
+      </div>
+    </div>
+    <div class="rule-item">
+      <div class="rule-num">05</div>
+      <div>
+        <div class="rule-title">No social media during learning blocks</div>
+        <div class="rule-desc">Phone in another room. Instagram and Twitter after 8pm only. One context switch costs you 23 minutes of deep focus. Guard every minute of your learning blocks like money.</div>
+      </div>
+    </div>
+    <div class="rule-item">
+      <div class="rule-num">06</div>
+      <div>
+        <div class="rule-title">One skill, one roadmap, 365 days — no pivoting</div>
+        <div class="rule-desc">You will see ads for "learn X in 30 days" and "this new skill is better." Ignore all of it. The person who finishes one roadmap completely will always beat the person who starts five halfway.</div>
+      </div>
+    </div>
+    <div class="rule-item">
+      <div class="rule-num">07</div>
+      <div>
+        <div class="rule-title">Deploy everything, no matter how ugly</div>
+        <div class="rule-desc">A working ugly app beats a perfect app that only lives on localhost. The moment something is live on the internet, it can get users, feedback, and money. Perfectionism is procrastination.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<footer>
+  <div class="footer-text">Empire Roadmap · Chennai to Crores · <span class="footer-accent">365 days of execution</span></div>
+  <div class="footer-text" id="footerDay">Day 1 of 365</div>
+</footer>
+
+<script>
+// ── DATA ──
+var PHASES = [
+  {
+    weeks: [
+      { w:1, t:"Python from zero — variables, loops, functions", days:[
+        {d:"Mon",l:"Install Python, variables, data types, print()",b:"Calculator CLI — add/subtract/multiply from terminal input"},
+        {d:"Tue",l:"If-else, for loops, while loops, break, continue",b:"Number guessing game — random number, user guesses until correct"},
+        {d:"Wed",l:"Functions, return values, parameters, scope",b:"Unit converter — kg↔lbs, km↔miles, Celsius↔Fahrenheit"},
+        {d:"Thu",l:"Lists, tuples, dictionaries, sets, iteration",b:"Student grade tracker — add names/scores, show average and top scorer"},
+        {d:"Fri",l:"String methods, f-strings, format(), input()",b:"Mad libs generator — user fills in words, inserted into story template"},
+        {d:"Sat",l:"File reading and writing — open, read, write, append",b:"Personal diary app — type entry, saves to .txt file with date stamp"},
+        {d:"Sun",l:"Debug all week's code, fix every bug",b:"Combine all 6 projects into one CLI menu app — user picks which to run"}
+      ]},
+      { w:2, t:"OOP and modules — think like an engineer", days:[
+        {d:"Mon",l:"Classes, objects, __init__, methods, self",b:"BankAccount class — deposit, withdraw, check balance methods"},
+        {d:"Tue",l:"Inheritance, super(), method overriding, polymorphism",b:"SavingsAccount extends BankAccount — adds compound interest calculation"},
+        {d:"Wed",l:"pip, virtual environments, requirements.txt",b:"Set up clean dev environment — install requests library, create venv"},
+        {d:"Thu",l:"Error handling — try, except, finally, custom exceptions",b:"Safe ATM simulator — handles wrong PIN and insufficient funds without crash"},
+        {d:"Fri",l:"List comprehensions, lambda, map, filter, reduce",b:"Data cleaner — reads CSV, removes empty/bad rows, outputs clean version"},
+        {d:"Sat",l:"datetime, os, sys, pathlib, json modules",b:"Habit tracker — logs habits with timestamp to JSON file, shows streaks"},
+        {d:"Sun",l:"Git basics — init, add, commit, push, branches",b:"Push all week's projects to GitHub with proper README files"}
+      ]},
+      { w:3, t:"APIs and HTTP — connect to the internet", days:[
+        {d:"Mon",l:"HTTP — GET, POST, PUT, DELETE, status codes, headers",b:"Fetch Chennai weather from open-meteo.com using requests library"},
+        {d:"Tue",l:"JSON — parse, access nested keys, iterate arrays",b:"Crypto price tracker — fetch BTC and ETH from CoinGecko, print formatted"},
+        {d:"Wed",l:"Query params, API keys, Bearer tokens, auth headers",b:"News fetcher — use NewsAPI to show today's top 5 India headlines"},
+        {d:"Thu",l:"POST requests — sending JSON data to APIs",b:"Telegram bot — send yourself a message via Telegram Bot API"},
+        {d:"Fri",l:"Rate limits, retries, exponential backoff, timeouts",b:"Robust weather alerter — retries on failure, alerts if rain chance >80%"},
+        {d:"Sat",l:"Combining 2+ APIs into one script",b:"Morning briefing bot — weather + news combined, sent to Telegram at 7am"},
+        {d:"Sun",l:"Deploy to PythonAnywhere free tier",b:"Briefing bot runs automatically at 7am every day without you"}
+      ]},
+      { w:4, t:"Flask backend — your first web server", days:[
+        {d:"Mon",l:"Flask setup, routes, debug mode, request/response cycle",b:"Personal homepage — /, /about, /projects routes all returning HTML"},
+        {d:"Tue",l:"Jinja2 templates — render_template, variables, loops",b:"Dynamic resume page — reads data from Python dict, renders with Jinja2"},
+        {d:"Wed",l:"Forms, POST requests, request.form, redirects",b:"Contact form — user submits name and message, saves to text file"},
+        {d:"Thu",l:"SQLite with SQLAlchemy — models, sessions, CRUD",b:"Todo list — add tasks, mark done, delete — all stored in SQLite"},
+        {d:"Fri",l:"REST API design — JSON responses, HTTP status codes",b:"Todo API — same app but returns JSON, built for a frontend to consume"},
+        {d:"Sat",l:"CORS headers, Postman testing, API documentation",b:"Test every endpoint in Postman, write markdown docs for each route"},
+        {d:"Sun",l:"Deploy to Render.com free tier",b:"Your todo API is live on the internet at a real URL — share the link"}
+      ]},
+      { w:5, t:"PostgreSQL and database design", days:[
+        {d:"Mon",l:"SQL fundamentals — CREATE, INSERT, SELECT, WHERE, JOIN",b:"Design schema for freelance tracker — clients, projects, payments tables"},
+        {d:"Tue",l:"Indexes, foreign keys, cascades, one-to-many relationships",b:"Build and populate the freelance tracker with 10 realistic fake entries"},
+        {d:"Wed",l:"GROUP BY, ORDER BY, aggregate functions, subqueries",b:"Write 10 queries: total earned per client, avg duration, top client by revenue"},
+        {d:"Thu",l:"Supabase — hosted Postgres, dashboard, auto REST API",b:"Migrate freelance tracker to Supabase, connect and query from Python"},
+        {d:"Fri",l:"Supabase auth — signup, login, JWT tokens, Row Level Security",b:"Add auth to your API — users can only see their own data"},
+        {d:"Sat",l:"Database migrations with Alembic, schema versioning",b:"Add invoices table — links to projects, has amount, due date, paid status"},
+        {d:"Sun",l:"Backup strategy, monitoring, query optimization",b:"Set up Supabase email alerts, document your entire schema in Notion"}
+      ]},
+      { w:6, t:"OpenAI API — your first real AI feature", days:[
+        {d:"Mon",l:"Chat completions — system, user, assistant message roles",b:"CLI chatbot — type messages, maintains full conversation history across turns"},
+        {d:"Tue",l:"Prompt engineering — temperature, max_tokens, top_p, presence_penalty",b:"Three chatbot personas — formal assistant, casual friend, harsh critic"},
+        {d:"Wed",l:"Streaming responses — stream=True, async generators, SSE",b:"Streaming chatbot — words appear token by token exactly like ChatGPT"},
+        {d:"Thu",l:"Function calling — structured JSON output, tool definitions",b:"Invoice extractor — paste text, AI returns JSON with amount, date, vendor"},
+        {d:"Fri",l:"Embeddings — text to vectors, cosine similarity, nearest neighbour",b:"Personal FAQ bot — embeds 20 Q&As, finds semantically closest match"},
+        {d:"Sat",l:"Cost optimization — caching, batching, model selection strategy",b:"Rewrite chatbot to use gpt-4o-mini — cut cost 90%, measure quality delta"},
+        {d:"Sun",l:"Build something complete from scratch",b:"AI email reply generator — paste received email, get 3 different reply options"}
+      ]},
+      { w:7, t:"React fundamentals — your frontend", days:[
+        {d:"Mon",l:"React setup with Vite, JSX syntax, components, props",b:"Personal portfolio landing page — name, skills list, project cards"},
+        {d:"Tue",l:"useState hook, event handlers, conditional rendering",b:"Interactive counter, toggle button, live form that updates as you type"},
+        {d:"Wed",l:"useEffect, fetch API calls, loading states, error states",b:"Live weather widget — fetches Chennai weather on load, shows spinner"},
+        {d:"Thu",l:"React Router v6 — multi-page, URL params, nested routes",b:"Portfolio with Home / Projects / Contact pages and proper URL routing"},
+        {d:"Fri",l:"Tailwind CSS — utility classes, responsive, dark mode, hover",b:"Restyle portfolio with Tailwind — looks professional and fully responsive"},
+        {d:"Sat",l:"Forms in React — controlled inputs, validation, submission",b:"Contact form — validates email format, posts to your Flask API on submit"},
+        {d:"Sun",l:"Deploy to Vercel — environment variables, preview URLs",b:"React portfolio live at yourname.vercel.app — share with 10 people"}
+      ]},
+      { w:8, t:"Full stack — connect React to backend", days:[
+        {d:"Mon",l:"Axios, environment variables, API base URLs, interceptors",b:"Todo app frontend — React UI calls all your Flask API endpoints"},
+        {d:"Tue",l:"JWT auth in React — login form, localStorage, protected routes",b:"Login and signup UI — calls Supabase auth, redirects after success"},
+        {d:"Wed",l:"React Context API — global state for auth and user data",b:"Auth context — user stays logged in on page refresh, logout works everywhere"},
+        {d:"Thu",l:"Error boundaries, skeleton loaders, toast notifications, empty states",b:"Polish todo app — loading skeletons, error toasts, proper empty state"},
+        {d:"Fri",l:"File uploads — FormData, multipart/form-data, backend handling",b:"Profile picture upload — React sends image, Flask saves to disk, serves URL"},
+        {d:"Sat",l:"Real-time with WebSockets — socket.io basics, rooms, events",b:"Live notification dot — backend event triggers React update instantly"},
+        {d:"Sun",l:"Full stack deployment and environment management",b:"React on Vercel + Flask on Render + DB on Supabase — all connected, live"}
+      ]},
+      { w:9, t:"LangChain — build serious AI applications", days:[
+        {d:"Mon",l:"LangChain chains, prompt templates, output parsers, LLMs",b:"Document Q&A — load a PDF, ask questions, get grounded accurate answers"},
+        {d:"Tue",l:"RAG — vector stores, retrieval chains, context injection",b:"Knowledge base — embed 50 documents, semantic search returns best chunks"},
+        {d:"Wed",l:"Conversation memory — buffer, summary, token-window memory",b:"Chatbot that accurately remembers context across 20+ messages"},
+        {d:"Thu",l:"LangChain agents — ReAct reasoning, tool use, observation loop",b:"Research agent — given topic, searches web, summarizes, formats report"},
+        {d:"Fri",l:"Custom tool creation — give AI access to your Python functions",b:"Calculator agent — AI calls your functions to compute, read files, format"},
+        {d:"Sat",l:"Structured output with Pydantic — typed AI responses",b:"Job parser — AI reads job posting, returns typed JSON: skills, salary, location"},
+        {d:"Sun",l:"Build something with a clear business use case",b:"Company research tool — input URL, outputs summary, products, tech stack, news"}
+      ]},
+      { w:10, t:"Stripe payments — make your app earn money", days:[
+        {d:"Mon",l:"Stripe dashboard — test mode, products, prices, API keys",b:"Create a ₹999/month subscription product in Stripe dashboard from scratch"},
+        {d:"Tue",l:"Stripe Checkout — hosted payment page, success/cancel URLs",b:"Buy button on frontend — redirects to Stripe, returns to your success page"},
+        {d:"Wed",l:"Stripe webhooks — HMAC signature verification, event handling",b:"Webhook endpoint — payment success upgrades user to pro in your database"},
+        {d:"Thu",l:"Subscription management — cancel, upgrade, billing portal",b:"Customer billing portal link — users manage subscription fully self-service"},
+        {d:"Fri",l:"Feature gating — free vs paid user logic, middleware enforcement",b:"Free: 5 AI uses per day. Paid: unlimited. Enforced at API middleware level."},
+        {d:"Sat",l:"Transactional email — Resend or SendGrid, templates, tracking",b:"Welcome email on signup, payment receipt on purchase — fully automated"},
+        {d:"Sun",l:"End-to-end payment flow testing",b:"Signup → free → upgrade → payment → email → pro unlock — fully tested"}
+      ]},
+      { w:11, t:"AI agents — the most powerful skill of 2026", days:[
+        {d:"Mon",l:"Agent architecture — planning loop, tools, observation, memory",b:"Simple ReAct agent — shows its reasoning before answering any question"},
+        {d:"Tue",l:"Multi-step agents — goal decomposition into ordered subtasks",b:"Content agent — topic in, researches, outlines, drafts, formats final output"},
+        {d:"Wed",l:"Web scraping — BeautifulSoup, Playwright, robots.txt ethics",b:"Price monitor agent — scrapes Amazon and Flipkart, alerts on price drops"},
+        {d:"Thu",l:"Scheduled agents — APScheduler, cron jobs, event triggers",b:"Daily LinkedIn post agent — finds trending topic, writes draft, saves to file"},
+        {d:"Fri",l:"Multi-agent systems — orchestrator and specialist worker agents",b:"SEO agent system — orchestrator delegates to keyword, writer, formatter agents"},
+        {d:"Sat",l:"Agent reliability — retries, logging, fallbacks, success rate tracking",b:"Add structured logging and retry logic to all agents — survive API failures"},
+        {d:"Sun",l:"Build something you could charge money for",b:"Cold outreach agent — given company URL, researches and writes personalized email"}
+      ]},
+      { w:12, t:"Docker and cloud — ship like a professional", days:[
+        {d:"Mon",l:"Docker — Dockerfile, images, containers, layers, build cache",b:"Dockerize your Flask API — runs identically on any machine anywhere"},
+        {d:"Tue",l:"Docker Compose — multi-container, networks, volumes, env files",b:"Full stack runs with one command — Flask + PostgreSQL + Redis via compose"},
+        {d:"Wed",l:"AWS EC2 — launch instance, security groups, SSH, install stack",b:"Deploy dockerized app to a free-tier EC2 instance in AWS ap-south-1"},
+        {d:"Thu",l:"Nginx as reverse proxy — domain routing, SSL termination",b:"Point a free domain at EC2, add HTTPS with Let's Encrypt certbot"},
+        {d:"Fri",l:"GitHub Actions — CI/CD pipeline, automated tests and deploy",b:"Push to main → tests run → if pass → auto deploy to EC2 — zero manual deploys"},
+        {d:"Sat",l:"Monitoring — uptime checks, error alerts, log aggregation",b:"UptimeRobot for uptime, Telegram alert if app goes down, errors logged to file"},
+        {d:"Sun",l:"Phase 1 graduation",b:"Record 2-minute demo video. Write LinkedIn post. Phase 2 starts Monday."}
+      ]}
+    ]
+  },
+  {
+    weeks: [
+      { w:13, t:"SaaS #1: AI writing assistant — plan and scaffold", days:[
+        {d:"Mon",l:"SaaS architecture — multi-tenancy, workspace isolation, data models",b:"Design DB schema: users, workspaces, documents, usage_logs with all relations"},
+        {d:"Tue",l:"User onboarding flow — signup, email verify, workspace creation",b:"Signup → verify email → create workspace → onboarding checklist UI"},
+        {d:"Wed",l:"Rich text editor — Slate.js basics, contenteditable, toolbar",b:"Text editor with bold, italic, headings, bullet lists, keyboard shortcuts"},
+        {d:"Thu",l:"AI writing actions — complete, rewrite, summarize, expand, fix",b:"Highlight text → AI menu appears → click Improve → text rewrites inline"},
+        {d:"Fri",l:"Usage metering — count tokens, enforce daily limits per tier",b:"Usage dashboard showing words generated today, this month, limit remaining"},
+        {d:"Sat",l:"Pricing page design — tiers, feature comparison, social proof",b:"Free/Pro/Team pricing page with Stripe Checkout on upgrade button click"},
+        {d:"Sun",l:"Deploy v0.1 and get real feedback",b:"Live URL shared with 5 people — watch every session in Microsoft Clarity"}
+      ]},
+      { w:14, t:"SaaS #1: Polish and find first users", days:[
+        {d:"Mon",l:"In-app feedback — thumbs rating, NPS survey, open text",b:"Feedback widget on every AI output — logs rating and comment to database"},
+        {d:"Tue",l:"Product analytics — Posthog or Mixpanel event tracking",b:"Track: signup, first AI use, upgrade click, payment completed, churn event"},
+        {d:"Wed",l:"SEO basics — meta tags, OG images, sitemap.xml, robots.txt",b:"Add proper title tags, OG preview images for social sharing, sitemap generation"},
+        {d:"Thu",l:"Landing page copywriting — headline, benefits, social proof, CTA",b:"Rewrite landing: one clear headline, 3 benefits, one testimonial, one CTA"},
+        {d:"Fri",l:"Email drip sequences — welcome, activation nudge, upgrade offer",b:"3-email automated sequence: welcome, day 3 tip, day 7 upgrade offer"},
+        {d:"Sat",l:"Community distribution — Reddit, Discord, IndieHackers, Twitter",b:"Post in r/indiehackers, r/entrepreneur, 3 Discord servers, Twitter thread"},
+        {d:"Sun",l:"Iterate fast from what you hear",b:"Top 3 issues from feedback. Fix all 3. Redeploy. DM those users personally."}
+      ]},
+      { w:15, t:"Advanced React — production patterns", days:[
+        {d:"Mon",l:"Custom hooks — extract reusable stateful logic into useX hooks",b:"useAI hook — handles streaming, loading state, error for any AI API call"},
+        {d:"Tue",l:"TanStack Query — server state, caching, background refetch, mutations",b:"Replace all useEffect fetches with React Query — instant cache, auto refetch"},
+        {d:"Wed",l:"Optimistic updates — instant UI before server confirmation",b:"Todo completes instantly on click, reverts gracefully if the API call fails"},
+        {d:"Thu",l:"Virtualization — render 10,000 items without lag or jank",b:"Document list with 1000 items scrolls perfectly with @tanstack/virtual"},
+        {d:"Fri",l:"Composition — compound components, render props, headless UI",b:"Rebuild Modal, Dropdown, Tooltip as fully composable reusable components"},
+        {d:"Sat",l:"Testing — Vitest, React Testing Library, user-event simulation",b:"Tests for 5 core components — renders correctly, handles all interactions"},
+        {d:"Sun",l:"Error monitoring — Sentry for frontend crash tracking",b:"Sentry captures every crash with full context, stack trace, and user session"}
+      ]},
+      { w:16, t:"FastAPI and async Python — production backend", days:[
+        {d:"Mon",l:"FastAPI — Pydantic v2, auto OpenAPI docs, dependency injection",b:"Migrate main API from Flask to FastAPI — get live /docs and /redoc instantly"},
+        {d:"Tue",l:"Async Python — async/await, asyncio, concurrent tasks, gather",b:"Parallel AI calls — 5 OpenAI requests simultaneously, 5x throughput"},
+        {d:"Wed",l:"Background tasks — Celery + Redis, task queues, result backends",b:"Heavy AI jobs run in background — user gets result via webhook when done"},
+        {d:"Thu",l:"Rate limiting — per user, per endpoint, sliding window algorithm",b:"Free: 10 req/min, Pro: 100 req/min — enforced in FastAPI middleware layer"},
+        {d:"Fri",l:"Redis caching — cache AI responses, session data, leaderboards",b:"Cache identical AI requests — same input returns instantly, saves 90% cost"},
+        {d:"Sat",l:"API versioning — /v1/ namespace, deprecation strategy",b:"Version your API, keep v1 alive while shipping breaking changes in v2"},
+        {d:"Sun",l:"Load testing with Locust — find and fix bottlenecks",b:"Simulate 100 concurrent users — find the slowest endpoint and fix it"}
+      ]},
+      { w:17, t:"SaaS #2: AI email automation tool", days:[
+        {d:"Mon",l:"OAuth2 — authorization code flow, PKCE, token refresh, scopes",b:"Google OAuth — user clicks Connect Gmail, your app gets scoped access token"},
+        {d:"Tue",l:"Gmail API — list messages, read full content, send, label",b:"Fetch last 10 emails, display in dashboard with one-line AI summaries"},
+        {d:"Wed",l:"Automation triggers — Gmail push notifications, polling fallback",b:"New email arrives → AI scores priority 1-10 → if high, drafts reply + notifies"},
+        {d:"Thu",l:"Visual workflow builder — nodes, connections, configuration panels",b:"Drag-and-drop workflow: boxes connected by arrows, click to configure each step"},
+        {d:"Fri",l:"Multi-step automation — conditions, branches, loops, error paths",b:"If email has invoice → extract amount → add to Notion → notify on Slack"},
+        {d:"Sat",l:"Webhook security — HMAC-SHA256 signature verification",b:"Verify all incoming webhooks with cryptographic signature — reject unverified"},
+        {d:"Sun",l:"Set price and target first paying user",b:"₹499/month on Stripe. Post on LinkedIn. Goal: one paying user this week."}
+      ]},
+      { w:18, t:"SaaS #2: More integrations and first revenue", days:[
+        {d:"Mon",l:"Slack API — messages, block kit, slash commands, event subscriptions",b:"Slack bot — @mention it with a question, replies with AI answer in thread"},
+        {d:"Tue",l:"Notion API — pages, databases, blocks, relations, rollups",b:"Auto-create Notion page when email action item is detected by AI agent"},
+        {d:"Wed",l:"Multi-tenant OAuth — each user's own connected accounts, isolated",b:"10 users each with own Gmail connected — fully isolated data per user"},
+        {d:"Thu",l:"Integration marketplace UI — connected apps, status, permissions",b:"Dashboard: Gmail connected, Slack disconnected, Notion disconnected with buttons"},
+        {d:"Fri",l:"Referral system — unique codes, attribution, reward fulfillment",b:"Refer a friend → both get 1 month free → tracked with unique referral codes"},
+        {d:"Sat",l:"Churn analysis — exit survey, churned user patterns, win-back",b:"Cancel flow: reason survey → special offer → if still leaving → goodbye email"},
+        {d:"Sun",l:"Month 4 income review",b:"Total MRR from both SaaS apps. Gap to ₹50K/month? Write the plan to close it."}
+      ]},
+      { w:19, t:"Vector databases and advanced RAG", days:[
+        {d:"Mon",l:"Vector databases — pgvector, Pinecone, Weaviate — tradeoffs",b:"Enable pgvector on Supabase — store and query embeddings inside Postgres"},
+        {d:"Tue",l:"Chunking strategies — fixed size, semantic, recursive character",b:"Test 3 chunking strategies on same PDF — which gives best answers? Measure."},
+        {d:"Wed",l:"Hybrid search — BM25 keyword plus semantic vector combined",b:"Search combining both methods — measurably better recall than either alone"},
+        {d:"Thu",l:"Reranking — Cohere reranker API, cross-encoder models",b:"Add reranking step to RAG pipeline — answer quality improves noticeably"},
+        {d:"Fri",l:"RAG evaluation — RAGAS metrics, accuracy scoring, tracking",b:"20 test questions with known answers — score pipeline automatically, track over time"},
+        {d:"Sat",l:"Multi-modal RAG — tables, images, mixed content in PDFs",b:"Q&A bot that understands both prose paragraphs and tables in the same PDF"},
+        {d:"Sun",l:"Package as a productizable API",b:"Document intelligence API — any company uploads docs, gets instant Q&A bot"}
+      ]},
+      { w:20, t:"SaaS #3: Find your main startup idea", days:[
+        {d:"Mon",l:"Idea validation — ICP definition, pain intensity, willingness to pay",b:"One-pager: target user, their pain, how much they will pay, top 3 competitors"},
+        {d:"Tue",l:"Landing page before product — waitlist approach, email capture",b:"Launch landing page describing problem + solution — collect waitlist emails"},
+        {d:"Wed",l:"Customer discovery interviews — open questions, no leading",b:"DM 10 target users on LinkedIn — real conversations about their actual workflow"},
+        {d:"Thu",l:"MVP scope — smallest thing that validates the core assumption",b:"Cut feature list to exactly 3 based on what interview respondents mentioned"},
+        {d:"Fri",l:"Build the core — make it work, ignore all polish completely",b:"Core feature working as ugly Python script — proves it actually does the thing"},
+        {d:"Sat",l:"Minimal UI — input, output, copy button. Ship it.",b:"Send to 5 waitlist users. Watch them use it. Note every moment of confusion."},
+        {d:"Sun",l:"First feedback session with real users",b:"3 user calls — write down every word. Confusion points become your next sprint."}
+      ]},
+      { w:21, t:"SaaS #3: Build for real users", days:[
+        {d:"Mon",l:"Session recording — Microsoft Clarity or Hotjar heatmaps",b:"Install Clarity — watch 5 user session recordings — note every friction point"},
+        {d:"Tue",l:"Activation — reduce time to first value moment under 2 minutes",b:"User gets a wow moment in under 2 minutes of signup — redesign if not"},
+        {d:"Wed",l:"Retention mechanics — daily email digest, push notifications",b:"Daily email digest — tells user what your app accomplished for them yesterday"},
+        {d:"Thu",l:"Ship daily — fix, deploy, tell users. Repeat.",b:"Fix top 3 friction points from Clarity. Deploy. Message those users personally."},
+        {d:"Fri",l:"Pricing psychology — anchoring, tiers, annual discount",b:"Test annual plan at 20% discount — how many users switch? Track the conversion."},
+        {d:"Sat",l:"MRR tracking — growth accounting spreadsheet, cohort analysis",b:"MRR dashboard: new MRR, expansion, contraction, churn, net new — real numbers"},
+        {d:"Sun",l:"Month 5 income review",b:"All SaaS MRR + freelance income combined. Adjust plan for month 6."}
+      ]},
+      { w:22, t:"Cloud infrastructure and DevOps", days:[
+        {d:"Mon",l:"AWS S3 — buckets, presigned URLs, ACLs, lifecycle rules",b:"User file uploads stored in S3, served via CloudFront CDN globally fast"},
+        {d:"Tue",l:"AWS Lambda — serverless functions, triggers, cold starts, layers",b:"Image thumbnail generator — triggered on S3 upload, creates 3 sizes auto"},
+        {d:"Wed",l:"Infrastructure as code — Terraform provider, resources, state",b:"Define entire AWS setup in Terraform — reproducible from scratch in one command"},
+        {d:"Thu",l:"Secrets management — AWS Secrets Manager, rotation schedules",b:"All API keys moved from .env files into Secrets Manager — zero secrets in code"},
+        {d:"Fri",l:"Automated DB backups — pg_dump, S3 upload, restore testing",b:"Nightly DB backup to S3 at 2am — test restore monthly to verify it actually works"},
+        {d:"Sat",l:"Cost monitoring — AWS budgets, alerts, Cost Explorer, rightsizing",b:"Full cost audit — list every AWS service and monthly spend, cut all waste"},
+        {d:"Sun",l:"Incident runbook — what to do when things break",b:"Document: DB down, API slow, payment webhook failing — step by step response"}
+      ]},
+      { w:23, t:"Security — protect everything you built", days:[
+        {d:"Mon",l:"OWASP Top 10 — injection, broken auth, XSS, IDOR, SSRF",b:"Audit your app against all 10 — document findings, prioritize fixes"},
+        {d:"Tue",l:"Input validation, output encoding, Content Security Policy",b:"Add input sanitization, CSP headers, output escaping everywhere in codebase"},
+        {d:"Wed",l:"Auth hardening — brute force limits, account lockout, TOTP MFA",b:"Rate limit login attempts, add TOTP 2FA option, lock account after 5 fails"},
+        {d:"Thu",l:"Data encryption — bcrypt passwords, column-level AES encryption",b:"Encrypt all PII in database using proper algorithms — plaintext is never acceptable"},
+        {d:"Fri",l:"API key management — scoped, rotatable, auditable, expirable",b:"User-issued API keys — read-only vs full-access scopes, revoke instantly, log use"},
+        {d:"Sat",l:"Dependency audit — npm audit, pip audit, Snyk, CVE monitoring",b:"Full audit — fix every critical vulnerability before shipping to more users"},
+        {d:"Sun",l:"Security documentation — policy, disclosure, data handling",b:"Write security.md: data handling, encryption methods, access control, disclosure policy"}
+      ]},
+      { w:24, t:"Phase 2 graduation — launch SaaS #3 publicly", days:[
+        {d:"Mon",l:"Product Hunt launch — hunters, timing, assets, upvote strategy",b:"Prepare PH assets: logo, tagline, gallery, 60-second demo video, first comment"},
+        {d:"Tue",l:"Launch day playbook — execute from midnight to midnight",b:"50 people to notify. Posts scheduled. Answers prepared for common questions."},
+        {d:"Wed",l:"Community launch — Reddit, Discord, Twitter, IndieHackers",b:"Post in 5 subreddits, 3 Discords, detailed Twitter thread, IndieHackers post"},
+        {d:"Thu",l:"Press and newsletter outreach — journalists, curators",b:"Email 5 indie hacker newsletters and 3 tech blogs with your origin story"},
+        {d:"Fri",l:"Launch day execution — reply to every single comment personally",b:"Go live. Post everywhere. Every comment gets a personal reply. Be present."},
+        {d:"Sat",l:"Post-launch — fix critical issues reported within 24 hours",b:"Fix top 3 bugs from new users immediately. Post public update on what was fixed."},
+        {d:"Sun",l:"Phase 2 retrospective",b:"Write '90 days, 3 SaaS products — what I learned' and post on LinkedIn"}
+      ]}
+    ]
+  },
+  {
+    weeks: [
+      { w:25, t:"Freelance — land your first client", days:[
+        {d:"Mon",l:"Positioning — one problem, one person, one measurable outcome",b:"Write: 'I build AI automation for [niche] that saves them [X] hours per week'"},
+        {d:"Tue",l:"Portfolio page — case studies not screenshots",b:"3 case studies from SaaS projects: problem, solution, result, live link"},
+        {d:"Wed",l:"Cold outreach that gets replies",b:"DM 20 founders on LinkedIn with personalized 3-line pitch — no templates"},
+        {d:"Thu",l:"Value-based pricing — packages with clear deliverables",b:"Packages: Starter ₹25K, Growth ₹75K, Enterprise ₹2L — write exact deliverables"},
+        {d:"Fri",l:"Discovery call — open, diagnose, prescribe, price, close",b:"Practice full call script. Record yourself on video. Fix awkward parts. Again."},
+        {d:"Sat",l:"Follow-up — persistent not pushy, each touch adds value",b:"3-touch follow-up: day 1 case study, day 4 demo video, day 10 final attempt"},
+        {d:"Sun",l:"Content that attracts inbound clients",b:"Post: how you saved a company 20hrs/week with AI — specific numbers, real story"}
+      ]},
+      { w:26, t:"Advanced AI agents for client work", days:[
+        {d:"Mon",l:"n8n — self-hosted visual automation, 400+ nodes, credentials",b:"Build Gmail → AI classify → Notion page automation in n8n without code"},
+        {d:"Tue",l:"LangGraph — stateful graphs, checkpoints, human-in-the-loop",b:"Customer support agent — routes queries, escalates to human when confidence low"},
+        {d:"Wed",l:"CrewAI — role-based multi-agent collaboration, task delegation",b:"Content team agents: researcher + writer + editor produce full blog posts"},
+        {d:"Thu",l:"Playwright browser automation — scraping, testing, RPA workflows",b:"Lead research agent — visits LinkedIn profiles, extracts info, exports CSV"},
+        {d:"Fri",l:"LangSmith — agent tracing, debugging, evaluation pipelines",b:"Every agent reasoning step visualized — debug failures by reading the trace"},
+        {d:"Sat",l:"Agent reliability at production scale — success rate optimization",b:"Run each agent 50 times — measure success rate — fix most common failure mode"},
+        {d:"Sun",l:"Package as productized service with clear pricing",b:"AI Agent Setup: ₹50K one-time + ₹10K/month maintenance and monitoring"}
+      ]},
+      { w:27, t:"Grow your main SaaS", days:[
+        {d:"Mon",l:"Growth accounting — new, expansion, contraction, churn MRR",b:"Build full growth accounting spreadsheet — understand where revenue actually goes"},
+        {d:"Tue",l:"SEO content — keyword research, long-tail, search intent matching",b:"Write and publish one SEO article targeting a keyword your users actually search"},
+        {d:"Wed",l:"Ecosystem distribution — app stores, integrations, partner channels",b:"Submit to Notion marketplace, Slack directory, or your industry's ecosystem"},
+        {d:"Thu",l:"Paid acquisition test — small budget, one audience, measure CPA",b:"₹1000 Meta test: one ad, one audience, one week — measure cost per signup"},
+        {d:"Fri",l:"Churn reduction — exit surveys, win-back campaigns, save offers",b:"Cancel flow: reason survey → special offer → if still leaving → goodbye email"},
+        {d:"Sat",l:"Expansion revenue — upsell existing users based on usage data",b:"Email free users with personalized upgrade offer based on their actual usage"},
+        {d:"Sun",l:"Month 7 numbers — MRR, CAC, LTV, churn. Know every one.",b:"MRR, CAC, LTV, churn rate, NPS. Know every number. Plan month 8 from data."}
+      ]},
+      { w:28, t:"Deliver a client project with excellence", days:[
+        {d:"Mon",l:"Project kickoff — scope document, milestones, payment schedule",b:"Project brief: objective, scope, out-of-scope, milestones, payment terms"},
+        {d:"Tue",l:"Client communication rhythm — async first, weekly written update",b:"Weekly update email template + Notion project tracker shared with client"},
+        {d:"Wed",l:"Build sprint 1 — core feature only, nothing else matters yet",b:"Build the main thing they hired you for. Share preview URL end of day."},
+        {d:"Thu",l:"Async demo with Loom — record, share, collect async feedback",b:"5-minute Loom walkthrough of sprint 1 — send for feedback, ask 3 specific questions"},
+        {d:"Fri",l:"Incorporate feedback — implement 2, explain why 1 is out of scope",b:"Prioritize feedback: do 2 items now, communicate tradeoff on the third"},
+        {d:"Sat",l:"Documentation as deliverable — user guide and admin guide",b:"Write user guide and admin guide — clients who get docs never ask for refunds"},
+        {d:"Sun",l:"Upsell when they are happiest — Phase 2 proposal",b:"Draft Phase 2 proposal: what you build next, value it delivers, price"}
+      ]},
+      { w:29, t:"AI fine-tuning and custom models", days:[
+        {d:"Mon",l:"When to fine-tune vs prompt engineer — honest cost-benefit analysis",b:"Evaluate your use case: does fine-tuning cut cost or improve quality enough?"},
+        {d:"Tue",l:"Dataset preparation — format, diversity, quality, size requirements",b:"Create 100 training examples (prompt + ideal completion) for your exact domain"},
+        {d:"Wed",l:"OpenAI fine-tuning API — upload dataset, train, evaluate",b:"Fine-tune gpt-4o-mini — compare against base model on 20 held-out examples"},
+        {d:"Thu",l:"Open source models — Hugging Face Hub, model cards, licensing",b:"Download Mistral 7B via Ollama locally — test on your specific task"},
+        {d:"Fri",l:"LoRA fine-tuning — efficient training on Colab free GPU tier",b:"Fine-tune Llama-3 on Google Colab — 2-hour experiment with your domain data"},
+        {d:"Sat",l:"Model evaluation — automated benchmarks, human evaluation, cost analysis",b:"Compare GPT-4o vs fine-tuned mini vs Llama on your task — pick the winner"},
+        {d:"Sun",l:"Switch your SaaS to the optimal model for your use case",b:"Which model maximizes quality/cost/latency for your product? Switch today."}
+      ]},
+      { w:30, t:"Build in public — personal brand as a moat", days:[
+        {d:"Mon",l:"Twitter/X strategy — hooks, threads, consistency over perfection",b:"Post biggest lesson from startup journey this month — honest and very specific"},
+        {d:"Tue",l:"LinkedIn for B2B founders — case studies, insights, results",b:"Post: 'I built X that does Y — here's exactly how I did it' with screenshots"},
+        {d:"Wed",l:"Newsletter — own your audience off any platform",b:"Set up Beehiiv — publish first issue: what you built and what you learned"},
+        {d:"Thu",l:"YouTube — product demo, tutorial, founder journey content",b:"Record 5-minute product demo — publish to YouTube, share link everywhere"},
+        {d:"Fri",l:"Community building — Discord, niche forums, Slack groups",b:"Start a Discord for your niche — invite first 20 members personally"},
+        {d:"Sat",l:"Podcast guest outreach — pitch yourself, 3-sentence email",b:"Pitch yourself to 5 podcasts in your niche — link to your work as proof"},
+        {d:"Sun",l:"Content calendar — Mon/Wed/Fri every week, no-skip policy",b:"Schedule posts for next 4 weeks — consistency beats quality every time"}
+      ]},
+      { w:31, t:"Hire your first person", days:[
+        {d:"Mon",l:"What to delegate — not what you hate, what blocks your growth",b:"List all tasks — mark: only-I-can-do vs can-be-delegated. Delegate category 2."},
+        {d:"Tue",l:"Freelancer platforms — Toptal, Contra, LinkedIn referrals",b:"Post a job spec with exact deliverables — not a job description, a project spec"},
+        {d:"Wed",l:"Evaluate on output — paid test task before any offer",b:"Send test task: redesign this page, fix this bug, write this doc. Pay for it."},
+        {d:"Thu",l:"SOPs — standard operating procedures for every repeatable task",b:"Write SOPs for 3 repeatable tasks — detailed enough that anyone can follow"},
+        {d:"Fri",l:"Async-first team — Notion workspace, norms, documentation culture",b:"Team Notion: project tracker, decisions log, async update template — all set up"},
+        {d:"Sat",l:"Contractor agreement — IP ownership, NDA, scope, payment terms",b:"Contractor agreement template — IP belongs to your company, NDA included"},
+        {d:"Sun",l:"Delegate first real task — check in once, then let go",b:"Assign first task with full ownership. Check in once. Resist micromanaging."}
+      ]},
+      { w:32, t:"Financial and legal foundations", days:[
+        {d:"Mon",l:"Company registration — Pvt Ltd vs LLP, ROC, authorized capital",b:"Start Pvt Ltd registration on MCA portal — Pvt Ltd if raising, LLP if bootstrapping"},
+        {d:"Tue",l:"Business banking — current account, payment gateway, forex",b:"Open current account at ICICI/HDFC — configure Razorpay or Cashfree for INR"},
+        {d:"Wed",l:"GST for SaaS — registration, invoicing, place of supply, filing",b:"Register for GST — understand place of supply rules for digital services"},
+        {d:"Thu",l:"SaaS financial model — MRR, ARR, CAC, LTV, payback period",b:"12-month financial model — project revenue, costs, cash position each month"},
+        {d:"Fri",l:"Advance tax, TDS, founder salary, equity structure",b:"1-hour CA consultation — understand your obligations before earning big"},
+        {d:"Sat",l:"Subscription cost audit — cut everything not tied to revenue growth",b:"Cancel every tool not directly tied to revenue — reduce monthly burn by 30%"},
+        {d:"Sun",l:"Phase 3 retrospective",b:"Month 9: clients, MRR, team, biggest mistake, biggest win. Write it publicly."}
+      ]}
+    ]
+  },
+  {
+    weeks: [
+      { w:37, t:"Pick your one winning product — kill the rest", days:[
+        {d:"Mon",l:"Focus decision — scoring framework for your 3 products",b:"Score each: MRR × growth rate × retention × your energy level → pick the winner"},
+        {d:"Tue",l:"Killing what doesn't matter — focus is a compounding superpower",b:"Shut down or pause 2 products. All energy to one. Communicate to their users."},
+        {d:"Wed",l:"Defining your moat — data, distribution, network effects, brand",b:"Write your unfair advantage in 1 paragraph — what is genuinely hard to copy?"},
+        {d:"Thu",l:"Market choice — enterprise, SMB, or consumer — commit today",b:"Decide: bigger deals upmarket or volume at SMB. Commit. No more waffling."},
+        {d:"Fri",l:"Reposition if growth is stalled — new ICP, new angle, new landing",b:"If stalled: test one new ICP with a new landing page variant — measure conversion"},
+        {d:"Sat",l:"90-day roadmap — only features that directly move MRR or cut churn",b:"3 features that move MRR or cut churn. Delete everything else from the backlog."},
+        {d:"Sun",l:"One-page pitch — clarity of thought shows in growth rate",b:"Write: problem, solution, traction, market, team. Clarity here predicts growth."}
+      ]},
+      { w:38, t:"Automate your operations", days:[
+        {d:"Mon",l:"Operations audit — time-track yourself for 3 days, categorize",b:"Every hour for 3 days: what did I do, did it require me, could it be automated?"},
+        {d:"Tue",l:"AI customer support — chatbot trained on your docs and FAQs",b:"Deploy AI bot on Intercom or Crisp trained on your docs — handles 60% of tickets"},
+        {d:"Wed",l:"Billing automation — Stripe dunning, receipts, plan change emails",b:"Smart dunning retries failed payments and sends recovery emails automatically"},
+        {d:"Thu",l:"Reporting automation — weekly metrics email, no manual pulling",b:"Every Monday 8am: automated email with MRR, new users, churn, top sources"},
+        {d:"Fri",l:"Marketing automation — AI-assisted content pipeline",b:"Topic → AI draft → your 30-min edit → auto-publish to blog and social platforms"},
+        {d:"Sat",l:"Sales automation — CRM, lead capture, follow-up sequences",b:"HubSpot free: inbound lead → auto sequence → book call → track to close"},
+        {d:"Sun",l:"Automation ROI — measure hours saved, reinvest them",b:"Hours saved/week × your hourly value = automation ROI. Document and reinvest."}
+      ]},
+      { w:39, t:"Enterprise sales — land bigger deals", days:[
+        {d:"Mon",l:"Enterprise buying — champion, economic buyer, blocker, process",b:"Map ideal enterprise deal: who champions, who blocks, who signs the cheque"},
+        {d:"Tue",l:"Security questionnaires — what they ask, how to answer well",b:"Security one-pager: data handling, encryption, access controls, certifications"},
+        {d:"Wed",l:"Custom proposals — implementation, SLA, training, support pricing",b:"Enterprise proposal template with implementation, onboarding, and support tiers"},
+        {d:"Thu",l:"Negotiation — anchor high, trade concessions for commitments",b:"Roleplay: they want 40% off annual, you want 15% — practice to closed deal"},
+        {d:"Fri",l:"Contracts — MSA, DPA, SLA — what each covers, when needed",b:"Template contracts via Docusign — automate sending and signature collection"},
+        {d:"Sat",l:"Customer success for enterprise — QBRs, expansion playbook",b:"Quarterly business review template: show ROI, adoption rate, next quarter roadmap"},
+        {d:"Sun",l:"Target list — 20 companies, contact, warm intro path",b:"20 enterprise targets: company, size, champion LinkedIn URL, warm intro path"}
+      ]},
+      { w:40, t:"Build team to 3-4 people", days:[
+        {d:"Mon",l:"Hire for your weaknesses — ruthlessly honest self-assessment",b:"What do you avoid daily? That is your first hire. Write role around outcomes."},
+        {d:"Tue",l:"ESOPs India — vesting, cliff, ESOP pool, valuation methods",b:"Design ESOP pool: 10% for first 5 employees, 4-year vest, 1-year cliff"},
+        {d:"Wed",l:"30-60-90 day onboarding plan — define success before hiring",b:"What does success look like at 30, 60, 90 days per role? Write it before posting."},
+        {d:"Thu",l:"Company principles — how you make decisions under pressure",b:"5 principles: what you optimize for, what you won't do, how you disagree"},
+        {d:"Fri",l:"Delegation with accountability — give ownership, set checkpoint",b:"Give hire a real project with full ownership. Set one checkpoint. Step back."},
+        {d:"Sat",l:"Performance feedback — direct, specific, frequent, actionable",b:"Monthly 1:1 template: celebrate wins, name blockers, align on next month goal"},
+        {d:"Sun",l:"Team rituals — weekly async, monthly all-hands, quarterly planning",b:"Start all 3 rituals this week — consistency of rituals predicts team culture"}
+      ]},
+      { w:48, t:"Push to ₹1 crore ARR — final drive", days:[
+        {d:"Mon",l:"Revenue gap analysis — exactly what it takes to hit ₹1Cr",b:"Current ARR + pipeline + conversion rate = projected date to ₹1Cr. Build the gap plan."},
+        {d:"Tue",l:"Sales velocity — the formula that predicts revenue growth",b:"Deals/month × avg deal size × win rate ÷ sales cycle = velocity. What lever doubles it?"},
+        {d:"Wed",l:"Account expansion — upsell your 20 happiest existing customers",b:"Personalized upgrade email to top 20 customers. Expect 15% conversion minimum."},
+        {d:"Thu",l:"Win-back campaign — reactivate churned users with new value",b:"Email 50 churned users: what changed + special offer. Expect 10% reactivation."},
+        {d:"Fri",l:"Partnership revenue — resellers, white-label, referral programs",b:"Approach 2 agencies about white-labeling your product for their client base"},
+        {d:"Sat",l:"Annual plan push — big cash upfront, dramatically lower churn",b:"Push annual plans hard: 20% discount, personal email to your top 50 users today"},
+        {d:"Sun",l:"Write your empire story — inspire the next person",b:"Day 1 to ₹1Cr ARR. Write the full story. Post it. You earned this moment."}
+      ]}
+    ]
+  }
+];
+
+var RESOURCES = [
+  {week:"Weeks 1–2",title:"CS50P — Python (Harvard, free)",url:"https://cs50.harvard.edu/python",desc:"Best free Python course on earth. Do every problem set."},
+  {week:"Weeks 1–4",title:"The Missing Semester (MIT, free)",url:"https://missing.csail.mit.edu",desc:"Git, CLI, editors — the tools every dev needs but no course teaches."},
+  {week:"Weeks 3–4",title:"FastAPI official documentation",url:"https://fastapi.tiangolo.com",desc:"Read every page. Best API framework docs in existence."},
+  {week:"Week 5",title:"SQLZoo — interactive SQL",url:"https://sqlzoo.net",desc:"Learn SQL by writing it, not reading about it. Every exercise matters."},
+  {week:"Week 5",title:"Supabase official docs",url:"https://supabase.com/docs",desc:"Best database docs in the industry. Read auth, storage, and edge functions."},
+  {week:"Weeks 6–9",title:"OpenAI Platform documentation",url:"https://platform.openai.com/docs",desc:"Read the API reference for completions, embeddings, and function calling."},
+  {week:"Weeks 7–8",title:"React official docs (react.dev)",url:"https://react.dev",desc:"The new React docs are excellent. Read and do every interactive example."},
+  {week:"Weeks 7–8",title:"Tailwind CSS documentation",url:"https://tailwindcss.com/docs",desc:"Read the core concepts section fully. Everything else you look up as needed."},
+  {week:"Week 9",title:"LangChain Python docs",url:"https://python.langchain.com",desc:"Official docs plus Greg Kamradt's YouTube for practical walkthroughs."},
+  {week:"Week 10",title:"Stripe documentation",url:"https://stripe.com/docs",desc:"Read: payments, webhooks, subscriptions, billing portal. Test everything."},
+  {week:"Week 12",title:"Docker official get-started guide",url:"https://docs.docker.com/get-started",desc:"Do the full tutorial. Understand images, containers, compose, and volumes."},
+  {week:"Week 12",title:"AWS free tier + freeCodeCamp course",url:"https://www.youtube.com/watch?v=NhDYbskXRgc",desc:"13-hour free AWS course on YouTube. Watch at 1.5x. Do every hands-on section."},
+  {week:"Phase 3",title:"IndieHackers — build in public",url:"https://www.indiehackers.com",desc:"Read 10 founder interviews from people who bootstrapped to $10K MRR."},
+  {week:"Phase 3+",title:"Paul Graham Essays",url:"https://www.paulgraham.com/articles.html",desc:"Read: Do Things That Don't Scale, Default Alive, How to Start a Startup."},
+];
+
+// ── RENDER WEEKS ──
+function renderWeeks(containerId, phaseData) {
+  var el = document.getElementById(containerId);
+  if (!el) return;
+  phaseData.weeks.forEach(function(wk) {
+    var card = document.createElement('div');
+    card.className = 'week';
+    var daysHtml = wk.days.map(function(day) {
+      return '<div class="day-row">' +
+        '<div class="day-label">' + day.d + '</div>' +
+        '<div class="day-learn"><div class="day-learn-title">' + day.l + '</div></div>' +
+        '<div class="day-build"><div class="day-build-tag">Build</div><div class="day-build-text">' + day.b + '</div></div>' +
+        '</div>';
+    }).join('');
+    card.innerHTML =
+      '<div class="week-head" onclick="this.parentElement.classList.toggle(\'open\')">' +
+        '<span class="week-num">Week ' + wk.w + '</span>' +
+        '<span class="week-title">' + wk.t + '</span>' +
+        '<span class="week-tag">' + wk.days.length + ' days</span>' +
+        '<span class="week-chevron">▼</span>' +
+      '</div>' +
+      '<div class="week-body"><div class="days">' + daysHtml + '</div></div>';
+    el.appendChild(card);
+  });
+}
+
+renderWeeks('weeks-0', PHASES[0]);
+renderWeeks('weeks-1', PHASES[1]);
+renderWeeks('weeks-2', PHASES[2]);
+renderWeeks('weeks-3', PHASES[3]);
+
+// ── PHASE TABS ──
+document.querySelectorAll('.phase-btn').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    var p = btn.dataset.phase;
+    document.querySelectorAll('.phase-btn').forEach(function(b) { b.classList.remove('active'); });
+    document.querySelectorAll('.phase-panel').forEach(function(el) { el.classList.remove('active'); });
+    btn.classList.add('active');
+    document.getElementById('phase-' + p).classList.add('active');
+  });
+});
+
+// ── TRACKER ──
+var trackerState = {};
+try { trackerState = JSON.parse(localStorage.getItem('empireTracker') || '{}'); } catch(e) {}
+var trackerMode = 'both';
+
+function saveTracker() {
+  try { localStorage.setItem('empireTracker', JSON.stringify(trackerState)); } catch(e) {}
+}
+
+var modeClassMap = { both: 'd-both', learn: 'd-learn', build: 'd-build', miss: 'd-miss' };
+
+function buildDotGrids() {
+  var ranges = [
+    { id: 'dg1', start: 0, end: 84 },
+    { id: 'dg2', start: 84, end: 168 },
+    { id: 'dg3', start: 168, end: 252 },
+    { id: 'dg4', start: 252, end: 365 }
+  ];
+  ranges.forEach(function(r) {
+    var el = document.getElementById(r.id);
+    if (!el) return;
+    for (var i = r.start; i < r.end; i++) {
+      (function(idx) {
+        var dot = document.createElement('div');
+        dot.className = 'dot';
+        dot.id = 'dot-' + idx;
+        dot.title = 'Day ' + (idx + 1);
+        dot.onclick = function() {
+          if (trackerMode === 'clear') {
+            delete trackerState[idx];
+          } else if (trackerMode === 'reset') {
+            // handled separately
+          } else {
+            trackerState[idx] = trackerMode;
+          }
+          saveTracker();
+          renderDots();
+          updateStats();
+          updateStackBars();
+        };
+        el.appendChild(dot);
+      })(i);
+    }
+  });
+}
+
+function renderDots() {
+  for (var i = 0; i < 365; i++) {
+    var dot = document.getElementById('dot-' + i);
+    if (!dot) continue;
+    dot.className = 'dot';
+    if (trackerState[i]) dot.classList.add(modeClassMap[trackerState[i]]);
+  }
+}
+
+function updateStats() {
+  var both = 0, total = 0, miss = 0;
+  for (var k in trackerState) {
+    total++;
+    if (trackerState[k] === 'both') both++;
+    if (trackerState[k] === 'miss') miss++;
+  }
+  var streak = 0;
+  for (var j = 364; j >= 0; j--) {
+    if (trackerState[j] && trackerState[j] !== 'miss') streak++;
+    else break;
+  }
+  var pct = Math.round((total / 365) * 100);
+  document.getElementById('st-both').textContent = both;
+  document.getElementById('st-streak').textContent = streak;
+  document.getElementById('st-total').textContent = total;
+  document.getElementById('st-miss').textContent = miss;
+  document.getElementById('st-pct').textContent = pct + '%';
+  document.getElementById('progBar').style.width = Math.min(pct, 100) + '%';
+  var dayNum = total + 1;
+  document.getElementById('navIndicator').textContent = 'Day ' + Math.min(dayNum, 365) + ' of 365';
+  document.getElementById('footerDay').textContent = 'Day ' + Math.min(dayNum, 365) + ' of 365';
+}
+
+document.getElementById('ctrlRow').addEventListener('click', function(e) {
+  var btn = e.target.closest('.ctrl-btn');
+  if (!btn) return;
+  var m = btn.dataset.mode;
+  if (m === 'reset') {
+    if (confirm('Reset all tracked days? This cannot be undone.')) {
+      trackerState = {};
+      saveTracker();
+      renderDots();
+      updateStats();
+      updateStackBars();
+    }
+    return;
+  }
+  trackerMode = m;
+  document.querySelectorAll('.ctrl-btn').forEach(function(b) {
+    b.classList.remove('sel', 'sel-learn', 'sel-build', 'sel-miss', 'sel-clear');
+  });
+  var cls = { both: 'sel', learn: 'sel-learn', build: 'sel-build', miss: 'sel-miss', clear: 'sel-clear' };
+  btn.classList.add(cls[m] || 'sel');
+});
+
+buildDotGrids();
+renderDots();
+updateStats();
+// stack bars initialised after STACK is defined below
+
+// ── TECH STACK DATA ──
+// dayStart/dayEnd = which days (0-indexed) cover this tech. Progress = completed days in range / total days in range.
+var STACK = {
+  'sg-core': [
+    { name:'Python', icon:'🐍', color:'#3b82f6', phase:'Phase 1 · Weeks 1–2', weeks:'W1–W2', desc:'Variables, OOP, file I/O, async, decorators, everything Pythonic.', dayStart:0, dayEnd:13 },
+    { name:'Git & CLI', icon:'🔧', color:'#8b5cf6', phase:'Phase 1 · Week 2', weeks:'W2', desc:'Version control, branching, GitHub, terminal fluency.', dayStart:7, dayEnd:13 },
+  ],
+  'sg-backend': [
+    { name:'Flask', icon:'⚗️', color:'#06b6d4', phase:'Phase 1 · Week 4', weeks:'W4', desc:'Routes, templates, REST APIs, SQLAlchemy, CORS.', dayStart:21, dayEnd:27 },
+    { name:'FastAPI', icon:'⚡', color:'#10b981', phase:'Phase 2 · Week 16', weeks:'W16', desc:'Async Python, Pydantic, auto-docs, dependency injection, rate limiting.', dayStart:105, dayEnd:111 },
+    { name:'REST API Design', icon:'🔗', color:'#f59e0b', phase:'Phases 1–2', weeks:'W4–W16', desc:'HTTP verbs, status codes, versioning, OpenAPI, Postman.', dayStart:21, dayEnd:111 },
+    { name:'WebSockets', icon:'🔄', color:'#ec4899', phase:'Phase 1 · Week 8', weeks:'W8', desc:'Real-time communication, socket.io, event-driven architecture.', dayStart:49, dayEnd:55 },
+    { name:'Celery + Redis', icon:'⚙️', color:'#ef4444', phase:'Phase 2 · Week 16', weeks:'W16', desc:'Background task queues, job scheduling, result backends.', dayStart:105, dayEnd:111 },
+  ],
+  'sg-frontend': [
+    { name:'React', icon:'⚛️', color:'#61dafb', phase:'Phase 1 · Weeks 7–8', weeks:'W7–W8', desc:'Hooks, Router, Context, optimistic updates, custom hooks.', dayStart:42, dayEnd:55 },
+    { name:'Tailwind CSS', icon:'🎨', color:'#38bdf8', phase:'Phase 1 · Week 7', weeks:'W7', desc:'Utility-first CSS, responsive design, dark mode, animations.', dayStart:46, dayEnd:55 },
+    { name:'TanStack Query', icon:'📡', color:'#f97316', phase:'Phase 2 · Week 15', weeks:'W15', desc:'Server state management, caching, background refetch, mutations.', dayStart:98, dayEnd:104 },
+    { name:'Vite', icon:'⚡', color:'#a855f7', phase:'Phase 1 · Week 7', weeks:'W7', desc:'Lightning-fast build tool, HMR, env variables, deployment.', dayStart:42, dayEnd:48 },
+  ],
+  'sg-db': [
+    { name:'PostgreSQL', icon:'🐘', color:'#336791', phase:'Phase 1 · Week 5', weeks:'W5', desc:'SQL fundamentals, joins, indexes, aggregates, query optimization.', dayStart:28, dayEnd:34 },
+    { name:'Supabase', icon:'🟢', color:'#3ecf8e', phase:'Phase 1 · Week 5', weeks:'W5–W12', desc:'Hosted Postgres, Auth, RLS, Storage, realtime, Edge Functions.', dayStart:28, dayEnd:83 },
+    { name:'SQLAlchemy', icon:'🗄️', color:'#d4a76a', phase:'Phase 1 · Week 4', weeks:'W4', desc:'ORM, models, sessions, migrations, relationships.', dayStart:21, dayEnd:27 },
+    { name:'Redis', icon:'🔴', color:'#dc382d', phase:'Phase 2 · Week 16', weeks:'W16', desc:'Caching, session storage, pub/sub, rate limiting, queues.', dayStart:105, dayEnd:111 },
+    { name:'pgvector', icon:'🧮', color:'#6366f1', phase:'Phase 2 · Week 19', weeks:'W19', desc:'Vector similarity search inside PostgreSQL for RAG applications.', dayStart:126, dayEnd:132 },
+    { name:'AWS S3', icon:'☁️', color:'#ff9900', phase:'Phase 2 · Week 22', weeks:'W22', desc:'Object storage, CDN via CloudFront, presigned URLs, lifecycle rules.', dayStart:147, dayEnd:153 },
+  ],
+  'sg-ai': [
+    { name:'OpenAI API', icon:'🤖', color:'#10a37f', phase:'Phase 1 · Week 6', weeks:'W6', desc:'Chat completions, embeddings, function calling, streaming, fine-tuning.', dayStart:35, dayEnd:41 },
+    { name:'LangChain', icon:'🔗', color:'#1c3f6e', phase:'Phase 1 · Week 9', weeks:'W9', desc:'Chains, RAG, memory, agents, custom tools, output parsers.', dayStart:56, dayEnd:62 },
+    { name:'LangGraph', icon:'🕸️', color:'#7c3aed', phase:'Phase 3 · Week 26', weeks:'W26', desc:'Stateful multi-agent graphs, checkpoints, human-in-the-loop.', dayStart:175, dayEnd:181 },
+    { name:'CrewAI', icon:'🤝', color:'#dc2626', phase:'Phase 3 · Week 26', weeks:'W26', desc:'Role-based agent teams, task delegation, collaborative AI workflows.', dayStart:175, dayEnd:181 },
+    { name:'Prompt Engineering', icon:'✍️', color:'#d97706', phase:'Phase 1 · Week 6', weeks:'W6', desc:'System prompts, temperature, few-shot, CoT, structured output.', dayStart:35, dayEnd:62 },
+    { name:'RAG / Embeddings', icon:'🧠', color:'#7c3aed', phase:'Phases 1–2', weeks:'W6, W9, W19', desc:'Chunking, vector stores, hybrid search, reranking, evaluation.', dayStart:35, dayEnd:132 },
+    { name:'Fine-tuning', icon:'🎛️', color:'#059669', phase:'Phase 3 · Week 29', weeks:'W29', desc:'Dataset prep, OpenAI fine-tune API, LoRA, Ollama local models.', dayStart:196, dayEnd:202 },
+    { name:'AI Agents', icon:'🦾', color:'#e11d48', phase:'Phases 1–3', weeks:'W11, W26', desc:'ReAct loops, tool use, multi-agent orchestration, reliability.', dayStart:70, dayEnd:181 },
+  ],
+  'sg-cloud': [
+    { name:'Docker', icon:'🐳', color:'#2496ed', phase:'Phase 1 · Week 12', weeks:'W12', desc:'Dockerfiles, images, containers, compose, multi-service apps.', dayStart:77, dayEnd:83 },
+    { name:'AWS EC2 / Lambda', icon:'☁️', color:'#ff9900', phase:'Phases 1–2', weeks:'W12, W22', desc:'EC2 SSH deploy, Lambda serverless, triggers, cold starts, layers.', dayStart:77, dayEnd:153 },
+    { name:'Nginx', icon:'🌐', color:'#009900', phase:'Phase 1 · Week 12', weeks:'W12', desc:'Reverse proxy, SSL termination, domain routing, load balancing.', dayStart:77, dayEnd:83 },
+    { name:'GitHub Actions', icon:'⚙️', color:'#2088ff', phase:'Phase 1 · Week 12', weeks:'W12', desc:'CI/CD pipelines, automated testing, deploy on push.', dayStart:77, dayEnd:83 },
+    { name:'Terraform', icon:'🏗️', color:'#7b42bc', phase:'Phase 2 · Week 22', weeks:'W22', desc:'Infrastructure as code, AWS provider, state management.', dayStart:147, dayEnd:153 },
+    { name:'Playwright', icon:'🎭', color:'#2ead33', phase:'Phase 3 · Week 26', weeks:'W26', desc:'Browser automation, web scraping, RPA, end-to-end testing.', dayStart:175, dayEnd:181 },
+    { name:'n8n', icon:'🔀', color:'#ea4b71', phase:'Phase 3 · Week 26', weeks:'W26', desc:'Visual automation, 400+ integrations, self-hosted workflow builder.', dayStart:175, dayEnd:181 },
+  ],
+  'sg-biz': [
+    { name:'Stripe', icon:'💳', color:'#635bff', phase:'Phase 1 · Week 10', weeks:'W10', desc:'Payments, subscriptions, webhooks, billing portal, dunning.', dayStart:63, dayEnd:69 },
+    { name:'Supabase Auth', icon:'🔐', color:'#3ecf8e', phase:'Phase 1 · Week 5', weeks:'W5', desc:'JWT, OAuth, Row Level Security, magic links, MFA.', dayStart:28, dayEnd:34 },
+    { name:'OAuth2 / Gmail API', icon:'📧', color:'#ea4335', phase:'Phase 2 · Week 17', weeks:'W17', desc:'Authorization code flow, PKCE, token refresh, Gmail API.', dayStart:112, dayEnd:118 },
+    { name:'Slack API', icon:'💬', color:'#4a154b', phase:'Phase 2 · Week 18', weeks:'W18', desc:'Messages, Block Kit, slash commands, event subscriptions.', dayStart:119, dayEnd:125 },
+    { name:'Notion API', icon:'📓', color:'#ffffff', phase:'Phase 2 · Week 18', weeks:'W18', desc:'Pages, databases, blocks, relations — automated workspace ops.', dayStart:119, dayEnd:125 },
+    { name:'Customer Discovery', icon:'🎯', color:'#f59e0b', phase:'Phase 2 · Week 20', weeks:'W20', desc:'ICP, interviews, willingness-to-pay, MVP scoping, validation.', dayStart:133, dayEnd:139 },
+    { name:'SEO & Growth', icon:'📈', color:'#22c55e', phase:'Phase 3 · Week 27', weeks:'W27', desc:'Content marketing, keyword research, paid acquisition, cohorts.', dayStart:182, dayEnd:188 },
+    { name:'Enterprise Sales', icon:'🏢', color:'#6366f1', phase:'Phase 4 · Week 39', weeks:'W39', desc:'Champions, proposals, security questionnaires, contracts, QBRs.', dayStart:266, dayEnd:272 },
+  ]
+};
+
+// Map each stack card to its day range and render
+function renderStackCards() {
+  Object.keys(STACK).forEach(function(gridId) {
+    var grid = document.getElementById(gridId);
+    if (!grid) return;
+    STACK[gridId].forEach(function(tech, idx) {
+      var card = document.createElement('div');
+      card.className = 'stack-card';
+      card.id = 'sc-' + gridId + '-' + idx;
+      card.innerHTML =
+        '<div class="stack-card-top">' +
+          '<div class="stack-name"><span class="stack-icon">' + tech.icon + '</span>' + tech.name + '</div>' +
+          '<div class="stack-pct" id="pct-' + gridId + '-' + idx + '" style="color:' + tech.color + '">0%</div>' +
+        '</div>' +
+        '<div class="stack-phase-tag">' + tech.phase + '</div>' +
+        '<div class="stack-bar-bg"><div class="stack-bar-fill" id="bar-' + gridId + '-' + idx + '" style="background:' + tech.color + '"></div></div>' +
+        '<div class="stack-desc">' + tech.desc + '</div>' +
+        '<div class="stack-weeks-tag">Weeks ' + tech.weeks + ' · Days ' + (tech.dayStart+1) + '–' + (tech.dayEnd+1) + '</div>';
+      grid.appendChild(card);
+    });
+  });
+}
+
+function updateStackBars() {
+  var overallLogged = 0;
+  for (var k in trackerState) {
+    if (trackerState[k] !== 'miss') overallLogged++;
+  }
+
+  Object.keys(STACK).forEach(function(gridId) {
+    STACK[gridId].forEach(function(tech, idx) {
+      var totalDays = tech.dayEnd - tech.dayStart + 1;
+      var completed = 0;
+      for (var d = tech.dayStart; d <= tech.dayEnd; d++) {
+        if (trackerState[d] && trackerState[d] !== 'miss') completed++;
+      }
+      var pct = Math.round((completed / totalDays) * 100);
+      var pctEl = document.getElementById('pct-' + gridId + '-' + idx);
+      var barEl = document.getElementById('bar-' + gridId + '-' + idx);
+      if (pctEl) pctEl.textContent = pct + '%';
+      if (barEl) barEl.style.width = pct + '%';
+    });
+  });
+
+  // overall
+  var totalLogged = 0;
+  for (var k in trackerState) { if (trackerState[k] !== 'miss') totalLogged++; }
+  var overallPct = Math.round((totalLogged / 365) * 100);
+  document.getElementById('overallPct').textContent = overallPct + '%';
+  document.getElementById('overallSub').textContent = totalLogged + ' of 365 sessions completed';
+  document.getElementById('overallFill').style.width = overallPct + '%';
+}
+
+renderStackCards();
+updateStackBars();
+
+// ── RESOURCES ──
+var resGrid = document.getElementById('resGrid');
+RESOURCES.forEach(function(r) {
+  var card = document.createElement('div');
+  card.className = 'res-card';
+  card.innerHTML =
+    '<div class="res-week">' + r.week + '</div>' +
+    '<div class="res-title">' + r.title + '</div>' +
+    '<a class="res-url" href="' + r.url + '" target="_blank">' + r.url + '</a>' +
+    '<div class="res-desc">' + r.desc + '</div>';
+  resGrid.appendChild(card);
+});
+</script>
+</body>
+</html>

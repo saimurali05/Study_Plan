@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ultimate 7-Day Fat Loss Plan</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Karla:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f5f0e8;
+  --surface: #ede7d9;
+  --card: #ffffff;
+  --dark: #1a1a1a;
+  --accent: #e85d26;
+  --green: #2d6a4f;
+  --green-light: #d8f3dc;
+  --yellow: #f4a261;
+  --blue: #1d3557;
+  --red: #e63946;
+  --muted: #6b6b6b;
+  --border: #ddd5c4;
+  --shadow: 0 4px 24px rgba(0,0,0,0.08);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  background: var(--bg);
+  color: var(--dark);
+  font-family: 'Karla', sans-serif;
+  line-height: 1.6;
+}
+
+/* NAV TABS */
+.nav-tabs {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--dark);
+  display: flex;
+  overflow-x: auto;
+  scrollbar-width: none;
+  gap: 2px;
+  padding: 8px 12px;
+}
+.nav-tabs::-webkit-scrollbar { display: none; }
+.tab-btn {
+  flex-shrink: 0;
+  padding: 8px 16px;
+  background: transparent;
+  border: none;
+  color: #888;
+  font-family: 'Karla', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.tab-btn:hover { color: white; background: rgba(255,255,255,0.1); }
+.tab-btn.active { background: var(--accent); color: white; }
+
+/* SECTIONS */
+.section { display: none; }
+.section.active { display: block; }
+
+/* HERO */
+.hero {
+  background: var(--dark);
+  color: white;
+  padding: 48px 24px 56px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::after {
+  content: 'FAT LOSS';
+  position: absolute;
+  bottom: -20px; right: -10px;
+  font-family: 'Syne', sans-serif;
+  font-size: 100px;
+  font-weight: 800;
+  color: rgba(255,255,255,0.04);
+  pointer-events: none;
+  white-space: nowrap;
+}
+.hero-tag {
+  display: inline-block;
+  background: var(--accent);
+  color: white;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+.hero h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(40px, 9vw, 72px);
+  font-weight: 800;
+  line-height: 1;
+  margin-bottom: 16px;
+}
+.hero h1 em { color: var(--accent); font-style: normal; }
+.hero p { font-size: 15px; color: #aaa; max-width: 480px; }
+
+.stats-strip {
+  display: flex;
+  overflow-x: auto;
+  gap: 12px;
+  padding: 20px 24px;
+  background: var(--dark);
+  scrollbar-width: none;
+}
+.stats-strip::-webkit-scrollbar { display: none; }
+.stat-box {
+  flex-shrink: 0;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  padding: 14px 20px;
+  text-align: center;
+  min-width: 90px;
+}
+.stat-box .v { font-family: 'Syne', sans-serif; font-size: 24px; font-weight: 800; color: var(--accent); }
+.stat-box .l { font-size: 10px; color: #777; letter-spacing: 1px; text-transform: uppercase; margin-top: 2px; }
+
+/* CONTENT PADDING */
+.content-wrap { padding: 24px; max-width: 800px; margin: 0 auto; }
+
+/* SECTION HEADING */
+.s-head {
+  font-family: 'Syne', sans-serif;
+  font-size: 28px;
+  font-weight: 800;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 3px solid var(--dark);
+}
+.s-head em { color: var(--accent); font-style: normal; }
+
+/* DAY CARDS */
+.day-card {
+  background: var(--card);
+  border-radius: 16px;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+.day-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 20px;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.2s;
+}
+.day-header:hover { background: #fafaf8; }
+.day-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 42px;
+  font-weight: 800;
+  color: var(--border);
+  line-height: 1;
+  width: 54px;
+  flex-shrink: 0;
+}
+.day-card.open .day-num { color: var(--accent); }
+.day-meta { flex: 1; }
+.day-meta h3 { font-size: 16px; font-weight: 700; }
+.day-meta p { font-size: 12px; color: var(--muted); margin-top: 2px; }
+.day-badges { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px; }
+.badge {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  padding: 3px 8px;
+  border-radius: 20px;
+  text-transform: uppercase;
+}
+.badge.veg { background: var(--green-light); color: var(--green); }
+.badge.protein { background: #fff3e0; color: #e65100; }
+.badge.fish { background: #e3f2fd; color: #1565c0; }
+.badge.fiber { background: #f3e5f5; color: #6a1b9a; }
+.badge.gym { background: #fce4ec; color: #c62828; }
+.day-kcal { text-align: right; }
+.day-kcal .k { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; color: var(--green); }
+.day-kcal .u { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+.chevron { font-size: 14px; color: var(--muted); margin-left: 8px; transition: transform 0.3s; }
+.day-card.open .chevron { transform: rotate(180deg); }
+
+.day-body {
+  display: none;
+  border-top: 1px solid var(--border);
+}
+.day-card.open .day-body { display: block; }
+
+.meal-row {
+  display: flex;
+  gap: 16px;
+  padding: 14px 20px;
+  border-bottom: 1px solid #f5f0e8;
+  align-items: flex-start;
+}
+.meal-row:last-child { border-bottom: none; }
+.meal-time-col {
+  width: 70px;
+  flex-shrink: 0;
+}
+.meal-time-col .time { font-size: 12px; font-weight: 700; color: var(--accent); }
+.meal-time-col .label {
+  font-size: 10px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 2px;
+}
+.meal-info { flex: 1; }
+.meal-info h4 { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+.meal-info .desc { font-size: 12px; color: var(--muted); line-height: 1.5; }
+.meal-info .qty {
+  display: inline-block;
+  background: #f0fdf4;
+  color: var(--green);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-top: 5px;
+  border: 1px solid #bbf7d0;
+}
+.meal-info .macros {
+  font-size: 11px;
+  color: #888;
+  margin-top: 4px;
+}
+.macro-chip {
+  display: inline-block;
+  background: var(--surface);
+  border-radius: 4px;
+  padding: 2px 6px;
+  margin-right: 4px;
+  font-size: 11px;
+  font-weight: 600;
+}
+.macro-chip.p { color: #e65100; }
+.macro-chip.c { color: #1565c0; }
+.macro-chip.f { color: var(--green); }
+.macro-chip.k { color: #6a1b9a; }
+
+/* FRUIT CRAVING SECTION */
+.fruit-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 12px;
+  margin-bottom: 28px;
+}
+.fruit-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px 12px;
+  text-align: center;
+  box-shadow: var(--shadow);
+  transition: transform 0.2s;
+}
+.fruit-card:hover { transform: translateY(-3px); }
+.fruit-card .icon { font-size: 32px; margin-bottom: 8px; }
+.fruit-card h4 { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+.fruit-card .when { font-size: 11px; color: var(--accent); font-weight: 600; }
+.fruit-card .why { font-size: 11px; color: var(--muted); margin-top: 3px; line-height: 1.4; }
+
+/* VITAMINS TABLE */
+.vit-card {
+  background: var(--card);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+.vit-header {
+  background: var(--dark);
+  color: white;
+  padding: 14px 20px;
+  font-family: 'Syne', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+}
+.vit-row {
+  display: grid;
+  grid-template-columns: 40px 1fr 90px 80px;
+  gap: 8px;
+  padding: 12px 20px;
+  border-bottom: 1px solid var(--border);
+  align-items: center;
+  font-size: 13px;
+}
+.vit-row:last-child { border-bottom: none; }
+.vit-row.head {
+  background: var(--surface);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.vit-icon { font-size: 20px; }
+.vit-name { font-weight: 600; }
+.vit-src { font-size: 11px; color: var(--muted); margin-top: 2px; }
+.vit-dose { font-weight: 700; color: var(--green); font-size: 13px; }
+.vit-bar-wrap { background: #eee; border-radius: 4px; height: 6px; overflow: hidden; }
+.vit-bar { height: 6px; border-radius: 4px; background: var(--accent); }
+
+/* AVOID SECTION */
+.avoid-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.avoid-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--red);
+  border-radius: 0 12px 12px 0;
+  padding: 14px 16px;
+  box-shadow: var(--shadow);
+}
+.avoid-card .icon { font-size: 22px; margin-bottom: 6px; }
+.avoid-card h4 { font-size: 14px; font-weight: 700; color: var(--red); margin-bottom: 4px; }
+.avoid-card p { font-size: 12px; color: var(--muted); line-height: 1.5; }
+.avoid-card .impact {
+  display: inline-block;
+  background: #fef2f2;
+  color: var(--red);
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 4px;
+  margin-top: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* TRACKER */
+.tracker-intro {
+  background: var(--card);
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+.tracker-table-wrap {
+  background: var(--card);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+.tracker-table-wrap h3 {
+  background: var(--dark);
+  color: white;
+  padding: 14px 20px;
+  font-family: 'Syne', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+}
+.tracker-table { width: 100%; border-collapse: collapse; }
+.tracker-table th {
+  background: var(--surface);
+  padding: 10px 12px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+.tracker-table td {
+  padding: 10px 12px;
+  font-size: 13px;
+  border-bottom: 1px solid #f5f0e8;
+  vertical-align: middle;
+}
+.tracker-table tr:last-child td { border-bottom: none; }
+.tracker-table input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+.tracker-table input[type="text"],
+.tracker-table input[type="number"] {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  border-radius: 6px;
+  padding: 5px 8px;
+  font-size: 13px;
+  font-family: 'Karla', sans-serif;
+  width: 100%;
+  max-width: 90px;
+  color: var(--dark);
+}
+.tracker-table input[type="text"]:focus,
+.tracker-table input[type="number"]:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+.day-label { font-weight: 700; font-size: 13px; }
+.day-sub { font-size: 11px; color: var(--muted); }
+
+.progress-ring-wrap { text-align: center; padding: 24px; }
+.week-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.week-metric {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+  box-shadow: var(--shadow);
+}
+.week-metric .wv { font-family: 'Syne', sans-serif; font-size: 26px; font-weight: 800; }
+.week-metric .wl { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+.week-metric .wv.green { color: var(--green); }
+.week-metric .wv.orange { color: var(--accent); }
+.week-metric .wv.red { color: var(--red); }
+
+.save-btn {
+  background: var(--accent);
+  color: white;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 8px;
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  letter-spacing: 1px;
+  margin-top: 12px;
+  transition: background 0.2s;
+}
+.save-btn:hover { background: #c94e1e; }
+.save-note { font-size: 12px; color: var(--muted); margin-top: 8px; }
+
+/* FIBER SECTION */
+.fiber-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.fiber-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--green);
+  border-radius: 0 0 12px 12px;
+  padding: 14px;
+  box-shadow: var(--shadow);
+}
+.fiber-card .icon { font-size: 26px; margin-bottom: 6px; }
+.fiber-card h4 { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+.fiber-card .grams { color: var(--green); font-weight: 700; font-size: 13px; }
+.fiber-card p { font-size: 12px; color: var(--muted); margin-top: 4px; line-height: 1.4; }
+
+/* BUDGET */
+.budget-card {
+  background: var(--card);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+.budget-card h3 {
+  background: var(--green);
+  color: white;
+  padding: 14px 20px;
+  font-family: 'Syne', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+}
+.budget-table { width: 100%; border-collapse: collapse; }
+.budget-table th {
+  background: var(--surface);
+  padding: 10px 16px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--muted);
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+.budget-table td {
+  padding: 11px 16px;
+  font-size: 13px;
+  border-bottom: 1px solid #f5f0e8;
+}
+.budget-table td:last-child { text-align: right; font-weight: 700; color: var(--green); }
+.budget-table tr:last-child td { border-bottom: none; }
+.total-row td { font-weight: 800 !important; background: var(--green-light); color: var(--green) !important; font-size: 14px !important; }
+
+/* FOOTER */
+footer {
+  text-align: center;
+  padding: 32px 24px;
+  font-size: 12px;
+  color: var(--muted);
+  border-top: 1px solid var(--border);
+  margin-top: 20px;
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<div class="nav-tabs">
+  <button class="tab-btn active" onclick="showTab('plan')">📅 Meal Plan</button>
+  <button class="tab-btn" onclick="showTab('fiber')">🫘 Fiber Guide</button>
+  <button class="tab-btn" onclick="showTab('fruits')">🍎 Cravings</button>
+  <button class="tab-btn" onclick="showTab('vitamins')">💊 Vitamins</button>
+  <button class="tab-btn" onclick="showTab('avoid')">🚫 Avoid</button>
+  <button class="tab-btn" onclick="showTab('tracker')">📊 Tracker</button>
+  <button class="tab-btn" onclick="showTab('budget')">💰 Budget</button>
+</div>
+
+<!-- ===================== PLAN ===================== -->
+<div id="plan" class="section active">
+  <div class="hero">
+    <div class="hero-tag">🔥 110kg · 21 years · Morning Gym</div>
+    <h1>7-DAY <em>FAT LOSS</em><br>DIET PLAN</h1>
+    <p>Morning gym schedule · High fiber · Budget-friendly · ~1700 kcal/day</p>
+  </div>
+  <div class="stats-strip">
+    <div class="stat-box"><div class="v">5:30</div><div class="l">Wake Up</div></div>
+    <div class="stat-box"><div class="v">6AM</div><div class="l">Gym Time</div></div>
+    <div class="stat-box"><div class="v">1700</div><div class="l">kcal/day</div></div>
+    <div class="stat-box"><div class="v">150g</div><div class="l">Protein</div></div>
+    <div class="stat-box"><div class="v">35g</div><div class="l">Fiber/day</div></div>
+    <div class="stat-box"><div class="v">800</div><div class="l">kcal deficit</div></div>
+    <div class="stat-box"><div class="v">1kg</div><div class="l">Loss/week</div></div>
+  </div>
+  <div class="content-wrap">
+    <div class="s-head">Weekly <em>Meal Plan</em></div>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:20px;">Tap any day to expand. Times adjusted for <strong>6 AM morning gym</strong>.</p>
+
+    <!-- DAY 1 MON -->
+    <div class="day-card open">
+      <div class="day-header" onclick="toggleDay(this)">
+        <div class="day-num">01</div>
+        <div class="day-meta">
+          <h3>Monday</h3>
+          <div class="day-badges"><span class="badge gym">🏋️ Gym Morning</span><span class="badge protein">High Protein</span><span class="badge fiber">Fiber</span></div>
+        </div>
+        <div class="day-kcal"><div class="k">1710</div><div class="u">kcal</div></div>
+        <div class="chevron">▼</div>
+      </div>
+      <div class="day-body">
+        <div class="meal-row"><div class="meal-time-col"><div class="time">5:30 AM</div><div class="label">Wake Up</div></div><div class="meal-info"><h4>Warm Water + Black Coffee ☕</h4><div class="desc">500ml warm water immediately on waking. 1 cup black coffee — no sugar, no milk. This is your pre-workout fat burner.</div><div class="qty">500ml water · 1 cup black coffee</div><div class="macros"><span class="macro-chip k">~8 kcal</span></div></div></div>
+        <div class="meal-row"><div class="meal-time-col"><div class="time">6:00 AM</div><div class="label">GYM 💪</div></div><div class="meal-info"><h4>Workout Session</h4><div class="desc">Train fasted or after coffee. Compound lifts + 15 min cardio. Sip water throughout — aim 500ml during workout.</div></div></div>
+        <div class="meal-row"><div class="meal-time-col"><div class="time">8:00 AM</div><div class="label">Breakfast</div></div><div class="meal-info"><h4>Muesli + Boiled Eggs</h4><div class="desc">60g plain muesli with low-fat milk or water. 3 whole boiled eggs. This refuels your muscles post-workout.</div><div class="qty">60g muesli · 200ml milk · 3 eggs</div><div class="macros"><span class="macro-chip k">~520 kcal</span><span class="macro-chip p">P: 30g</span><span class="macro-chip c">C: 60g</span><span class="macro-chip f">Fiber: 5g</span></div></div></div>
+        <div class="meal-row"><div class="meal-time-col"><div class="time">11:30 AM</div><div class="label">Mid Morning</div></div><div class="meal-info"><h4>Rajma (Kidney Beans) Bowl</h4><div class="desc">100g cooked rajma with onion, tomato, lemon juice, salt, cumin. No rice. Rich in fiber and plant protein.</div><div class="qty">100g cooked rajma · spices · lemon</div><div class="macros"><span class="macro-chip k">~180 kcal</span><span class="macro-chip p">P: 9g</span><span class="macro-chip f">Fiber: 8g</span></div></div></div>
+        <div class="meal-row"><div class="meal-time-col"><div class="time">2:00 PM</div><div class="label">Lunch</div></div><div class="meal-info"><h4>Grilled Chicken Breast + Salad</h4><div class="desc">200g chicken breast grilled with garlic, cumin, chilli, lemon. Big salad: cucumber, tomato, onion, capsicum with lemon dressing.</div><div class="qty">200g chicken · large salad bowl</div><div class="macros"><span class="macro-chip k">~380 kcal</span><span class="macro-chip p">P: 46g</span><span class="macro-chip f">Fiber: 4g</span></div></div></div>
+        <div class="meal-row"><div class="meal-time-col"><div class="time">4:30 PM</div><div class="label">Snack</div></div><div class="meal-info"><h4>Apple + Black Coffee</h4><div class="desc">1 medium apple (craving control, fiber, natural sugar). 1 black coffee to curb appetite before dinner.</div><div class="qty">1 apple (~150g) · 1 black coffee</div><div class="macros"><span class="macro-chip k">~85 kcal</span><span class="macro-chip f">Fiber: 4g</span></div></div></div>
+        <div class="meal-row"><div class="meal-time-col"><div class="time">7:30 PM</div><div class="label">Dinner</div></div><div class="meal-info"><h4>Egg Omelette + Vegetable Soup</h4><div class="desc">3-egg omelette with onion, capsicum, tomato, green chilli (½ tsp oil). Side: light vegetable broth with spinach and onion.</div><div class="qty">3 eggs · 100g mixed veggies · light broth</div><div class="macros"><span class="macro-chip k">~320 kcal</span><span class="macro-chip p">P: 22g</span><span class="macro-chip f">Fiber: 5g</span></div></div></div>
+      </div>
+    </div>
+
+    <!-- DAY 2 TUE -->
+    <div class="day-card">
+      <div class="day-header" onclick="toggleDay(this)">
+        <div class="day-num">02</div>
+        <div class="day-meta">
+          <h3>Tuesday</h3>
+          <div class="day-badges"><span class="badge gym">🏋️ Gym Morning</span><span class="badge protein">Egg Power</span><span class="badge fiber">Lentils</span></div>
+        </div>
+        <div class="day-kcal"><div class="k">1680</div><div class="u">kcal</div></div>
+        <div class="chevron">▼</div>
+      </div>
+      <div class="day-body">
+        <div class="meal-row"><div class="meal-time-col"><div class="time">5:30 AM</div><div class="label">Wake Up</div></div><div class="meal-info"><h4>Warm Water + Black Coffee</h4><div class="desc">500ml warm water, 1 cup black coffee, 30 min before gym.</div><div class="qty">500ml water · 1 black coffee</div><div class="macros"><span class="macro-chip k">~8 kcal</span></div></div></div>
+        <div class="meal-row"><div class="meal-time-col"><div class="time">6:00 AM</div><div class="label">GYM 💪</div></div><div class="meal-info"><h4>Morning Workout</h4><div class="desc">Fasted cardio or strength training. Sip water throughout.</div></div></div>
+        <div class="meal-row"><div class="meal-time-col"><div class="time">8:00 AM</div><div class="label">Breakfast</div></div><div class="meal-info"><h4>Muesli Breakfast Bowl</h4><div class="desc">60g muesli with low-fat milk. 2 boiled eggs on the side. Fuel recovery after gym.</div><div class="qty">60g muesli · 200ml milk · 2 eggs</div><div class="macros"><span class="macro-chip k">~460 kcal</span><span class="macro-chip p">P: 25g</span><span class="macro-chip f">Fiber: 5g</span></div></div></div>
+        <div class="meal-row"><div class="meal-time-col"><div class="time">11:30 AM</div><div class="label">Mid Morning</div></div><div class="meal-info"><h4>Masoor Dal (Red Lentil) Bowl</h4><div class="desc">150g cooked masoor dal with turmeric, cumin, and garlic. No rice. Excellent fiber + plant protein combo.</div><div class="qty">150g cooked masoor dal</div><div class="macros"><span class="macro-chip k">~170 kcal</span><span class="macro-chip p">P: 12g</span><span class="macro-chip f">Fiber: 8g</span></div></div></div>
+        <div class="meal-row"><div class="meal-time-col"><div class="time">2:00 PM</div><div class="label">Lunch</div></div><div class="meal-info"><h4>5-Egg Bhurji + Cucumber</h4><div class="desc">5 eggs (3 whole + 2 whites) scrambled with tomato, onion, green chilli, turmeric. Side: sliced cucumber + lemon.</div><div class="qty">5 eggs · 100g veggies · cucumber</div><div class="macros"><span class="macro-chip k">~380 kcal</span><span class="macro-chip p">P: 32g</span><span class="macro-chip f">Fiber: 3g</span></div></div></div>
+        <div class="meal-row"><div class="meal-time-col"><div class="time">4:30 PM</div><div class="label">Craving Snack</div></div><div class="meal-info"><h4>Banana (Post-Gym Recovery Fruit)</h4><div class="desc">1 small banana. Natural sugar + potassium helps muscle recovery. Best fruit for gym days.</div><div class="qty">1 small banana (~100g)</div><div class="macros"><span class="macro-chip k">~90 kcal</span><span class="macro-chip c">C: 23g</span><span class="macro-chip f">Fiber: 3g</span></div></div></div>
+        <div class="meal-row"><div class="meal-time-col"><div class="time">7:30 PM</div><div class="label">Dinner</div></div><div class="meal-info"><h4>Boiled Eggs + Big Salad</h4><div class="desc">4 boiled eggs. Massive salad: cucumber, tomato, onion, capsicum, spinach, lemon dressing, salt. Keep dinner light.</div><div class="qty">4 eggs · 200g salad mix</div><div class="macros"><span class="macro-chip k">~340 kcal</span><span class="macro-chip p">P: 28g</span><span class="macro-chip f">Fiber: 6g</span></div></div></div>
+      </div>
+    </div>
+
+    <!-- DAY 3 WED FISH -->
+    <div class="day-card">
+      <div class="day-header" onclick="toggleDay(this)">
+        <div class="day-num">03</div>
+        <div class="day-meta">
+          <h3>Wednesday — Fish Day 🐟</h3>
+          <div class="day-badges"><span class="badge gym">🏋️ Gym Morning</span><span class="badge fish">Omega-3</span><span class="badge fiber">Chickpeas</span></div>
+        </div>
+        <div class="day-kcal"><div class="k">1720</div><div class="u">kcal</div></div>
+        <div class="chevron">▼</div>
+      </div>
+      <div class="day-body">
+        <div class="meal-row"><div class="meal-time-col"><div class="time">5:30 AM</div><div class="label">Wake Up</div></div><div class="meal-info"><h4>Warm Water + Black Coffee</h4><div class="desc">500ml water, black coffee no sugar.</div><div class="qty">500ml water · 1 black coffee</div><div class="macros"><span class="macro-chip k">~8 kcal</span></div></div></div>
+        <div class="meal-row"><div class="meal-time-col"><div class="time">6:00 AM</div><div class="label">GYM 💪</div></div><div class="meal-info"><h4>Morning Workout</h4><div class="desc">Pull day recommended (back + biceps). 15 min cardio.</div></div></div>
+        <div class="meal-row"><div class="meal-time-col"><div class="time">8:00 AM</div><div class="label">Breakfast</div></div><div class="meal-info"><h4>Muesli + 3 Boiled Eggs</h4><div class="desc">60g muesli, 200ml milk, 3 boiled eggs. Post-workout protein and carbs.</div><div class="qty">60g muesli · 200ml milk · 3 eggs</div><div class="macros"><span class="macro-chip k">~520 kcal</span><span class="macro-chip p">P: 30g</span></div></div></div>
+        <div class="meal-row"><div class="meal-time-col"><div class="time">11:30 AM</div><div class="label">Mid Morning</div></div><div class="meal-info"><h4>Chana (Chickpea) Chaat</h4><div class="desc">100g boiled chickpeas tossed with onion, tomato, cucumber, lemon, chaat masala, green chilli. No sugar. Highest fiber snack.</div><div class="qty">100g boiled chickpeas · veggies · lemon</div><div class="macros"><span class="macro-chip k">~200 kcal</span><span class="macro-chip p">P: 10g</span><span class="macro-chip f">Fiber: 10g</span></div></div></div>
+        <div class="meal-row"><div class="meal-time-col"><div class="time">2:00 PM</div><div class="label">Lunch ⭐</div></div><div class="meal-info"><h4>Grilled/Baked Fish</h4><div class="desc">250g rohu or tilapia, pan-grilled with minimal oil, lemon, garlic, cumin, chilli powder. Side salad with cucumber and tomato.</div><div class="qty">250g fish · lemon · spices · side salad</div><div class="macros"><span class="macro-chip k">~360 kcal</span><span class="macro-chip p">P: 48g</span><span class="macro-chip f">Omega-3: high</span></div></div></div>
+        <div class="meal-row"><div class="meal-time-col"><div class="time">4:30 PM</div><div class="label">Craving Snack</div></div><div class="meal-info"><h4>Papaya Slices</h4><div class="desc">150g papaya. Excellent for digestion and fat metabolism. Great afternoon craving killer.</div><div class="qty">150g papaya</div><div class="macros"><span class="macro-chip k">~60 kcal</span><span class="macro-chip f">Fiber: 2.5g</span></div></div></div>
+        <div class="meal-row"><div class="meal-time-col"><div class="time">7:30 PM</div><div class="label">Dinner</div></div><div class="meal-info"><h4>Egg Omelette + Spinach</h4><div class="desc">3-egg omelette with spinach, tomato, onion. Side: steamed/stir-fried spinach with garlic (½ tsp oil).</div><div class="qty">3 eggs · 100g spinach · garlic</div><div class="macros"><span class="macro-chip k">~290 kcal</span><span class="macro-chip p">P: 20g</span><span class="macro-chip f">Fiber: 5g</span></div></div></div>
+      </div>
+    </div>
+
+    <!-- DAY 4 THU -->
+    <div class="day-card">
+      <div class="day-header" onclick="toggleDay(this)">
+        <div class="day-num">04</div>
+        <div class="day-meta">
+          <h3>Thursday</h3>
+          <div class="day-badges"><span class="badge gym">🏋️ Gym Morning</span><span class="badge protein">Egg Focus</span><span class="badge fiber">Moong Dal</span></div>
+        </div>
+        <div class="day-kcal"><div class="k">1670</div><div class="u">kcal</div></div>
+        <div class="chevron">▼</div>
+      </div>
+      <div class="day-body">
+        <div class="meal-row"><div class="meal-time-col"><div class="time">5:30 AM</div><div class="label">Wake Up</div></div><div class="meal-info"><h4>Warm Water + Black Coffee</h4><div class="desc">Daily non-negotiable morning ritual.</div><div class="qty">500ml water · 1 black coffee</div><div class="macros"><span class="macro-chip k">~8 kcal</span></div></div></div>
+        <div class="meal-row"><div class="meal-time-col"><div class="time">6:00 AM</div><div class="label">GYM 💪</div></div><div class="meal-info"><h4>Morning Workout</h4><div class="desc">Leg day recommended. Squats, lunges, leg press burn maximum calories.</div></div></div>
+        <div class="meal-row"><div class="meal-time-col"><div class="time">8:00 AM</div><div class="label">Breakfast</div></div><div class="meal-info"><h4>Muesli + 4 Eggs</h4><div class="desc">60g muesli + 200ml milk. 4 boiled eggs (3 whole + 1 white). Big post-leg-day refuel.</div><div class="qty">60g muesli · 200ml milk · 4 eggs</div><div class="macros"><span class="macro-chip k">~570 kcal</span><span class="macro-chip p">P: 35g</span></div></div></div>
+        <div class="meal-row"><div class="meal-time-col"><div class="time">11:30 AM</div><div class="label">Mid Morning</div></div><div class="meal-info"><h4>Moong Dal Soup</h4><div class="desc">200ml moong dal soup — boiled, no cream, seasoned with turmeric, cumin, salt, lemon. Light yet very filling fiber bomb.</div><div class="qty">200ml moong dal soup</div><div class="macros"><span class="macro-chip k">~150 kcal</span><span class="macro-chip p">P: 8g</span><span class="macro-chip f">Fiber: 7g</span></div></div></div>
+        <div class="meal-row"><div class="meal-time-col"><div class="time">2:00 PM</div><div class="label">Lunch</div></div><div class="meal-info"><h4>Egg Curry (Light)</h4><div class="desc">4 eggs in a thin tomato-onion-garlic gravy with spices. NO coconut milk, NO cream. Eat with a bowl of salad.</div><div class="qty">4 eggs · light gravy · salad</div><div class="macros"><span class="macro-chip k">~350 kcal</span><span class="macro-chip p">P: 28g</span></div></div></div>
+        <div class="meal-row"><div class="meal-time-col"><div class="time">4:30 PM</div><div class="label">Craving Snack</div></div><div class="meal-info"><h4>Guava (Best Fat Loss Fruit)</h4><div class="desc">1 medium guava — highest fiber of any fruit, very low calorie, kills sweet cravings instantly.</div><div class="qty">1 guava (~100g)</div><div class="macros"><span class="macro-chip k">~55 kcal</span><span class="macro-chip f">Fiber: 5g</span></div></div></div>
+        <div class="meal-row"><div class="meal-time-col"><div class="time">7:30 PM</div><div class="label">Dinner</div></div><div class="meal-info"><h4>Boiled Eggs + Vegetable Soup</h4><div class="desc">3 boiled eggs. Light vegetable soup: spinach, tomato, onion, garlic, salt, pepper. No oil needed for soup.</div><div class="qty">3 eggs · 200ml vegetable soup</div><div class="macros"><span class="macro-chip k">~260 kcal</span><span class="macro-chip p">P: 20g</span><span class="macro-chip f">Fiber: 5g</span></div></div></div>
+      </div>
+    </div>
+
+    <!-- DAY 5 FRI -->
+    <div class="day-card">
+      <div class="day-header" onclick="toggleDay(this)">
+        <div class="day-num">05</div>
+        <div class="day-meta">
+          <h3>Friday — Chicken Day 🍗</h3>
+          <div class="day-badges"><span class="badge gym">🏋️ Gym Morning</span><span class="badge protein">High Protein</span><span class="badge fiber">Rajma</span></div>
+        </div>
+        <div class="day-kcal"><div class="k">1740</div><div class="u">kcal</div></div>
+        <div class="chevron">▼</div>
+      </div>
+      <div class="day-body">
+        <div class="meal-row"><div class="meal-time-col"><div class="time">5:30 AM</div><div class="label">Wake Up</div></div><div class="meal-info"><h4>Warm Water + Black Coffee</h4><div class="desc">Morning ritual. Never skip.</div><div class="qty">500ml water · 1 black coffee</div><div class="macros"><span class="macro-chip k">~8 kcal</span></div></div></div>
+        <div class="meal-row"><div class="meal-time-col"><div class="time">6:00 AM</div><div class="label">GYM 💪</div></div><div class="meal-info"><h4>Morning Workout</h4><div class="desc">Push day — chest, shoulders, triceps. Heavy compound work.</div></div></div>
+        <div class="meal-row"><div class="meal-time-col"><div class="time">8:00 AM</div><div class="label">Breakfast</div></div><div class="meal-info"><h4>Muesli + 3 Boiled Eggs</h4><div class="desc">60g muesli + 200ml milk + 3 boiled eggs. Standard post-workout refuel.</div><div class="qty">60g muesli · 200ml milk · 3 eggs</div><div class="macros"><span class="macro-chip k">~520 kcal</span><span class="macro-chip p">P: 30g</span></div></div></div>
+        <div class="meal-row"><div class="meal-time-col"><div class="time">11:30 AM</div><div class="label">Mid Morning</div></div><div class="meal-info"><h4>Rajma Salad Bowl</h4><div class="desc">100g boiled kidney beans with onion, cucumber, tomato, lemon, cumin. Loaded with fiber and slow carbs.</div><div class="qty">100g rajma · veggies · lemon</div><div class="macros"><span class="macro-chip k">~180 kcal</span><span class="macro-chip p">P: 8g</span><span class="macro-chip f">Fiber: 8g</span></div></div></div>
+        <div class="meal-row"><div class="meal-time-col"><div class="time">2:00 PM</div><div class="label">Lunch ⭐</div></div><div class="meal-info"><h4>Grilled Chicken Breast</h4><div class="desc">200g chicken breast marinated in garlic, ginger, lemon, cumin, chilli — grilled or boiled. Big bowl of salad on the side.</div><div class="qty">200g chicken breast · large salad</div><div class="macros"><span class="macro-chip k">~380 kcal</span><span class="macro-chip p">P: 46g</span></div></div></div>
+        <div class="meal-row"><div class="meal-time-col"><div class="time">4:30 PM</div><div class="label">Craving Snack</div></div><div class="meal-info"><h4>Watermelon (Summer Hydration)</h4><div class="desc">200g watermelon — 92% water, very low calorie, fills you up, kills sugar cravings.</div><div class="qty">200g watermelon</div><div class="macros"><span class="macro-chip k">~60 kcal</span></div></div></div>
+        <div class="meal-row"><div class="meal-time-col"><div class="time">7:30 PM</div><div class="label">Dinner</div></div><div class="meal-info"><h4>Chicken Soup + Egg</h4><div class="desc">100g leftover chicken shredded into light broth with spinach and 2 beaten eggs stirred in. High protein, very low calorie dinner.</div><div class="qty">100g chicken · 2 eggs · spinach broth</div><div class="macros"><span class="macro-chip k">~280 kcal</span><span class="macro-chip p">P: 38g</span></div></div></div>
+      </div>
+    </div>
+
+    <!-- DAY 6 SAT VEG -->
+    <div class="day-card">
+      <div class="day-header" onclick="toggleDay(this)">
+        <div class="day-num">06</div>
+        <div class="day-meta">
+          <h3>Saturday — Full Veg Day 🥦</h3>
+          <div class="day-badges"><span class="badge veg">🌿 Full Vegetarian</span><span class="badge fiber">Max Fiber</span><span class="badge gym">🏋️ Gym Morning</span></div>
+        </div>
+        <div class="day-kcal"><div class="k">1650</div><div class="u">kcal</div></div>
+        <div class="chevron">▼</div>
+      </div>
+      <div class="day-body">
+        <div class="meal-row"><div class="meal-time-col"><div class="time">5:30 AM</div><div class="label">Wake Up</div></div><div class="meal-info"><h4>Warm Water + Black Coffee</h4><div class="desc">500ml warm water. Black coffee no sugar. Pre-workout fat burn mode.</div><div class="qty">500ml water · 1 black coffee</div><div class="macros"><span class="macro-chip k">~8 kcal</span></div></div></div>
+        <div class="meal-row"><div class="meal-time-col"><div class="time">6:00 AM</div><div class="label">GYM 💪</div></div><div class="meal-info"><h4>Morning Workout</h4><div class="desc">Full body or cardio + abs. Great day to go harder on cardio since it's a lighter diet day.</div></div></div>
+        <div class="meal-row"><div class="meal-time-col"><div class="time">8:00 AM</div><div class="label">Breakfast</div></div><div class="meal-info"><h4>Muesli + Banana Smoothie (no sugar)</h4><div class="desc">70g muesli with 200ml low-fat milk. 1 small banana mashed in — acts as natural sweetener. No added sugar.</div><div class="qty">70g muesli · 200ml milk · 1 small banana</div><div class="macros"><span class="macro-chip k">~480 kcal</span><span class="macro-chip p">P: 14g</span><span class="macro-chip f">Fiber: 7g</span></div></div></div>
+        <div class="meal-row"><div class="meal-time-col"><div class="time">11:30 AM</div><div class="label">Mid Morning</div></div><div class="meal-info"><h4>Mixed Bean Salad (Power Bowl)</h4><div class="desc">50g rajma + 50g chickpeas (boiled) + cucumber + tomato + onion + lemon + chaat masala. Highest fiber meal of the week.</div><div class="qty">50g rajma + 50g chana · full veggies</div><div class="macros"><span class="macro-chip k">~220 kcal</span><span class="macro-chip p">P: 14g</span><span class="macro-chip f">Fiber: 14g</span></div></div></div>
+        <div class="meal-row"><div class="meal-time-col"><div class="time">2:00 PM</div><div class="label">Lunch</div></div><div class="meal-info"><h4>Dal + Stir-Fried Vegetables</h4><div class="desc">200g masoor dal (no rice). Stir-fried broccoli, capsicum, beans, spinach with garlic and minimal oil. Full plant-based protein lunch.</div><div class="qty">200g dal · 200g mixed veggies</div><div class="macros"><span class="macro-chip k">~380 kcal</span><span class="macro-chip p">P: 22g</span><span class="macro-chip f">Fiber: 12g</span></div></div></div>
+        <div class="meal-row"><div class="meal-time-col"><div class="time">4:30 PM</div><div class="label">Craving Snack</div></div><div class="meal-info"><h4>Guava + Black Coffee</h4><div class="desc">1 guava (nature's best fiber fruit) + 1 black coffee. Perfect craving killer.</div><div class="qty">1 guava (~100g) · 1 black coffee</div><div class="macros"><span class="macro-chip k">~63 kcal</span><span class="macro-chip f">Fiber: 5g</span></div></div></div>
+        <div class="meal-row"><div class="meal-time-col"><div class="time">7:30 PM</div><div class="label">Dinner</div></div><div class="meal-info"><h4>Vegetable Soup + Moong Dal</h4><div class="desc">Light vegetable soup (spinach, tomato, onion, garlic). 100g moong dal on the side. Very light Saturday dinner.</div><div class="qty">200ml veg soup · 100g moong dal</div><div class="macros"><span class="macro-chip k">~260 kcal</span><span class="macro-chip p">P: 14g</span><span class="macro-chip f">Fiber: 9g</span></div></div></div>
+      </div>
+    </div>
+
+    <!-- DAY 7 SUN REST -->
+    <div class="day-card">
+      <div class="day-header" onclick="toggleDay(this)">
+        <div class="day-num">07</div>
+        <div class="day-meta">
+          <h3>Sunday — Rest & Recover</h3>
+          <div class="day-badges"><span class="badge veg">😴 Rest Day</span><span class="badge fiber">Light Meals</span></div>
+        </div>
+        <div class="day-kcal"><div class="k">1580</div><div class="u">kcal</div></div>
+        <div class="chevron">▼</div>
+      </div>
+      <div class="day-body">
+        <div class="meal-row"><div class="meal-time-col"><div class="time">7:30 AM</div><div class="label">Wake Up</div></div><div class="meal-info"><h4>Warm Water + Black Coffee</h4><div class="desc">Sleep in. Still start with warm water to flush system. Coffee to boost metabolism on rest day.</div><div class="qty">500ml water · 1 black coffee</div><div class="macros"><span class="macro-chip k">~8 kcal</span></div></div></div>
+        <div class="meal-row"><div class="meal-time-col"><div class="time">9:30 AM</div><div class="label">Breakfast</div></div><div class="meal-info"><h4>Muesli + Boiled Eggs</h4><div class="desc">70g muesli with milk. 3 boiled eggs. Slightly later and bigger breakfast since no gym today.</div><div class="qty">70g muesli · 200ml milk · 3 eggs</div><div class="macros"><span class="macro-chip k">~540 kcal</span><span class="macro-chip p">P: 30g</span></div></div></div>
+        <div class="meal-row"><div class="meal-time-col"><div class="time">1:00 PM</div><div class="label">Lunch</div></div><div class="meal-info"><h4>Chana + Eggs</h4><div class="desc">100g chickpeas with spices + 3 egg omelette. Good plant + animal protein combo for muscle recovery.</div><div class="qty">100g chickpeas · 3-egg omelette</div><div class="macros"><span class="macro-chip k">~440 kcal</span><span class="macro-chip p">P: 32g</span><span class="macro-chip f">Fiber: 8g</span></div></div></div>
+        <div class="meal-row"><div class="meal-time-col"><div class="time">4:00 PM</div><div class="label">Snack</div></div><div class="meal-info"><h4>Papaya + Black Coffee</h4><div class="desc">150g papaya for digestion and enzyme boost. Black coffee to stay in fat-burning mode.</div><div class="qty">150g papaya · 1 black coffee</div><div class="macros"><span class="macro-chip k">~68 kcal</span></div></div></div>
+        <div class="meal-row"><div class="meal-time-col"><div class="time">7:30 PM</div><div class="label">Dinner</div></div><div class="meal-info"><h4>Light Egg + Salad Dinner</h4><div class="desc">3 boiled eggs. Large salad: cucumber, tomato, onion, spinach, lemon. Keep Sunday dinner very light for a fat-burning overnight fast.</div><div class="qty">3 eggs · 200g salad</div><div class="macros"><span class="macro-chip k">~280 kcal</span><span class="macro-chip p">P: 20g</span></div></div></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===================== FIBER ===================== -->
+<div id="fiber" class="section">
+  <div class="content-wrap">
+    <div class="s-head">Fiber <em>Guide</em></div>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:24px;">Target: <strong>35g fiber/day</strong>. Fiber keeps you full, slows digestion, feeds gut bacteria, and directly aids fat loss by stabilizing blood sugar.</p>
+
+    <div class="fiber-grid">
+      <div class="fiber-card"><div class="icon">🫘</div><h4>Rajma (Kidney Beans)</h4><div class="grams">8g fiber per 100g</div><p>Best fat-loss bean. Keeps you full for 4–5 hours. Eat boiled with lemon and spices — no rice needed.</p></div>
+      <div class="fiber-card"><div class="icon">🟡</div><h4>Chickpeas (Chana)</h4><div class="grams">10g fiber per 100g</div><p>King of legumes. As a chaat or salad base. High protein too. Perfect mid-morning snack.</p></div>
+      <div class="fiber-card"><div class="icon">🟠</div><h4>Masoor Dal (Red Lentil)</h4><div class="grams">8g fiber per 100g</div><p>Cheapest and fastest to cook. No rice, just dal soup. Daily digestive powerhouse.</p></div>
+      <div class="fiber-card"><div class="icon">🟢</div><h4>Moong Dal</h4><div class="grams">7g fiber per 100g</div><p>Lightest dal, easiest to digest. Perfect for dinner or evening soup. Low calorie, high nutrition.</p></div>
+      <div class="fiber-card"><div class="icon">🥬</div><h4>Spinach (Palak)</h4><div class="grams">2g fiber per 100g</div><p>Eat 100–150g daily in omelettes, soup, or stir-fry. Loaded with iron and magnesium too.</p></div>
+      <div class="fiber-card"><div class="icon">🥦</div><h4>Broccoli</h4><div class="grams">2.6g fiber per 100g</div><p>Steam or stir-fry. Excellent on Saturday veg day. Very low calorie, very filling volume.</p></div>
+      <div class="fiber-card"><div class="icon">🫚</div><h4>Muesli (Plain)</h4><div class="grams">5g fiber per 60g</div><p>Your daily breakfast base. Choose plain, no-sugar variety. Oats in muesli = slow carbs + fiber.</p></div>
+      <div class="fiber-card"><div class="icon">🍈</div><h4>Guava</h4><div class="grams">5g fiber per 100g</div><p>Highest fiber fruit available. Better than apple for fat loss. Eat as afternoon craving buster.</p></div>
+    </div>
+
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;box-shadow:var(--shadow);">
+      <h3 style="font-family:'Syne',sans-serif;font-size:18px;margin-bottom:12px;">Daily Fiber Target Breakdown</h3>
+      <div style="display:grid;gap:10px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:10px;background:var(--surface);border-radius:8px;">
+          <span style="font-size:13px;">🥣 Muesli (60g)</span><span style="font-weight:700;color:var(--green);">5g</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:10px;background:var(--surface);border-radius:8px;">
+          <span style="font-size:13px;">🫘 Legumes (dal/beans)</span><span style="font-weight:700;color:var(--green);">8–10g</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:10px;background:var(--surface);border-radius:8px;">
+          <span style="font-size:13px;">🥗 Salad + Veggies</span><span style="font-weight:700;color:var(--green);">6–8g</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:10px;background:var(--surface);border-radius:8px;">
+          <span style="font-size:13px;">🍈 Fruit (guava/apple)</span><span style="font-weight:700;color:var(--green);">4–5g</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:10px;background:#d8f3dc;border-radius:8px;border:1px solid #b7e4c7;">
+          <span style="font-size:13px;font-weight:700;">✅ Daily Total</span><span style="font-weight:800;color:var(--green);font-size:16px;">33–38g</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== FRUITS ===================== -->
+<div id="fruits" class="section">
+  <div class="content-wrap">
+    <div class="s-head">Craving <em>Fruits</em></div>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:24px;">Eat <strong>1 serving per day</strong> as your 4:30 PM snack. These kill sweet cravings without ruining your calorie deficit. Best fruits for fat loss:</p>
+
+    <div class="fruit-grid">
+      <div class="fruit-card"><div class="icon">🍈</div><h4>Guava</h4><div class="when">Best choice ⭐</div><div class="why">55 kcal/100g · 5g fiber · kills cravings instantly · highest fiber fruit</div></div>
+      <div class="fruit-card"><div class="icon">🍉</div><h4>Watermelon</h4><div class="when">Summer staple</div><div class="why">30 kcal/100g · 92% water · fills stomach fast · sweet craving killer</div></div>
+      <div class="fruit-card"><div class="icon">🍎</div><h4>Apple</h4><div class="when">Good daily</div><div class="why">85 kcal/apple · 4g fiber · pectin slows digestion · keeps full 2hrs</div></div>
+      <div class="fruit-card"><div class="icon">🍌</div><h4>Banana</h4><div class="when">Post-gym only</div><div class="why">90 kcal · potassium for muscle recovery · eat ONLY on gym mornings</div></div>
+      <div class="fruit-card"><div class="icon">🍑</div><h4>Papaya</h4><div class="when">Best for digestion</div><div class="why">60 kcal/150g · papain enzyme burns fat · excellent gut health fruit</div></div>
+      <div class="fruit-card"><div class="icon">🫐</div><h4>Amla (Gooseberry)</h4><div class="when">Morning or snack</div><div class="why">44 kcal/100g · highest vitamin C fruit · boosts metabolism significantly</div></div>
+      <div class="fruit-card"><div class="icon">🍊</div><h4>Mosambi/Orange</h4><div class="when">Vitamin C boost</div><div class="why">47 kcal · vitamin C increases fat oxidation during exercise · eat 1 whole</div></div>
+      <div class="fruit-card"><div class="icon">🍇</div><h4>Jamun</h4><div class="when">Controls sugar</div><div class="why">62 kcal/100g · controls blood sugar spikes · great for insulin sensitivity</div></div>
+    </div>
+
+    <div style="background:#fef9ec;border:1px solid #f4d06f;border-radius:12px;padding:16px;margin-top:4px;">
+      <strong style="font-size:14px;">⚠️ Avoid These Fruits for Fat Loss:</strong>
+      <p style="font-size:13px;color:var(--muted);margin-top:6px;line-height:1.6;">🍇 Grapes (very high sugar, tiny portion = too many calories) · 🥭 Mango (sweet but wait until you lose 10kg) · 🍍 Pineapple (high GI) · 🍓 Chikoo/Sapota (dense calories). Save these as a future reward once you're leaner.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== VITAMINS ===================== -->
+<div id="vitamins" class="section">
+  <div class="content-wrap">
+    <div class="s-head">Vitamin & <em>Mineral Guide</em></div>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:24px;">Your daily requirements for a 21-year-old male at 110kg doing regular gym. Get these from food — supplements only if indicated.</p>
+
+    <div class="vit-card">
+      <div class="vit-header">🔋 Key Vitamins & Minerals — Daily Targets</div>
+      <div class="vit-row head"><div></div><div>Nutrient</div><div>Daily Amount</div><div>Coverage</div></div>
+
+      <div class="vit-row"><div class="vit-icon">🅱️</div><div><div class="vit-name">Vitamin B12</div><div class="vit-src">From: eggs, chicken, fish · Critical for energy & nerve function</div></div><div class="vit-dose">2.4 mcg/day</div><div><div class="vit-bar-wrap"><div class="vit-bar" style="width:90%"></div></div><div style="font-size:11px;color:var(--muted);margin-top:2px;">✅ Covered by diet</div></div></div>
+
+      <div class="vit-row"><div class="vit-icon">🌞</div><div><div class="vit-name">Vitamin D3</div><div class="vit-src">From: sunlight (15min), eggs, fish · Boosts testosterone & fat loss</div></div><div class="vit-dose">600–800 IU/day</div><div><div class="vit-bar-wrap"><div class="vit-bar" style="width:50%;background:var(--yellow)"></div></div><div style="font-size:11px;color:var(--accent);margin-top:2px;">⚠️ Go outside 15 min</div></div></div>
+
+      <div class="vit-row"><div class="vit-icon">🍊</div><div><div class="vit-name">Vitamin C</div><div class="vit-src">From: guava, papaya, tomato, lemon · Immune + fat oxidation</div></div><div class="vit-dose">90 mg/day</div><div><div class="vit-bar-wrap"><div class="vit-bar" style="width:95%"></div></div><div style="font-size:11px;color:var(--muted);margin-top:2px;">✅ Covered by fruits</div></div></div>
+
+      <div class="vit-row"><div class="vit-icon">🥩</div><div><div class="vit-name">Iron</div><div class="vit-src">From: eggs, spinach, lentils, chicken · Prevents fatigue</div></div><div class="vit-dose">8 mg/day</div><div><div class="vit-bar-wrap"><div class="vit-bar" style="width:80%"></div></div><div style="font-size:11px;color:var(--muted);margin-top:2px;">✅ Eat spinach daily</div></div></div>
+
+      <div class="vit-row"><div class="vit-icon">🦴</div><div><div class="vit-name">Calcium</div><div class="vit-src">From: milk (muesli), spinach, fish bones · Bone strength</div></div><div class="vit-dose">1000 mg/day</div><div><div class="vit-bar-wrap"><div class="vit-bar" style="width:60%;background:var(--yellow)"></div></div><div style="font-size:11px;color:var(--accent);margin-top:2px;">⚠️ Add 200ml milk daily</div></div></div>
+
+      <div class="vit-row"><div class="vit-icon">💪</div><div><div class="vit-name">Magnesium</div><div class="vit-src">From: spinach, beans, muesli · Muscle recovery + sleep quality</div></div><div class="vit-dose">400 mg/day</div><div><div class="vit-bar-wrap"><div class="vit-bar" style="width:75%"></div></div><div style="font-size:11px;color:var(--muted);margin-top:2px;">✅ Beans + spinach</div></div></div>
+
+      <div class="vit-row"><div class="vit-icon">🧠</div><div><div class="vit-name">Omega-3 Fatty Acids</div><div class="vit-src">From: fish (Wednesday) · Reduces inflammation, burns belly fat</div></div><div class="vit-dose">1.6g/day</div><div><div class="vit-bar-wrap"><div class="vit-bar" style="width:65%;background:var(--yellow)"></div></div><div style="font-size:11px;color:var(--accent);margin-top:2px;">⚠️ Fish once/week minimum</div></div></div>
+
+      <div class="vit-row"><div class="vit-icon">⚡</div><div><div class="vit-name">Zinc</div><div class="vit-src">From: eggs, chicken, legumes · Testosterone production, fat burn</div></div><div class="vit-dose">11 mg/day</div><div><div class="vit-bar-wrap"><div class="vit-bar" style="width:85%"></div></div><div style="font-size:11px;color:var(--muted);margin-top:2px;">✅ Covered by diet</div></div></div>
+
+      <div class="vit-row"><div class="vit-icon">🍌</div><div><div class="vit-name">Potassium</div><div class="vit-src">From: banana, spinach, dal · Muscle function + water balance</div></div><div class="vit-dose">3500 mg/day</div><div><div class="vit-bar-wrap"><div class="vit-bar" style="width:70%"></div></div><div style="font-size:11px;color:var(--muted);margin-top:2px;">✅ Eat banana on gym days</div></div></div>
+
+      <div class="vit-row"><div class="vit-icon">🅰️</div><div><div class="vit-name">Vitamin A</div><div class="vit-src">From: eggs, spinach, papaya · Eye health + immunity</div></div><div class="vit-dose">900 mcg/day</div><div><div class="vit-bar-wrap"><div class="vit-bar" style="width:80%"></div></div><div style="font-size:11px;color:var(--muted);margin-top:2px;">✅ Eggs + papaya</div></div></div>
+    </div>
+
+    <div style="background:#fff3cd;border:1px solid #ffc107;border-radius:12px;padding:16px;">
+      <strong style="font-size:14px;">💡 Supplement Recommendation (Only if needed):</strong>
+      <p style="font-size:13px;margin-top:6px;line-height:1.7;color:#555;"><strong>Vitamin D3 (1000 IU)</strong> — most Indians are deficient; take with morning meal. <strong>Omega-3 capsule</strong> — if fish is only once a week. Everything else should be covered by food if you follow this plan strictly. Don't waste money on expensive protein powder — eggs and chicken are cheaper and better.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== AVOID ===================== -->
+<div id="avoid" class="section">
+  <div class="content-wrap">
+    <div class="s-head">Habits to <em>Avoid</em></div>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:24px;">These habits will <strong>sabotage your fat loss</strong> even if your diet is perfect. Cut them completely for the best results.</p>
+
+    <div class="avoid-grid">
+      <div class="avoid-card"><div class="icon">🍚</div><h4>White Rice & Roti</h4><p>Spikes insulin fast, signals body to store fat. Replace with dal, beans, or vegetables as your carb base.</p><span class="impact">Kills fat loss</span></div>
+      <div class="avoid-card"><div class="icon">🥤</div><h4>Cold Drinks & Juice</h4><p>Even 1 glass of cola = 150 kcal pure sugar. Packaged fruit juice is just sugar water. Switch to water or black coffee.</p><span class="impact">Liquid calories</span></div>
+      <div class="avoid-card"><div class="icon">🍞</div><h4>Bread & Biscuits</h4><p>White bread is white flour + sugar. Even 2 slices = 200 kcal of empty carbs. Biscuits = worst snack for fat loss.</p><span class="impact">Empty carbs</span></div>
+      <div class="avoid-card"><div class="icon">🍟</div><h4>Fried Foods</h4><p>Samosa, pakora, chips, fried chicken — triple the calories with zero nutrition. 1 samosa = 300+ kcal. Just avoid.</p><span class="impact">Calorie bomb</span></div>
+      <div class="avoid-card"><div class="icon">🌙</div><h4>Eating After 9 PM</h4><p>Night eating = calories stored as fat since activity is zero. Dinner by 8 PM max. Only water after that.</p><span class="impact">Fat storage</span></div>
+      <div class="avoid-card"><div class="icon">🛋️</div><h4>Skipping Gym</h4><p>Diet without gym = muscle loss, slow metabolism. You must gym 5 days/week minimum for this plan to work. No excuses.</p><span class="impact">Muscle loss</span></div>
+      <div class="avoid-card"><div class="icon">😴</div><h4>Less Than 7 Hours Sleep</h4><p>Sleep deprivation raises cortisol (fat-storage hormone) and increases hunger by 30%. Sleep is literally fat loss time.</p><span class="impact">Hormone disruption</span></div>
+      <div class="avoid-card"><div class="icon">🍫</div><h4>Sweets & Desserts</h4><p>Gulab jamun, ice cream, chocolate, cake — even small portions destroy a full day's deficit. Fruit is your only sweet.</p><span class="impact">Deficit breaker</span></div>
+      <div class="avoid-card"><div class="icon">☕</div><h4>Coffee with Sugar/Milk</h4><p>Adding sugar to coffee turns your fat burner into a fat maker. Black only. 2 cups max per day.</p><span class="impact">Wastes tool</span></div>
+      <div class="avoid-card"><div class="icon">📱</div><h4>Eating While Scrolling</h4><p>Distracted eating causes overeating by 30–40%. Always eat sitting down, focused on food. Your brain needs to register fullness.</p><span class="impact">Overeating</span></div>
+      <div class="avoid-card"><div class="icon">🧂</div><h4>Too Much Salt</h4><p>Excess sodium causes water retention — you'll look and feel bloated even when losing fat. Use spices instead for flavor.</p><span class="impact">Water retention</span></div>
+      <div class="avoid-card"><div class="icon">💧</div><h4>Not Drinking Enough Water</h4><p>Thirst is often mistaken for hunger. Drink 3–4L daily. Before every meal, drink 1 glass — reduces how much you eat.</p><span class="impact">False hunger</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== TRACKER ===================== -->
+<div id="tracker" class="section">
+  <div class="content-wrap">
+    <div class="s-head">Weekly <em>Tracker</em></div>
+
+    <div class="tracker-intro">
+      <strong>How to use:</strong> Check off each habit daily. Enter your weight every Sunday morning (same time, before eating). Track your waist measurement weekly. Be honest — this is your accountability tool. Consistency over perfection.
+    </div>
+
+    <!-- WEEKLY HABIT TRACKER -->
+    <div class="tracker-table-wrap">
+      <h3>✅ Daily Habit Checklist</h3>
+      <div style="overflow-x:auto;">
+      <table class="tracker-table">
+        <thead>
+          <tr>
+            <th style="min-width:150px;">Habit</th>
+            <th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th><th>Sun</th>
+            <th>Score</th>
+          </tr>
+        </thead>
+        <tbody id="habitBody">
+          <!-- Dynamically filled by JS -->
+        </tbody>
+      </table>
+      </div>
+    </div>
+
+    <!-- PROGRESS TRACKER -->
+    <div class="tracker-table-wrap">
+      <h3>📏 Weekly Progress Log</h3>
+      <div style="overflow-x:auto;">
+      <table class="tracker-table">
+        <thead>
+          <tr>
+            <th>Week</th>
+            <th>Weight (kg)</th>
+            <th>Waist (cm)</th>
+            <th>Energy Level (1–10)</th>
+            <th>Gym Days</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody id="progressBody">
+        </tbody>
+      </table>
+      </div>
+      <div style="padding:16px;border-top:1px solid var(--border);display:flex;align-items:center;gap:12px;">
+        <button class="save-btn" onclick="addWeekRow()">+ Add Week</button>
+        <div class="save-note">Data saved in your browser. Don't clear browser data.</div>
+      </div>
+    </div>
+
+    <!-- WEEKLY SUMMARY -->
+    <div class="s-head" style="margin-top:8px;">Weekly <em>Summary</em></div>
+    <div class="week-summary" id="summaryCards">
+      <div class="week-metric"><div class="wv green" id="sumWeight">—</div><div class="wl">Current Weight</div></div>
+      <div class="week-metric"><div class="wv orange" id="sumLost">—</div><div class="wl">kg Lost Total</div></div>
+      <div class="week-metric"><div class="wv green" id="sumHabits">—</div><div class="wl">Habit Score</div></div>
+      <div class="week-metric"><div class="wv green" id="sumStreak">0</div><div class="wl">Day Streak 🔥</div></div>
+    </div>
+
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;box-shadow:var(--shadow);">
+      <h3 style="font-family:'Syne',sans-serif;font-size:16px;margin-bottom:14px;">📸 Photo Check-In Reminders</h3>
+      <div style="display:grid;gap:8px;font-size:13px;color:var(--muted);line-height:1.6;">
+        <div style="padding:10px;background:var(--surface);border-radius:8px;">📷 <strong>Every Sunday morning</strong> — same time, same lighting, same clothes. Front + side photo.</div>
+        <div style="padding:10px;background:var(--surface);border-radius:8px;">📏 <strong>Measure waist</strong> at navel level, same time each week. Fat loss shows here first.</div>
+        <div style="padding:10px;background:var(--surface);border-radius:8px;">⚖️ <strong>Weigh yourself</strong> Sunday morning before eating. Never judge daily — weekly average matters.</div>
+        <div style="padding:10px;background:var(--surface);border-radius:8px;">🎯 <strong>Target</strong>: 0.5–1kg loss per week. More than 1kg/week = losing muscle too. Slow is sustainable.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== BUDGET ===================== -->
+<div id="budget" class="section">
+  <div class="content-wrap">
+    <div class="s-head">Weekly <em>Budget</em></div>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:20px;">All prices approximate for India. Buy in bulk where possible for savings.</p>
+
+    <div class="budget-card">
+      <h3>🛒 Weekly Shopping List</h3>
+      <table class="budget-table">
+        <tr><th>Item</th><th>Qty Needed</th><th>Approx Cost</th></tr>
+        <tr><td>🥚 Eggs (30-tray)</td><td>30 eggs (1 tray)</td><td>₹185–210</td></tr>
+        <tr><td>🥣 Muesli (plain, no sugar)</td><td>500g pack</td><td>₹120–160</td></tr>
+        <tr><td>🍗 Chicken Breast</td><td>600g total</td><td>₹150–200</td></tr>
+        <tr><td>🐟 Fish (Rohu/Tilapia)</td><td>300g</td><td>₹80–120</td></tr>
+        <tr><td>🫘 Rajma (dry)</td><td>250g</td><td>₹30–40</td></tr>
+        <tr><td>🟠 Masoor Dal (dry)</td><td>250g</td><td>₹25–35</td></tr>
+        <tr><td>🟢 Moong Dal (dry)</td><td>150g</td><td>₹20–25</td></tr>
+        <tr><td>🟡 Chana/Chickpeas (dry)</td><td>200g</td><td>₹25–35</td></tr>
+        <tr><td>☕ Black Coffee powder</td><td>50g pack</td><td>₹60–80</td></tr>
+        <tr><td>🥬 Spinach, Broccoli, Capsicum</td><td>Weekly</td><td>₹60–80</td></tr>
+        <tr><td>🍅 Tomato, Cucumber, Onion</td><td>Weekly</td><td>₹50–70</td></tr>
+        <tr><td>🍈 Guava / Papaya / Fruit</td><td>Weekly</td><td>₹40–60</td></tr>
+        <tr><td>🥛 Low-fat milk</td><td>1L</td><td>₹28–35</td></tr>
+        <tr><td>🫚 Cooking oil (minimal use)</td><td>Small bottle</td><td>₹15–20</td></tr>
+        <tr class="total-row"><td colspan="2"><strong>TOTAL WEEKLY</strong></td><td><strong>₹888–1170</strong></td></tr>
+      </table>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;">
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px;box-shadow:var(--shadow);">
+        <div style="font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:var(--green);">~₹140</div>
+        <div style="font-size:12px;color:var(--muted);margin-top:4px;text-transform:uppercase;letter-spacing:1px;">Cost per day</div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px;box-shadow:var(--shadow);">
+        <div style="font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:var(--accent);">~₹46</div>
+        <div style="font-size:12px;color:var(--muted);margin-top:4px;text-transform:uppercase;letter-spacing:1px;">Cost per meal</div>
+      </div>
+    </div>
+
+    <div style="background:var(--green-light);border:1px solid #b7e4c7;border-radius:12px;padding:16px;">
+      <strong style="color:var(--green);font-size:14px;">💡 Budget Tips:</strong>
+      <ul style="font-size:13px;color:var(--muted);margin-top:8px;padding-left:18px;line-height:2;">
+        <li>Buy dal and beans in 1kg bags — 30–40% cheaper</li>
+        <li>Buy eggs by tray (30) — cheaper than loose</li>
+        <li>Cook chicken in bulk on Monday — use all week</li>
+        <li>Boil 8 eggs every 2 days — keeps 4 days in fridge</li>
+        <li>Seasonal vegetables are cheapest — spinach is always affordable</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<footer>
+  🔥 Stay consistent. 80% diet · 20% gym. Results in 4 weeks guaranteed.<br>
+  <small style="margin-top:6px;display:block;">Consult a doctor before starting any new diet or training program.</small>
+</footer>
+
+<script>
+  // TAB SWITCHING
+  function showTab(id) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    event.target.classList.add('active');
+  }
+
+  // DAY TOGGLE
+  function toggleDay(header) {
+    header.parentElement.classList.toggle('open');
+  }
+
+  // HABITS
+  const habits = [
+    '💧 3–4L Water',
+    '☕ Black Coffee (no sugar)',
+    '🏋️ Gym Session',
+    '🥚 Ate all meals',
+    '🚫 No junk/sugar',
+    '🌙 Dinner by 8PM',
+    '😴 7+ hrs sleep',
+    '🍈 Ate fruit snack',
+    '🫘 Ate fiber (dal/beans)',
+  ];
+
+  const days = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+  let habitData = JSON.parse(localStorage.getItem('habitData') || '{}');
+  let progressData = JSON.parse(localStorage.getItem('progressData') || '[]');
+
+  function buildHabitTable() {
+    const tbody = document.getElementById('habitBody');
+    tbody.innerHTML = '';
+    habits.forEach((habit, hi) => {
+      const tr = document.createElement('tr');
+      let score = 0;
+      let tds = `<td style="font-size:13px;font-weight:500;">${habit}</td>`;
+      days.forEach((day, di) => {
+        const key = `h_${hi}_${di}`;
+        const checked = habitData[key] ? 'checked' : '';
+        if (habitData[key]) score++;
+        tds += `<td><input type="checkbox" ${checked} onchange="saveHabit(${hi},${di},this.checked)"></td>`;
+      });
+      const pct = Math.round((score/7)*100);
+      tds += `<td><span style="font-weight:700;color:${pct>=70?'var(--green)':pct>=40?'var(--yellow)':'var(--red)'}">${score}/7</span></td>`;
+      tr.innerHTML = tds;
+      tbody.appendChild(tr);
+    });
+    updateSummary();
+  }
+
+  function saveHabit(hi, di, val) {
+    habitData[`h_${hi}_${di}`] = val;
+    localStorage.setItem('habitData', JSON.stringify(habitData));
+    buildHabitTable();
+  }
+
+  function buildProgressTable() {
+    const tbody = document.getElementById('progressBody');
+    tbody.innerHTML = '';
+    if (progressData.length === 0) {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td colspan="6" style="text-align:center;color:var(--muted);padding:20px;">No entries yet. Click "+ Add Week" to log your progress.</td>`;
+      tbody.appendChild(tr);
+      return;
+    }
+    progressData.forEach((row, i) => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td><div class="day-label">Week ${row.week}</div><div class="day-sub">${row.date}</div></td>
+        <td><input type="number" step="0.1" value="${row.weight}" onchange="updateProgress(${i},'weight',this.value)" style="max-width:70px;"> kg</td>
+        <td><input type="number" step="0.5" value="${row.waist}" onchange="updateProgress(${i},'waist',this.value)" style="max-width:70px;"> cm</td>
+        <td><input type="number" min="1" max="10" value="${row.energy}" onchange="updateProgress(${i},'energy',this.value)" style="max-width:50px;"> /10</td>
+        <td><input type="number" min="0" max="7" value="${row.gym}" onchange="updateProgress(${i},'gym',this.value)" style="max-width:50px;"> days</td>
+        <td><input type="text" value="${row.notes}" onchange="updateProgress(${i},'notes',this.value)" style="max-width:120px;font-size:12px;"></td>
+      `;
+      tbody.appendChild(tr);
+    });
+    updateSummary();
+  }
+
+  function addWeekRow() {
+    const weekNum = progressData.length + 1;
+    const today = new Date().toLocaleDateString('en-IN', {day:'numeric', month:'short'});
+    progressData.push({ week: weekNum, date: today, weight: '', waist: '', energy: '', gym: '', notes: '' });
+    localStorage.setItem('progressData', JSON.stringify(progressData));
+    buildProgressTable();
+  }
+
+  function updateProgress(i, field, val) {
+    progressData[i][field] = val;
+    localStorage.setItem('progressData', JSON.stringify(progressData));
+    updateSummary();
+  }
+
+  function updateSummary() {
+    const weights = progressData.filter(r => r.weight).map(r => parseFloat(r.weight));
+    if (weights.length > 0) {
+      document.getElementById('sumWeight').textContent = weights[weights.length-1] + ' kg';
+      if (weights.length > 1) {
+        const lost = (weights[0] - weights[weights.length-1]).toFixed(1);
+        document.getElementById('sumLost').textContent = lost > 0 ? '-'+lost : lost;
+      }
+    }
+    let totalChecked = 0, totalPossible = habits.length * 7;
+    Object.values(habitData).forEach(v => { if (v) totalChecked++; });
+    const pct = Math.round((totalChecked/totalPossible)*100);
+    document.getElementById('sumHabits').textContent = pct + '%';
+    let streak = 0;
+    for (let di = 6; di >= 0; di--) {
+      const allDone = habits.every((_, hi) => habitData[`h_${hi}_${di}`]);
+      if (allDone) streak++;
+      else break;
+    }
+    document.getElementById('sumStreak').textContent = streak;
+  }
+
+  buildHabitTable();
+  buildProgressTable();
+</script>
+</body>
+</html>

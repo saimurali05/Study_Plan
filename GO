@@ -1,0 +1,645 @@
+import { useState, useEffect } from "react";
+
+const phases = [
+  {
+    id: 1,
+    name: "Foundation",
+    color: "#00ff88",
+    accent: "#004422",
+    days: "1–60",
+    tagline: "Become dangerous with code",
+    icon: "⚡",
+    weeks: [
+      {
+        week: 1,
+        title: "Python Foundations — Think Like a Programmer",
+        days: [
+          { day: 1, task: "Install Python, VS Code, Git. Print 'Hello World'. Push to GitHub. Done.", tag: "Setup" },
+          { day: 2, task: "Variables, data types, f-strings. Build a CLI BMI calculator. Push it.", tag: "Python" },
+          { day: 3, task: "Lists, tuples, dicts. Build a contact book (add/search/delete). Push it.", tag: "Python" },
+          { day: 4, task: "Loops + conditionals. Build a number guessing game. Push it.", tag: "Build" },
+          { day: 5, task: "Functions + scope. Refactor all 3 projects using functions. Push clean code.", tag: "Refactor" },
+          { day: 6, task: "File I/O. Save/load your contact book to a .json file.", tag: "Build" },
+          { day: 7, task: "Review + polish. Write README for each project. Share on LinkedIn.", tag: "Ship" },
+        ],
+      },
+      {
+        week: 2,
+        title: "OOP + APIs — Real World Python",
+        days: [
+          { day: 8, task: "Classes & objects. Rebuild contact book with OOP. Push.", tag: "Python" },
+          { day: 9, task: "Inheritance + methods. Build a Bank Account class system.", tag: "Python" },
+          { day: 10, task: "pip + virtual environments. Understand how packages work.", tag: "Tools" },
+          { day: 11, task: "Requests library. Fetch weather data from OpenWeather API. Display it.", tag: "API" },
+          { day: 12, task: "Build a CLI news fetcher from NewsAPI. Format + display 10 headlines.", tag: "Build" },
+          { day: 13, task: "JSON parsing deep dive. Build a currency converter using live forex API.", tag: "Build" },
+          { day: 14, task: "Deploy project #1 to GitHub with full README. Post LinkedIn update.", tag: "Ship" },
+        ],
+      },
+      {
+        week: 3,
+        title: "Data with Pandas — Think in Tables",
+        days: [
+          { day: 15, task: "Install Pandas + NumPy. Load a CSV, explore .head(), .info(), .describe().", tag: "Data" },
+          { day: 16, task: "Filtering, sorting, groupby. Analyze a sales dataset from Kaggle.", tag: "Data" },
+          { day: 17, task: "Merge, concat, pivot tables. Clean a messy dataset — this is real work.", tag: "Data" },
+          { day: 18, task: "Matplotlib basics. Plot revenue trends, bar charts, scatter plots.", tag: "Viz" },
+          { day: 19, task: "Seaborn + advanced charts. Make your plots look professional.", tag: "Viz" },
+          { day: 20, task: "Build a full EDA (Exploratory Data Analysis) on IPL or Zomato dataset.", tag: "Project" },
+          { day: 21, task: "Push EDA project. Create GitHub Pages for it. Share on LinkedIn.", tag: "Ship" },
+        ],
+      },
+      {
+        week: 4,
+        title: "ML Foundations — Machines That Learn",
+        days: [
+          { day: 22, task: "scikit-learn setup. Linear regression on Boston Housing. Understand MSE.", tag: "ML" },
+          { day: 23, task: "Classification: Logistic Regression on Titanic. Understand accuracy/precision.", tag: "ML" },
+          { day: 24, task: "Decision Trees + Random Forest. Feature importance. Cross-validation.", tag: "ML" },
+          { day: 25, task: "Train-test split, overfitting, regularization — understand these deeply.", tag: "ML" },
+          { day: 26, task: "Build a salary prediction model. Clean data → train → evaluate → push.", tag: "Build" },
+          { day: 27, task: "Build a spam classifier using Naive Bayes + TF-IDF.", tag: "Build" },
+          { day: 28, task: "Polish both ML projects. Visualize predictions. Push + LinkedIn post.", tag: "Ship" },
+        ],
+      },
+      {
+        week: 5,
+        title: "AI/LLMs — The Unfair Advantage",
+        days: [
+          { day: 29, task: "OpenAI API setup. Make your first GPT-4 call from Python. Understand tokens.", tag: "AI" },
+          { day: 30, task: "System prompts, temperature, roles. Build a personal AI assistant CLI.", tag: "AI" },
+          { day: 31, task: "Prompt engineering deep dive. Few-shot, chain-of-thought, structured output.", tag: "AI" },
+          { day: 32, task: "LangChain basics. Build a document Q&A bot (PDF → chunks → GPT answers).", tag: "LangChain" },
+          { day: 33, task: "Vector databases (FAISS). Build a semantic search over your notes.", tag: "AI" },
+          { day: 34, task: "Build an AI study buddy — feed it textbooks, ask questions.", tag: "Build" },
+          { day: 35, task: "Deploy AI assistant to GitHub. Write a killer README. Post on LinkedIn.", tag: "Ship" },
+        ],
+      },
+      {
+        week: 6,
+        title: "Automation + Web Scraping — Scale Yourself",
+        days: [
+          { day: 36, task: "BeautifulSoup + requests. Scrape Hacker News, clean data, save to CSV.", tag: "Scraping" },
+          { day: 37, task: "Selenium basics. Automate form filling, login, screenshot capture.", tag: "Automation" },
+          { day: 38, task: "Build a LinkedIn job scraper that saves listings to a spreadsheet.", tag: "Build" },
+          { day: 39, task: "Task scheduling with schedule library. Run your scrapers on a timer.", tag: "Automation" },
+          { day: 40, task: "Gmail automation: auto-send emails from Python using SMTP.", tag: "Automation" },
+          { day: 41, task: "Combine everything: AI-powered news aggregator + email digest builder.", tag: "Build" },
+          { day: 42, task: "Portfolio check: 3+ live GitHub projects. Polish them. LinkedIn post #3.", tag: "Ship" },
+        ],
+      },
+      {
+        week: 7,
+        title: "Django/FastAPI Intro — Your Code Serves the World",
+        days: [
+          { day: 43, task: "FastAPI setup. Build your first REST API endpoint. Understand HTTP methods.", tag: "Backend" },
+          { day: 44, task: "Pydantic models, request validation, response schemas. Build a TODO API.", tag: "Backend" },
+          { day: 45, task: "SQLite + SQLAlchemy ORM. Add database persistence to your TODO API.", tag: "Backend" },
+          { day: 46, task: "Authentication: JWT tokens. Add signup/login to your API.", tag: "Backend" },
+          { day: 47, task: "Deploy FastAPI to Render (free tier). Your first live API on the internet.", tag: "Deploy" },
+          { day: 48, task: "Test your API with Postman. Document it with FastAPI's auto-docs.", tag: "Testing" },
+          { day: 49, task: "Polish + push. Write integration tests. Share live API URL on LinkedIn.", tag: "Ship" },
+        ],
+      },
+      {
+        week: 8,
+        title: "Capstone Week — Foundation Complete",
+        days: [
+          { day: 50, task: "Design your Foundation capstone: AI-powered tool that solves 1 real problem.", tag: "Plan" },
+          { day: 51, task: "Build the backend (FastAPI + DB). Get core functionality working.", tag: "Build" },
+          { day: 52, task: "Integrate AI (OpenAI or LangChain). Make it actually intelligent.", tag: "Build" },
+          { day: 53, task: "Add authentication. Make it multi-user ready.", tag: "Build" },
+          { day: 54, task: "Deploy to Render. Test it live. Fix bugs. Make it stable.", tag: "Deploy" },
+          { day: 55, task: "Write landing page in plain HTML. Describe what it does + why it matters.", tag: "Launch" },
+          { day: 56, task: "Share the project publicly. Post on LinkedIn, X, Reddit r/SideProject.", tag: "Ship" },
+          { day: 57, task: "LinkedIn deep dive: connect with 20 Indian founders/developers. Comment meaningfully.", tag: "Network" },
+          { day: 58, task: "Read Paul Graham's 'Do Things That Don't Scale'. Take notes.", tag: "Learn" },
+          { day: 59, task: "Review all 8 weeks. Document what you know. What gaps remain?", tag: "Review" },
+          { day: 60, task: "YOU ARE DANGEROUS NOW. 3 live projects. LinkedIn active. Ready for Phase 2.", tag: "🎯" },
+        ],
+      },
+    ],
+  },
+  {
+    id: 2,
+    name: "Builder",
+    color: "#60a5fa",
+    accent: "#1e3a5f",
+    days: "61–150",
+    tagline: "Full-stack everything. Ship SaaS demos.",
+    icon: "🔨",
+    weeks: [
+      {
+        week: 9,
+        title: "React Fundamentals — UI That Thinks",
+        days: [
+          { day: 61, task: "Create React App / Vite setup. JSX, components, props. Build a card component.", tag: "React" },
+          { day: 62, task: "useState + useEffect. Build a real-time clock + weather widget.", tag: "React" },
+          { day: 63, task: "Lists, keys, conditional rendering. Build a dynamic task manager.", tag: "React" },
+          { day: 64, task: "Forms in React. Build a multi-step form with validation.", tag: "React" },
+          { day: 65, task: "React Router. Build a multi-page app with navigation.", tag: "React" },
+          { day: 66, task: "Context API + useReducer. Add global state to your task manager.", tag: "React" },
+          { day: 67, task: "Polish task manager app. Deploy to Vercel. Share live URL.", tag: "Ship" },
+        ],
+      },
+      {
+        week: 10,
+        title: "Tailwind CSS — Design System Thinking",
+        days: [
+          { day: 68, task: "Tailwind setup. Utility-first philosophy. Rebuild your card with Tailwind.", tag: "CSS" },
+          { day: 69, task: "Responsive design: sm/md/lg/xl breakpoints. Mobile-first everything.", tag: "CSS" },
+          { day: 70, task: "Dark mode with Tailwind. Animate with transition/transform classes.", tag: "CSS" },
+          { day: 71, task: "Build a SaaS landing page template (hero, features, pricing, CTA).", tag: "Build" },
+          { day: 72, task: "Clone Notion's sidebar layout. Then do Linear's dashboard layout.", tag: "Build" },
+          { day: 73, task: "Custom Tailwind config: custom colors, fonts, spacing for your brand.", tag: "CSS" },
+          { day: 74, task: "Portfolio site v1: showcase your 3 projects. Deploy. Share.", tag: "Ship" },
+        ],
+      },
+      {
+        week: 11,
+        title: "Next.js — Production React",
+        days: [
+          { day: 75, task: "Next.js 14 setup. App Router, file-based routing. Pages vs layouts.", tag: "Next.js" },
+          { day: 76, task: "Server Components vs Client Components. When to use each.", tag: "Next.js" },
+          { day: 77, task: "API routes in Next.js. Build a backend inside your frontend.", tag: "Next.js" },
+          { day: 78, task: "Static generation + server-side rendering. Build a blog with both.", tag: "Next.js" },
+          { day: 79, task: "Image optimization, metadata, SEO in Next.js. Make it Google-ready.", tag: "Next.js" },
+          { day: 80, task: "Deploy Next.js to Vercel. Custom domain setup. Performance audit.", tag: "Deploy" },
+          { day: 81, task: "Rebuild your Phase 1 capstone frontend in Next.js. Clean architecture.", tag: "Rebuild" },
+        ],
+      },
+      {
+        week: 12,
+        title: "Supabase — Your Backend Without a Backend Team",
+        days: [
+          { day: 82, task: "Supabase setup. PostgreSQL tables, relationships. RLS policies.", tag: "Supabase" },
+          { day: 83, task: "Supabase Auth: email/password + Google OAuth. Protect routes.", tag: "Auth" },
+          { day: 84, task: "Real-time subscriptions. Build a live chat with Supabase.", tag: "Real-time" },
+          { day: 85, task: "Supabase Storage: file uploads, image hosting, access control.", tag: "Storage" },
+          { day: 86, task: "Edge Functions: serverless code at the edge. Build a webhook handler.", tag: "Serverless" },
+          { day: 87, task: "Full-stack app: Next.js + Supabase + Auth. Build a notes app.", tag: "Full-stack" },
+          { day: 88, task: "Deploy full-stack app. Share live URL + source code. LinkedIn post.", tag: "Ship" },
+        ],
+      },
+      {
+        week: 13,
+        title: "SaaS Demo #1 — WhatsApp AI Bot",
+        days: [
+          { day: 89, task: "Design the product: WhatsApp AI assistant for Indian SMBs. Map features.", tag: "Plan" },
+          { day: 90, task: "Twilio WhatsApp API setup. Receive + parse incoming messages.", tag: "Build" },
+          { day: 91, task: "Connect to OpenAI. Build intelligent reply generation with context.", tag: "Build" },
+          { day: 92, task: "Add conversation memory (store history in Supabase).", tag: "Build" },
+          { day: 93, task: "Build admin dashboard: view conversations, manage bot responses.", tag: "Build" },
+          { day: 94, task: "Add payment trigger: detect pricing queries, send payment links.", tag: "Build" },
+          { day: 95, task: "Deploy everything. Test with 5 real people. Document feedback.", tag: "Launch" },
+        ],
+      },
+      {
+        week: 14,
+        title: "SaaS Demo #2 — AI Content Generator",
+        days: [
+          { day: 96, task: "Product design: LinkedIn post generator for Indian founders/creators.", tag: "Plan" },
+          { day: 97, task: "Build prompt system: tone, niche, hook styles. Multi-variant output.", tag: "Build" },
+          { day: 98, task: "User accounts with Supabase Auth. Save + manage generated content.", tag: "Build" },
+          { day: 99, task: "Add usage limits: 5 free/day, upgrade for more. Build upgrade CTA.", tag: "Monetize" },
+          { day: 100, task: "Build a beautiful Next.js frontend. Tailwind + animations.", tag: "Frontend" },
+          { day: 101, task: "Integrate Razorpay for payments. ₹499/month plan. Test end-to-end.", tag: "Payments" },
+          { day: 102, task: "Deploy + launch. 50 beta signups goal. DM 100 people directly.", tag: "Launch" },
+        ],
+      },
+      {
+        week: 15,
+        title: "SaaS Demo #3 — AI Resume Builder",
+        days: [
+          { day: 103, task: "Design: AI resume builder for Indian freshers. Target market research.", tag: "Plan" },
+          { day: 104, task: "PDF generation with jsPDF. Build resume templates (3 styles).", tag: "Build" },
+          { day: 105, task: "AI enhancement: paste JD + resume → GPT rewrites bullets to match.", tag: "Build" },
+          { day: 106, task: "ATS score checker: analyze resume keywords vs job description.", tag: "Build" },
+          { day: 107, task: "Auth + storage: save multiple resume versions per user.", tag: "Build" },
+          { day: 108, task: "Pricing: Free (1 resume) / ₹299 one-time (unlimited). Razorpay.", tag: "Monetize" },
+          { day: 109, task: "Launch on Product Hunt India group. Post in college Telegram groups.", tag: "Launch" },
+        ],
+      },
+      {
+        week: 16,
+        title: "Docker + DevOps — Ship Like a Pro",
+        days: [
+          { day: 110, task: "Docker fundamentals. Dockerfile, images, containers. Containerize FastAPI.", tag: "DevOps" },
+          { day: 111, task: "Docker Compose: run frontend + backend + DB together locally.", tag: "DevOps" },
+          { day: 112, task: "GitHub Actions: CI/CD pipeline. Auto-test + deploy on push.", tag: "CI/CD" },
+          { day: 113, task: "Environment variables, secrets management. Never commit API keys.", tag: "Security" },
+          { day: 114, task: "Deploy full Docker app to Railway or Fly.io. Production setup.", tag: "Deploy" },
+          { day: 115, task: "Monitoring: Sentry for errors, Uptime Robot for availability.", tag: "Monitoring" },
+          { day: 116, task: "Rebuild SaaS Demo #1 with Docker + CI/CD. Production grade.", tag: "Rebuild" },
+        ],
+      },
+      {
+        week: 17,
+        title: "Advanced AI — RAG + Agents",
+        days: [
+          { day: 117, task: "RAG deep dive: chunking strategies, embedding models, retrieval quality.", tag: "AI" },
+          { day: 118, task: "Build a RAG system for your own notes/docs. Ask it anything.", tag: "Build" },
+          { day: 119, task: "LangChain agents: tools, memory, chains. Build an autonomous researcher.", tag: "AI" },
+          { day: 120, task: "Function calling with OpenAI. Build an AI that executes Python code.", tag: "AI" },
+          { day: 121, task: "Multi-agent systems. Build coordinator + worker agents.", tag: "AI" },
+          { day: 122, task: "Evaluate LLM outputs: build an AI quality checker for your AI.", tag: "AI" },
+          { day: 123, task: "Ship: AI-powered SaaS feature using RAG. Add to existing project.", tag: "Ship" },
+        ],
+      },
+      {
+        week: 18,
+        title: "Polish + Portfolio — Become Hireable/Fundable",
+        days: [
+          { day: 124, task: "Portfolio v2: redesign with all 3 SaaS demos front and center.", tag: "Portfolio" },
+          { day: 125, task: "Case studies: write the story behind each project (problem → solution → results).", tag: "Content" },
+          { day: 126, task: "GitHub: 90+ day streak. Pin 6 best repos. README every project.", tag: "GitHub" },
+          { day: 127, task: "LinkedIn optimization: headline, about, featured section. 500+ connections.", tag: "LinkedIn" },
+          { day: 128, task: "Cold email template: reach out to 10 Indian SaaS founders for feedback.", tag: "Network" },
+          { day: 129, task: "Apply to: YC Startup School, Antler India, GSF Accelerator — just exposure.", tag: "Exposure" },
+          { day: 130, task: "Reflection: what's your strongest SaaS idea? Double down on it.", tag: "Strategy" },
+        ],
+      },
+      {
+        week: "19-21",
+        title: "Advanced Topics — Days 131–150",
+        days: [
+          { day: 131, task: "TypeScript fundamentals. Convert your best React project to TypeScript.", tag: "TypeScript" },
+          { day: 135, task: "PostgreSQL deep dive: complex queries, indexes, optimization, explain plans.", tag: "Database" },
+          { day: 138, task: "Redis: caching, session storage, pub/sub. Add to your FastAPI app.", tag: "Cache" },
+          { day: 141, task: "Web sockets: real-time features (live chat, live dashboard) in Next.js.", tag: "Real-time" },
+          { day: 144, task: "Security: OWASP top 10. SQL injection, XSS, CSRF protection.", tag: "Security" },
+          { day: 147, task: "Testing: Jest, pytest, Playwright E2E. Test your 3 SaaS demos.", tag: "Testing" },
+          { day: 150, task: "PHASE 2 COMPLETE. You can build anything a client asks. You're a full-stack AI dev.", tag: "🎯" },
+        ],
+      },
+    ],
+  },
+  {
+    id: 3,
+    name: "Freelance",
+    color: "#fb923c",
+    accent: "#431407",
+    days: "151–240",
+    tagline: "First ₹10k–₹1L/month. Fund your SaaS.",
+    icon: "💰",
+    weeks: [
+      {
+        week: 22,
+        title: "Freelance Launch Week",
+        days: [
+          { day: 151, task: "Define your niche: AI automation for Indian SMBs (restaurants, clinics, agencies).", tag: "Strategy" },
+          { day: 152, task: "Set up Upwork profile. Optimize for AI/Python/automation. Top-rated target.", tag: "Setup" },
+          { day: 153, task: "Set up Toptal application (if eligible). LinkedIn 'Open to work' for freelance.", tag: "Setup" },
+          { day: 154, task: "Cold outreach system: 20 DMs/day to Indian business owners on LinkedIn.", tag: "Outreach" },
+          { day: 155, task: "Service menu: 3 packages (₹25k / ₹75k / ₹2L). Create PDF proposal.", tag: "Pricing" },
+          { day: 156, task: "First client: offer 50% discount for testimonial. Just close something.", tag: "Sales" },
+          { day: 157, task: "Join: Internshala, Freelancer.in, YourStory community, Slack groups.", tag: "Platform" },
+        ],
+      },
+      {
+        week: 23,
+        title: "Core Services — What You'll Sell",
+        days: [
+          { day: 158, task: "Service 1: WhatsApp AI chatbot setup (₹25k–50k). Build template.", tag: "Service" },
+          { day: 159, task: "Service 2: AI content pipeline — auto-generate social posts (₹15k/mo).", tag: "Service" },
+          { day: 160, task: "Service 3: Internal automation — report generation, data pipelines (₹75k+).", tag: "Service" },
+          { day: 161, task: "Service 4: RAG chatbot for business docs/knowledge base (₹1L+).", tag: "Service" },
+          { day: 162, task: "Create demo videos for each service. 60-second Loom walkthroughs.", tag: "Content" },
+          { day: 163, task: "Build 1 free tool in your niche. Use it as a lead magnet.", tag: "LeadGen" },
+          { day: 164, task: "Write 5 case studies (real or conceptual). Upload to portfolio site.", tag: "Content" },
+        ],
+      },
+      {
+        week: "24-30",
+        title: "Freelance Execution — Days 165–210",
+        days: [
+          { day: 165, task: "Close first paid client. Deliver in 2 weeks. Get testimonial + referral.", tag: "Client" },
+          { day: 172, task: "Build freelance CRM in Notion: leads, proposals, active, invoices.", tag: "Systems" },
+          { day: 179, task: "Content marketing: 3 LinkedIn posts/week about AI automation wins.", tag: "Content" },
+          { day: 186, task: "Raise rates: if fully booked, increase price by 30%. Never undersell again.", tag: "Pricing" },
+          { day: 193, task: "Hire VA from Fiverr to handle basic tasks. Your time = building, not admin.", tag: "Delegate" },
+          { day: 200, task: "₹1L/month milestone. Take a weekend off. Then plan Phase 4.", tag: "Milestone" },
+          { day: 210, task: "Systemize freelance: SOPs, templates, contracts. Reduce your hours.", tag: "Systems" },
+        ],
+      },
+      {
+        week: "31-34",
+        title: "Freelance Wind-Down + SaaS Prep — Days 211–240",
+        days: [
+          { day: 211, task: "Start 1 retainer client (₹30k/mo passive). Automate 80% of deliverable.", tag: "Passive" },
+          { day: 218, task: "Identify your SaaS idea from freelance pain points. Validate with 10 people.", tag: "Validate" },
+          { day: 225, task: "Build SaaS MVP architecture. Database schema, API design, user flow.", tag: "Plan" },
+          { day: 232, task: "Start building SaaS while freelancing. 3 hours/day minimum.", tag: "Build" },
+          { day: 238, task: "Financial goal: ₹3-5L saved. This is your runway for Phase 4.", tag: "Finance" },
+          { day: 240, task: "PHASE 3 COMPLETE. ₹1L+/month. Runway secured. SaaS in progress.", tag: "🎯" },
+        ],
+      },
+    ],
+  },
+  {
+    id: 4,
+    name: "Product",
+    color: "#a78bfa",
+    accent: "#2e1065",
+    days: "241–330",
+    tagline: "Launch SaaS. 100 paying users. Own your revenue.",
+    icon: "🚀",
+    weeks: [
+      {
+        week: "35-38",
+        title: "SaaS Build Sprint — Days 241–268",
+        days: [
+          { day: 241, task: "SaaS kickoff: finalize idea, tech stack, pricing model. No pivot for 90 days.", tag: "Lock-in" },
+          { day: 248, task: "Build auth + onboarding: signup, email verification, guided first-use.", tag: "Build" },
+          { day: 255, task: "Core feature complete: the ONE thing that makes users stay.", tag: "Build" },
+          { day: 262, task: "Payment integration: Razorpay (India) + Stripe (international). Both.", tag: "Monetize" },
+          { day: 268, task: "Beta: 20 users. Observe them. Fix the 3 biggest friction points.", tag: "Beta" },
+        ],
+      },
+      {
+        week: "39-42",
+        title: "Launch + Growth — Days 269–296",
+        days: [
+          { day: 269, task: "Public launch: Product Hunt, Twitter/X, LinkedIn, Hacker News, Reddit.", tag: "Launch" },
+          { day: 272, task: "Content SEO: 10 articles targeting your ideal customer's searches.", tag: "SEO" },
+          { day: 279, task: "Referral system: give users 1 month free for each paying referral.", tag: "Growth" },
+          { day: 283, task: "Cold email campaign: 500 targeted prospects. 3-email sequence.", tag: "Outreach" },
+          { day: 289, task: "Partner with 3 Indian SaaS founders for cross-promotion.", tag: "Partnerships" },
+          { day: 293, task: "50 paying users. MRR ₹50k+. Double down on what's working.", tag: "Milestone" },
+          { day: 296, task: "Hire first contractor: a designer or support person. You focus on growth.", tag: "Team" },
+        ],
+      },
+      {
+        week: "43-47",
+        title: "Scale to 100 Users — Days 297–330",
+        days: [
+          { day: 297, task: "Churn analysis: why are users leaving? Fix the top 2 reasons this week.", tag: "Retention" },
+          { day: 304, task: "Feature release: most-requested feature. Email all users. Drive re-activation.", tag: "Product" },
+          { day: 311, task: "Annual plan launch: ₹X × 10 months (2 free). 30% of users convert.", tag: "Revenue" },
+          { day: 318, task: "100 paying users. MRR ₹1L. Raise prices for new users by 20%.", tag: "Milestone" },
+          { day: 325, task: "Begin building second product (or expand to new market).", tag: "Expand" },
+          { day: 330, task: "PHASE 4 COMPLETE. ₹1L+/month recurring. Scalable product. Real business.", tag: "🎯" },
+        ],
+      },
+    ],
+  },
+  {
+    id: 5,
+    name: "Scale",
+    color: "#f59e0b",
+    accent: "#451a03",
+    days: "331–365",
+    tagline: "Systems. International clients. Crore trajectory.",
+    icon: "🌐",
+    weeks: [
+      {
+        week: "48-52",
+        title: "Systems + Scale — Days 331–365",
+        days: [
+          { day: 331, task: "Document every process in your business. SOPs for everything.", tag: "Systems" },
+          { day: 335, task: "Hire 2nd contractor: growth/marketing. Free yourself from daily ops.", tag: "Team" },
+          { day: 338, task: "International expansion: US/UK market. Adjust pricing to $29-99/month.", tag: "Global" },
+          { day: 342, task: "Apply to: Stripe Atlas, Y Combinator, Antler. Build investor relationships.", tag: "Funding" },
+          { day: 346, task: "Second product launch. Use existing audience + network to get 50 users fast.", tag: "Launch" },
+          { day: 350, task: "Annual revenue target: ₹50L+. Calculate path. Are you on track?", tag: "Finance" },
+          { day: 354, task: "Build in public: share your MRR journey. Attract users + talent + investors.", tag: "Brand" },
+          { day: 358, task: "Crore roadmap: at current growth, when do you hit ₹1Cr ARR? Lock it in.", tag: "Vision" },
+          { day: 362, task: "Reflect: who were you on Day 1? Who are you now? Write it. Post it.", tag: "Reflect" },
+          { day: 365, task: "YEAR 1 COMPLETE. You're a builder, earner, and founder. The real game just started.", tag: "🎯" },
+        ],
+      },
+    ],
+  },
+];
+
+const tags = {
+  Setup: "#64748b", Python: "#3b82f6", Build: "#10b981", Refactor: "#8b5cf6",
+  Ship: "#f59e0b", API: "#06b6d4", Data: "#84cc16", Viz: "#ec4899",
+  ML: "#f97316", AI: "#a78bfa", LangChain: "#60a5fa", Scraping: "#94a3b8",
+  Automation: "#34d399", Backend: "#4ade80", Deploy: "#fb923c", Testing: "#f43f5e",
+  "🎯": "#facc15", React: "#61dafb", CSS: "#7dd3fc", "Next.js": "#e5e7eb",
+  Supabase: "#3ecf8e", Auth: "#f87171", "Real-time": "#c084fc", Storage: "#fbbf24",
+  Serverless: "#a3e635", "Full-stack": "#67e8f9", Plan: "#e879f9", Monetize: "#4ade80",
+  Frontend: "#93c5fd", Payments: "#6ee7b7", Launch: "#fde047", DevOps: "#f9a8d4",
+  "CI/CD": "#a5b4fc", Security: "#fca5a5", Cache: "#86efac", Network: "#c4b5fd",
+  TypeScript: "#2563eb", Database: "#0891b2", Portfolio: "#d946ef", Content: "#10b981",
+  GitHub: "#e2e8f0", LinkedIn: "#0ea5e9", Exposure: "#fbbf24", Strategy: "#f97316",
+  Service: "#34d399", LeadGen: "#a78bfa", Client: "#fb923c", Systems: "#60a5fa",
+  Pricing: "#4ade80", Passive: "#facc15", Validate: "#f472b6", Milestone: "#fde047",
+  "Lock-in": "#f43f5e", Beta: "#c084fc", SEO: "#34d399", Growth: "#fb923c",
+  Partnerships: "#60a5fa", Retention: "#f43f5e", Product: "#a78bfa", Revenue: "#4ade80",
+  Expand: "#fde047", Global: "#06b6d4", Funding: "#f97316", Finance: "#84cc16",
+  Vision: "#e879f9", Reflect: "#94a3b8", Team: "#67e8f9", Rebuild: "#f87171",
+  Outreach: "#fbbf24", Platform: "#c084fc", Delegate: "#34d399",
+};
+
+export default function FounderRoadmap() {
+  const [activePhase, setActivePhase] = useState(0);
+  const [expandedWeek, setExpandedWeek] = useState(null);
+  const [completedDays, setCompletedDays] = useState({});
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+    const saved = localStorage.getItem("roadmap_completed");
+    if (saved) setCompletedDays(JSON.parse(saved));
+  }, []);
+
+  const toggleDay = (day) => {
+    const updated = { ...completedDays, [day]: !completedDays[day] };
+    setCompletedDays(updated);
+    localStorage.setItem("roadmap_completed", JSON.stringify(updated));
+  };
+
+  const totalDays = 365;
+  const doneCount = Object.values(completedDays).filter(Boolean).length;
+  const progress = Math.round((doneCount / totalDays) * 100);
+
+  const phase = phases[activePhase];
+
+  return (
+    <div style={{ fontFamily: "'Courier New', monospace", background: "#0a0a0a", minHeight: "100vh", color: "#e2e8f0" }}>
+      {/* Header */}
+      <div style={{ background: "linear-gradient(135deg, #0a0a0a 0%, #111 100%)", borderBottom: "1px solid #1e293b", padding: "24px 20px 0" }}>
+        <div style={{ maxWidth: 900, margin: "0 auto" }}>
+          <div style={{ display: "flex", alignItems: "baseline", gap: 12, marginBottom: 4 }}>
+            <h1 style={{ fontSize: 22, fontWeight: 900, color: "#f8fafc", letterSpacing: "-0.5px", margin: 0 }}>365-DAY FOUNDER ROADMAP</h1>
+            <span style={{ fontSize: 11, color: "#64748b", letterSpacing: "2px", textTransform: "uppercase" }}>CSE → Crore</span>
+          </div>
+          <p style={{ fontSize: 12, color: "#475569", margin: "0 0 20px", letterSpacing: "1px" }}>Every. Single. Day. Intentional.</p>
+
+          {/* Progress bar */}
+          <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 20 }}>
+            <div style={{ flex: 1, height: 4, background: "#1e293b", borderRadius: 2, overflow: "hidden" }}>
+              <div style={{ height: "100%", width: `${progress}%`, background: "linear-gradient(90deg, #00ff88, #60a5fa, #a78bfa)", transition: "width 0.3s", borderRadius: 2 }} />
+            </div>
+            <span style={{ fontSize: 11, color: "#64748b", minWidth: 70 }}>{doneCount}/{totalDays} days</span>
+          </div>
+
+          {/* Phase tabs */}
+          <div style={{ display: "flex", gap: 2, overflowX: "auto", paddingBottom: 1 }}>
+            {phases.map((p, i) => (
+              <button
+                key={p.id}
+                onClick={() => { setActivePhase(i); setExpandedWeek(null); }}
+                style={{
+                  background: activePhase === i ? p.color : "transparent",
+                  color: activePhase === i ? "#0a0a0a" : "#475569",
+                  border: `1px solid ${activePhase === i ? p.color : "#1e293b"}`,
+                  padding: "8px 14px",
+                  fontSize: 11,
+                  fontWeight: 700,
+                  cursor: "pointer",
+                  borderRadius: "4px 4px 0 0",
+                  whiteSpace: "nowrap",
+                  transition: "all 0.15s",
+                  letterSpacing: "0.5px",
+                  fontFamily: "'Courier New', monospace",
+                }}
+              >
+                {p.icon} P{p.id} · {p.name}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Phase content */}
+      <div style={{ maxWidth: 900, margin: "0 auto", padding: "24px 20px" }}>
+        {/* Phase header */}
+        <div style={{
+          background: `linear-gradient(135deg, ${phase.accent}88, #0f172a)`,
+          border: `1px solid ${phase.color}33`,
+          borderRadius: 8,
+          padding: "20px 24px",
+          marginBottom: 20,
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          flexWrap: "wrap",
+          gap: 12,
+        }}>
+          <div>
+            <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 6 }}>
+              <span style={{ fontSize: 24 }}>{phase.icon}</span>
+              <span style={{ fontSize: 18, fontWeight: 900, color: phase.color, letterSpacing: "-0.5px" }}>Phase {phase.id} — {phase.name}</span>
+            </div>
+            <p style={{ margin: 0, fontSize: 13, color: "#94a3b8" }}>{phase.tagline}</p>
+          </div>
+          <div style={{ textAlign: "right" }}>
+            <div style={{ fontSize: 28, fontWeight: 900, color: phase.color, letterSpacing: "-1px" }}>Days {phase.days}</div>
+          </div>
+        </div>
+
+        {/* Weeks */}
+        <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+          {phase.weeks.map((week, wi) => {
+            const weekKey = `${phase.id}-${wi}`;
+            const isOpen = expandedWeek === weekKey;
+            const weekDone = week.days.filter(d => completedDays[d.day]).length;
+
+            return (
+              <div key={wi} style={{ border: `1px solid ${isOpen ? phase.color + "44" : "#1e293b"}`, borderRadius: 6, overflow: "hidden", transition: "border-color 0.2s" }}>
+                {/* Week header */}
+                <button
+                  onClick={() => setExpandedWeek(isOpen ? null : weekKey)}
+                  style={{
+                    width: "100%",
+                    background: isOpen ? `${phase.accent}44` : "#111",
+                    border: "none",
+                    padding: "14px 18px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    cursor: "pointer",
+                    textAlign: "left",
+                    transition: "background 0.2s",
+                    gap: 12,
+                  }}
+                >
+                  <div style={{ display: "flex", alignItems: "center", gap: 12, flex: 1 }}>
+                    <span style={{ fontSize: 10, color: phase.color, fontWeight: 700, letterSpacing: "1px", minWidth: 60, fontFamily: "'Courier New', monospace" }}>
+                      {typeof week.week === "number" ? `WK ${week.week}` : `WK ${week.week}`}
+                    </span>
+                    <span style={{ fontSize: 13, fontWeight: 700, color: "#e2e8f0", fontFamily: "'Courier New', monospace" }}>{week.title}</span>
+                  </div>
+                  <div style={{ display: "flex", alignItems: "center", gap: 10, flexShrink: 0 }}>
+                    <span style={{ fontSize: 11, color: weekDone === week.days.length && weekDone > 0 ? phase.color : "#475569" }}>
+                      {weekDone}/{week.days.length}
+                    </span>
+                    <span style={{ color: "#475569", fontSize: 14, transform: isOpen ? "rotate(180deg)" : "none", transition: "transform 0.2s" }}>▾</span>
+                  </div>
+                </button>
+
+                {/* Days */}
+                {isOpen && (
+                  <div style={{ borderTop: `1px solid #1e293b` }}>
+                    {week.days.map((d, di) => {
+                      const done = completedDays[d.day];
+                      return (
+                        <div
+                          key={di}
+                          onClick={() => toggleDay(d.day)}
+                          style={{
+                            display: "flex",
+                            alignItems: "flex-start",
+                            gap: 12,
+                            padding: "12px 18px",
+                            borderBottom: di < week.days.length - 1 ? "1px solid #1e293b11" : "none",
+                            cursor: "pointer",
+                            background: done ? "#0f2" + "08" : "transparent",
+                            transition: "background 0.15s",
+                          }}
+                        >
+                          {/* Checkbox */}
+                          <div style={{
+                            width: 18, height: 18, borderRadius: 3, flexShrink: 0, marginTop: 1,
+                            border: `1.5px solid ${done ? phase.color : "#334155"}`,
+                            background: done ? phase.color : "transparent",
+                            display: "flex", alignItems: "center", justifyContent: "center",
+                            transition: "all 0.15s",
+                          }}>
+                            {done && <span style={{ fontSize: 10, color: "#0a0a0a", fontWeight: 900 }}>✓</span>}
+                          </div>
+
+                          {/* Day number */}
+                          <span style={{ fontSize: 11, color: "#475569", minWidth: 48, fontFamily: "'Courier New', monospace", paddingTop: 1 }}>
+                            DAY {d.day}
+                          </span>
+
+                          {/* Task */}
+                          <span style={{ fontSize: 13, color: done ? "#475569" : "#cbd5e1", flex: 1, lineHeight: 1.5, textDecoration: done ? "line-through" : "none" }}>
+                            {d.task}
+                          </span>
+
+                          {/* Tag */}
+                          <span style={{
+                            fontSize: 9, padding: "2px 7px", borderRadius: 3, flexShrink: 0,
+                            background: (tags[d.tag] || "#475569") + "22",
+                            color: tags[d.tag] || "#94a3b8",
+                            border: `1px solid ${(tags[d.tag] || "#475569")}33`,
+                            fontWeight: 700, letterSpacing: "0.5px", fontFamily: "'Courier New', monospace",
+                            marginTop: 2,
+                          }}>
+                            {d.tag}
+                          </span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Bottom insight */}
+        <div style={{ marginTop: 24, padding: "16px 20px", background: "#111", border: "1px solid #1e293b", borderRadius: 6 }}>
+          <p style={{ margin: 0, fontSize: 12, color: "#64748b", lineHeight: 1.8 }}>
+            <span style={{ color: "#f8fafc", fontWeight: 700 }}>The only rule:</span> a live URL beats a certificate every time. Click a day, build the thing, push it, share it. Repeat 365 times.
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
